@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define(
+module.exports = (sequelize, DataTypes) =>
+  sequelize.define(
     'tblLogin',
     {
       id: {
@@ -58,4 +58,3 @@ module.exports = function(sequelize, DataTypes) {
       deletedAt: false
     }
   )
-}
