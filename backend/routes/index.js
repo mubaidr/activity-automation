@@ -8,11 +8,6 @@ const task = require('./task')
 
 router.use('/test', test)
 router.use('/', authentication)
-router.use('/task', task)
-
-/* GET home page. */
-router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Express' })
-})
+router.use('/api/task', task)
 
 module.exports = router

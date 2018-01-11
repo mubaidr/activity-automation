@@ -6,6 +6,6 @@ const options = require('./options')
 module.exports = {
   options: {
     ...options,
-    iss: 'ors-node'
+    iss: 'mbo_node'
   }
 }
