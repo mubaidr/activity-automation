@@ -1,0 +1,138 @@
+/* Set minimum height for body content */
+.container.body {
+  min-height calc(100vh - 177px)
+  padding-bottom 1.5rem
+  padding-top 1.5rem
+
+  .form-group.error {
+    input, textarea, select {
+      border-color #d9534f
+    }
+  }
+}
+
+.hint, .help-block {
+  font-size 0.9em
+}
+
+.errors {
+  color #d9534f
+
+  &.help-block > span { /* Show only first error */
+    display none
+  }
+
+  &.help-block > span:first-child {
+    display block
+  }
+}
+
+/* header */
+@media (max-width: 48em) {
+  .navbar {
+    .navbar-brand {
+      text-align center
+      width 100%
+    }
+
+    .navbar-nav {
+      text-align right
+      width 100%
+
+      .nav-link {
+        display inline-block
+      }
+    }
+  }
+}
+
+/* sweat alert customization */
+.swal-overlay { /* sweat alert customization */
+  background-color rgba(0, 0, 0, 0.75)
+}
+
+.swal-modal {
+  border-radius 0
+}
+
+.swal-button {
+  border-radius 0
+}
+
+/* Vue form generator */
+@media (min-width: 540px) {
+  .two-columns .vue-form-generator {
+    .form-group label:empty {
+      display none
+    }
+
+    /*
+       .form-group:not(.field-submit) {
+       float left
+       width 48%
+       }
+
+       .form-group:nth-child(even):not(.field-submit) {
+       margin-right 4%
+       }
+    */
+    .form-group {
+      float left
+      width 48%
+    }
+
+    .form-group:nth-child(even):not(.field-submit) {
+      margin-right 4%
+    }
+
+    .form-group.field-submit:first-child {
+      margin-right 4%
+    }
+
+    .form-group.field-submit:nth-child(2) {
+      .btn {
+        float right
+      }
+    }
+  }
+
+  .two-columns.must .vue-form-generator {
+    .form-group {
+      float left
+      width 66%
+    }
+
+    .form-group.field-submit {
+      width 33%
+    }
+  }
+}
+
+/* margin for form submit button */
+.btn-submit-custom {
+  margin-top 3rem
+}
+
+/* file input size is large than text inputs */
+.form-control.file {
+  padding 0.56rem 2rem
+}
+
+.avatar-picture {
+  margin 1rem
+  max-height 10rem
+  width auto
+}
+
+hr {
+  margin 2rem 0
+}
+
+.nav-link.router-link-active {
+  color rgba(255, 255, 255, 0.25) !important
+}
+
+/* Custom toolbar look using navbar */
+.navbar.toolbar { /* Custom toolbar look using navbar */
+  padding 0.5rem
+}
