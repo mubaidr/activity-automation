@@ -3,11 +3,11 @@ const express = require('express')
 const router = express.Router()
 
 const test = require('./test')
-const authentication = require('./authentication')
-const task = require('./task')
+// const authentication = require('./authentication')
+const activity = require('./activity')
 
 router.use('/test', test)
-router.use('/', authentication)
-router.use('/api/task', task)
+// router.use('/', authentication)
+router.use('/api/activity', activity)
 
 module.exports = router

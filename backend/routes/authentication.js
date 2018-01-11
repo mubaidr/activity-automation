@@ -11,9 +11,8 @@ router.post('/auth/register', (req, res, next) => {
   const newUser = db.login.build(req.body)
 
   if (
-    !newUser.email ||
+    !newUser.username ||
     !newUser.password ||
-    !validator.isEmail(newUser.email) ||
     !validator.isLength(newUser.password, {
       min: 8,
       max: 16
@@ -28,7 +27,7 @@ router.post('/auth/register', (req, res, next) => {
   db.login
     .findOne({
       where: {
-        email: newUser.email
+        username: newUser.username
       }
     })
     .then(user => {
@@ -49,12 +48,11 @@ router.post('/auth/register', (req, res, next) => {
 router.post('/auth/login', (req, res, next) => {
   const db = req.app.get('db')
 
-  const { email, password } = req.body
+  const { username, password } = req.body
 
   if (
-    !email ||
+    !username ||
     !password ||
-    !validator.isEmail(email) ||
     !validator.isLength(password, {
       min: 8,
       max: 16
@@ -67,7 +65,7 @@ router.post('/auth/login', (req, res, next) => {
   db.login
     .findOne({
       where: {
-        email
+        username
       },
       include: [db.accountType]
     })
