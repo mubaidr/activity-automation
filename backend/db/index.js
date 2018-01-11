@@ -61,15 +61,15 @@ sequelize
       })
       .then(() => {
         seeder.seed(models, () => {
-          console.log('[sequelize] database synced\n'.success)
+          console.log('[sequelize] database synced\n')
         })
       })
       .catch(err => {
-        console.log(`\n${err.message.error}\n${err.stack.warn}\n`)
+        console.log(`\n${err.message}\n${err.stack}\n`)
       })
   })
   .catch(err => {
-    console.log(`\n${err.message.error}\n${err.stack.warn}\n`)
+    console.log(`\n${err.message}\n${err.stack}\n`)
   })
 
 module.exports = {
