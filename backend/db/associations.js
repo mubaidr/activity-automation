@@ -1,7 +1,6 @@
-// const util = require('./util')
-
 module.exports = {
   associate: models => {
-    console.log(models)
+    models.login.belongsTo(models.accountType)
+    models.activity.belongsTo(models.login)
   }
 }

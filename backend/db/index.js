@@ -2,7 +2,6 @@ const Sequelize = require('sequelize')
 const config = require('config')
 const fs = require('fs')
 const path = require('path')
-const util = require('./util')
 
 const seeder = require('./seeder')
 const associations = require('./associations')
@@ -43,7 +42,7 @@ const sequelize = new Sequelize(
 
 // Import models
 fs.readdirSync(directory).forEach(file => {
-  const name = util.getModelName(file)
+  const name = file.replace('.js', '')
   models[name] = sequelize.import(directory + file)
 })
 

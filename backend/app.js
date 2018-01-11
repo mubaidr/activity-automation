@@ -1,6 +1,5 @@
 const express = require('express')
 const logger = require('morgan')
-const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
@@ -19,7 +18,6 @@ app.set('sequelize', sequelize)
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser())
 
 app.use(cors())
 app.use(routes)
@@ -39,8 +37,7 @@ app.use((err, req, res, next) => {
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
   // render the error page
-  res.status(err.status || 500)
-  res.render('error')
+  res.sendStatus(err.status || 500)
 })
 
 module.exports = app

@@ -1,60 +1,27 @@
-/* jshint indent: 1 */
-
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
-    'tblLogin',
+    'login',
     {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
-        field: 'ID'
+        autoIncrement: true
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: false,
-        field: 'EMAIL'
+        allowNull: false
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
-        field: 'PASSWORD'
-      },
-      isConfirmed: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        field: 'IS_CONFIRMED'
-      },
-      profile: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-        defaultValue: '0.00',
-        field: 'PROFILE'
-      },
-      picturePath: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        field: 'PICTURE_PATH',
-        defaultValue: 'user_default.png'
-      },
-      accountTypeId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: '1',
-        references: {
-          model: 'CAT_ACCOUNT_TYPE',
-          key: 'ID'
-        },
-        field: 'ACCOUNT_TYPE_ID'
+        allowNull: false
       }
     },
     {
-      tableName: 'TBL_LOGIN',
       timestamps: true,
-      underscored: true,
-      createdAt: 'CREATED_AT',
-      updatedAt: 'UPDATED_AT',
+      underscored: false,
+      createdAt: 'createdAt',
+      updatedAt: 'updatedAt',
       deletedAt: false
     }
   )

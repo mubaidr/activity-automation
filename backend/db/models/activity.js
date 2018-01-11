@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
-    'accountType',
+    'activity',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) =>
         autoIncrement: true
       },
       description: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      week: {
         type: DataTypes.STRING,
         allowNull: false
       }
