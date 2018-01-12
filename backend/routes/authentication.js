@@ -14,7 +14,7 @@ router.post('/auth/register', (req, res, next) => {
     !newUser.username ||
     !newUser.password ||
     !validator.isLength(newUser.password, {
-      min: 8,
+      min: 6,
       max: 16
     })
   ) {
@@ -54,7 +54,7 @@ router.post('/auth/login', (req, res, next) => {
     !username ||
     !password ||
     !validator.isLength(password, {
-      min: 8,
+      min: 6,
       max: 16
     })
   ) {
