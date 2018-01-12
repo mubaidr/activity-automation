@@ -2,6 +2,24 @@ const express = require('express')
 
 const router = express.Router()
 
+router.get('/', (req, res, next) => {
+  const db = req.app.get('db')
+  const login = req.account
+
+  db.activity
+    .findAll({
+      where: {
+        loginId: login.id
+      },
+      include: [db.login],
+      raw: true
+    })
+    .then(activities => {
+      res.send(activities)
+    })
+    .catch(next)
+})
+
 router.get('/all', (req, res, next) => {
   const db = req.app.get('db')
   const login = req.account
@@ -13,24 +31,6 @@ router.get('/all', (req, res, next) => {
 
   db.activity
     .findAll({
-      include: [db.login],
-      raw: true
-    })
-    .then(activities => {
-      res.send(activities)
-    })
-    .catch(next)
-})
-
-router.get('/', (req, res, next) => {
-  const db = req.app.get('db')
-  const login = req.account
-
-  db.activity
-    .findAll({
-      where: {
-        loginId: login.id
-      },
       include: [db.login],
       raw: true
     })

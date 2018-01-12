@@ -6,9 +6,7 @@
       .alert.alert-info
         span.badge.badge-info Beta
         | &nbsp;
-        strong This is a new service &ndash; your &nbsp;
-          router-link.alert-link(to='/feedback') feedback
-        | &nbsp; will help us to improve it.
+        strong This is a new service &ndash; your feedback will help us to improve it.
     .container.body
       transition(appear :name='transitionName' mode='out-in')
         router-view
