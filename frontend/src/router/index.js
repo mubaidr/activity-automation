@@ -2,17 +2,19 @@ import vue from 'vue'
 import VueRouter from 'vue-router'
 
 import store from '../store'
-// Home
+// home
 import index from '../views/home/index.vue'
 import feedback from '../views/home/feedback.vue'
 import about from '../views/home/about.vue'
 import contact from '../views/home/contact.vue'
-// Error
+// error
 import notFound from '../views/error/notFound.vue'
-// Account
+// account
 import register from '../views/account/register.vue'
 import login from '../views/account/login.vue'
 import account from '../views/account/index.vue'
+// activity
+import activity from '../views/activity/index.vue'
 
 vue.use(VueRouter)
 
@@ -71,6 +73,10 @@ const router = new VueRouter({
     {
       path: '/account',
       component: account
+    },
+    {
+      path: '/activity',
+      component: activity
     },
     {
       path: '*',

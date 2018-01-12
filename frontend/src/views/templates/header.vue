@@ -1,5 +1,5 @@
 <template lang='pug'>
-  nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
     ul.navbar-nav
       li.nav-item
         span.navbar-brand ORS Node.js

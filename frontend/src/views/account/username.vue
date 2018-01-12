@@ -4,12 +4,14 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
     data () {
       return {
         form: {
           model: {
-            email: ''
+            username: ''
           },
           schema: {
             groups: [
@@ -17,13 +19,14 @@
                 legend: '',
                 fields: [
                   {
-                    model: 'email',
+                    model: 'username',
                     type: 'input',
                     inputType: 'text',
                     label: '',
-                    max: 255,
                     required: true,
-                    validator: ['required', 'string', 'email']
+                    min: 3,
+                    max: 16,
+                    validator: ['required', 'string']
                   },
                   {
                     type: 'submit',
@@ -41,29 +44,16 @@
             validateAfterLoad: false,
             validateAfterChanged: true
           }
-        },
-        endpoint: '/api/account'
+        }
       }
     },
     created () {
-      this.form.model.email = this.user.email
+      this.form.model.username = this.user.username
     },
     methods: {
+      ...mapActions(['updateLogin']),
       onSubmit () {
-        this.axios
-          .post(this.getEndpoint(), this.form.model)
-          .then(res => {
-            this.$store.commit('setAuthentication', res.data)
-            swal(
-              'Success!',
-              'Email address has been updated successfuly.',
-              'success'
-            )
-          })
-          .catch(() => {
-            this.form.model.email = this.user.email
-            swal('Error', 'Please try again!', 'error')
-          })
+        this.updateLogin()
       }
     }
   }

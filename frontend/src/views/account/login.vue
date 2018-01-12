@@ -13,6 +13,8 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
     data () {
       return {
@@ -30,7 +32,7 @@
                 model: 'username',
                 placeholder: 'username',
                 required: true,
-                min: 6,
+                min: 3,
                 max: 16,
                 validator: ['required', 'string']
               },
@@ -64,7 +66,10 @@
       }
     },
     methods: {
-      onSubmit () {}
+      ...mapActions(['login']),
+      onSubmit () {
+        this.login(this.form.model)
+      }
     }
   }
 </script>

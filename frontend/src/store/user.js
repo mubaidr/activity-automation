@@ -1,5 +1,7 @@
 import session from '../utilities/session'
 import axios from '../utilities/axios'
+import config from '../config'
+import router from '../router'
 /* eslint-disable no-param-reassign */
 
 export default {
@@ -32,11 +34,22 @@ export default {
     }
   },
   actions: {
-    authenticate (context, obj) {
-      axios
-        .post('', obj)
+    login (context, obj) {
+      return axios
+        .post(`${config.api}/auth/login`, obj)
         .then(res => {
           context.commit('setAuthentication', res.data)
+        })
+        .catch(() => {
+          swal('Invalid credentials!', 'Please try again!', 'error')
+        })
+    },
+    register (context, obj) {
+      return axios
+        .post(`${config.api}/auth/register`, obj)
+        .then(() => {
+          swal('Account created', 'Please login!', 'success')
+          router.push('/login')
         })
         .catch(() => {
           swal('Invalid credentials!', 'Please try again!', 'error')

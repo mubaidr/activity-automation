@@ -1,6 +1,6 @@
 <template lang='pug'>
   nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    router-link.navbar-brand(to='/home') ORS Node.js
+    router-link.navbar-brand(to='/home') AMS
 </template>
 
 <script>

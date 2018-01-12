@@ -1,8 +1,7 @@
 <template lang='pug'>
   div
-    transition(name='slide-up' mode='out-in' appear)
-      header-template(v-if='isAuthenticated')
-      header-template-anonymous(v-else)
+    header-template(v-if='isAuthenticated')
+    header-template-anonymous(v-else)
     div.beta-banner
       .alert.alert-info
         span.badge.badge-info Beta
@@ -52,8 +51,6 @@
       },
       $route (to, from) {
         this.setTransition(to, from)
-        // Trigger data fetch from mixins
-        this.getCache()
       }
     },
     computed: {},
