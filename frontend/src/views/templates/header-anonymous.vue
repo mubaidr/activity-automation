@@ -1,5 +1,5 @@
 <template lang='pug'>
-  nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
     ul.navbar-nav
       li.nav-item
         span.navbar-brand ORS Node.js
@@ -8,7 +8,7 @@
       li.nav-item
         router-link.nav-link(to='/about') About
       li.nav-item
-        router-link.nav-link(to='/activities') Activities
+        router-link.nav-link(to='/activity') Activities
     ul.navbar-nav.ml-auto
       li.nav-item
         router-link.nav-link(to='/auth/login') Login
