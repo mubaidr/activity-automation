@@ -34,12 +34,11 @@ export default {
   actions: {
     authenticate (context, obj) {
       axios
-        .post(this.getEndpoint(), obj)
+        .post('', obj)
         .then(res => {
           context.commit('setAuthentication', res.data)
         })
         .catch(() => {
-          this.form.model.password = ''
           swal('Invalid credentials!', 'Please try again!', 'error')
         })
     }

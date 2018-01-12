@@ -13,9 +13,6 @@ import notFound from '../views/error/notFound.vue'
 import register from '../views/account/register.vue'
 import login from '../views/account/login.vue'
 import account from '../views/account/index.vue'
-// Profile
-import careers from '../views/steps/careers.vue'
-import application from '../views/steps/application.vue'
 
 vue.use(VueRouter)
 
@@ -74,17 +71,6 @@ const router = new VueRouter({
     {
       path: '/account',
       component: account
-    },
-    {
-      path: '/careers',
-      component: careers,
-      meta: {
-        isOpen: true
-      }
-    },
-    {
-      path: '/application',
-      component: application
     },
     {
       path: '*',

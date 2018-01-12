@@ -10,20 +10,6 @@ export default {
     const auth = JSON.parse(window.localStorage.getItem('auth'))
     return auth ? auth.login : null
   },
-  getApplicationStep () {
-    const step = JSON.parse(window.localStorage.getItem('applicationStep'))
-    return step || 0
-  },
-  setApplicationStep (obj) {
-    window.localStorage.setItem('applicationStep', JSON.stringify(obj))
-  },
-  setVacancy (obj) {
-    window.localStorage.setItem('vacancy', JSON.stringify(obj))
-  },
-  getVacancy () {
-    const vac = JSON.parse(window.localStorage.getItem('vacancy'))
-    return vac || null
-  },
   clear () {
     window.localStorage.clear()
   },

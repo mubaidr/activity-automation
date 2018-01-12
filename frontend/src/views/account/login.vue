@@ -18,19 +18,21 @@
       return {
         form: {
           model: {
-            email: '11111-1111111-1',
-            password: 'minion12345'
+            username: 'tim',
+            password: 'tim-password'
           },
           schema: {
             fields: [
               {
                 type: 'input',
-                inputType: 'email',
-                label: 'Email',
-                model: 'email',
-                placeholder: 'abc@xyz.com',
+                inputType: 'text',
+                label: 'Username',
+                model: 'username',
+                placeholder: 'username',
                 required: true,
-                validator: ['required', 'string', 'email']
+                min: 6,
+                max: 16,
+                validator: ['required', 'string']
               },
               {
                 type: 'input',
@@ -58,22 +60,11 @@
             validateAfterLoad: false,
             validateAfterChanged: true
           }
-        },
-        endpoint: '/auth/login'
+        }
       }
     },
     methods: {
-      onSubmit () {
-        this.axios
-          .post(this.getEndpoint(), this.form.model)
-          .then(res => {
-            this.$store.commit('setAuthentication', res.data)
-          })
-          .catch(() => {
-            this.form.model.password = ''
-            swal('Invalid credentials!', 'Please try again!', 'error')
-          })
-      }
+      onSubmit () {}
     }
   }
 </script>

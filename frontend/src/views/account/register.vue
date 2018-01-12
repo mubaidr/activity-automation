@@ -16,21 +16,23 @@
       return {
         form: {
           model: {
-            password: 'minion12345',
-            confirmPassword: 'minion12345',
-            email: 'tim@minion.com',
+            password: 'tim-password',
+            confirmPassword: 'tim-password',
+            username: 'tim',
             name: 'Minion'
           },
           schema: {
             fields: [
               {
                 type: 'input',
-                inputType: 'email',
-                label: 'Email',
-                model: 'email',
-                placeholder: 'abc@xyz.com',
+                inputType: 'text',
+                label: 'Username',
+                model: 'username',
+                placeholder: 'username',
                 required: true,
-                validator: ['required', 'string', 'email']
+                min: 6,
+                max: 16,
+                validator: ['required', 'string']
               },
               {
                 type: 'input',
@@ -77,33 +79,11 @@
             validateAfterLoad: false,
             validateAfterChanged: true
           }
-        },
-        endpoint: '/auth/register'
+        }
       }
     },
     methods: {
-      onSubmit () {
-        console.log(this.getEndpoint(), this.form.model)
-        this.axios
-          .post(this.getEndpoint(), this.form.model)
-          .then(() => {
-            this.$router.push('/auth/login')
-            swal('Account created successfuly.', 'Please login', 'success')
-          })
-          .catch(err => {
-            console.dir(err)
-            if (err.response.status === 409) {
-              this.$router.push('/auth/login')
-              swal(
-                'Email already registered.',
-                'Please login or recover password',
-                'error'
-              )
-            } else {
-              swal('Invalid data.', err.message, 'error')
-            }
-          })
-      }
+      onSubmit () {}
     }
   }
 </script>

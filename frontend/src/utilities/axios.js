@@ -1,6 +1,4 @@
-import Vue from 'vue'
 import axios from 'axios'
-import VueAxios from 'vue-axios'
 
 import store from '../store'
 import router from '../router'
@@ -59,4 +57,4 @@ axios.interceptors.response.use(
   }
 )
 
-Vue.use(VueAxios, axios)
+export default axios
