@@ -4,9 +4,9 @@
 module.exports = {
   db: {
     name: 'mbo_node',
-    host: 'MUBAIDR-DESKTOP',
+    host: 'MINION-PC',
     username: 'sa',
-    password: 'minion1234'
+    password: 'dbp@3cDHRD!()@admin'
   },
   secret: 'someSecretStringToUseForAuthorizationRequests'
 }

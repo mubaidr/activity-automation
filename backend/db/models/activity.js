@@ -12,9 +12,10 @@ module.exports = (sequelize, DataTypes) =>
         type: DataTypes.STRING,
         allowNull: false
       },
-      week: {
-        type: DataTypes.STRING,
-        allowNull: false
+      time: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        deault: Date.now()
       }
     },
     {
