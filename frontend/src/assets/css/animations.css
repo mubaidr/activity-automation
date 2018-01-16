@@ -202,5 +202,5 @@
 .slide-left-enter,
 .slide-left-leave-to {
   opacity: 0;
-  transform: translateY(25px);
+  transform: translateX(25px);
 }

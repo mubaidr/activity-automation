@@ -75,4 +75,7 @@ router.post('/', (req, res, next) => {
   }
 })
 
+// TODO: get all activities for all users from current week
+// TODO: get all activities for own from current week
+
 module.exports = router

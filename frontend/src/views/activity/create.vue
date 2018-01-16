@@ -62,6 +62,11 @@ export default {
       this.time = this.timeOfWeek
     }
   },
+  created () {
+    if (this.timeOfWeek) {
+      this.time = this.timeOfWeek
+    }
+  },
   methods: {
     ...mapActions(['postActivity', '']),
     onSubmit () {

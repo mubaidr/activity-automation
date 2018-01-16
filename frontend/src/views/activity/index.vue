@@ -1,10 +1,13 @@
 <template lang='pug'>
  div
-  //h2 Activity
-  div.text-center.scaled-content
-    flat-pickr(v-model="timeOfWeek" :config='datePciker.config' :on-change='onDateChange')
-  div(v-show='addActivity')
-    create-activity(:timeofWeek='timeOfWeek')
+  h2 Activities
+  p Please select a date to view activities or add a new one.
+  button(@click='timeOfWeek = ""') Remove Date
+  .columns.clearfix(:class='{split : enableAdd}')
+    .left
+      flat-pickr(v-model="timeOfWeek" :config='datePciker.config' @on-change='onDateChange')
+    .right
+      pre {{$data}}
 </template>
 
 <script>
@@ -22,29 +25,71 @@ export default {
           static: true
         }
       },
-      timeOfWeek: Date.now(),
-      addActivity: false,
+      timeOfWeek: '',
       activities: []
     }
   },
+  computed: {
+    enableAdd () {
+      return !!this.timeOfWeek
+    }
+  },
   methods: {
-    onDateChange () {
-      swal('yo')
+    onDateChange (selectedDates) {
+      if (selectedDates.length > 0) {
+        // swal('yo')
+      }
     }
   }
 }
 </script>
 
 <style lang='stylus'>
-@media (min-width: 540px) {
-  .scaled-content{
-    min-height: 520px;
-    padding-top: 10px;
+.columns{
+  padding-top: 25px;
+
+  .left, .right{
+    float: left;
+    will-change: width;
   }
 
-  .flatpickr-wrapper{
-    transform: scale(1.5);
-    transform-origin: top center;
+  .left{
+    width: 100%;
+    text-align: center;
+    transition: width 0.25s ease-out, transform 0.25s ease-out;
+    transform: scale(1.5) translateY(25%)
+  }
+
+  .right{
+    width: 0;
+    opacity: 0;
+    transition: width 0.25s ease-out, opacity 0.25s ease-out;
+  }
+}
+
+.columns.split{
+  .left{
+    width: 25%;
+    padding-right: 20px;
+    transform: scale(1)
+  }
+
+  .right{
+    width: 75%;
+    padding-left: 20px;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 540px) {
+  .columns{
+    .left, .right{
+      float: none;
+      display: block;
+      width: 100%!important;
+      transform: scale(1);
+      padding: 20px;
+    }
   }
 }
 
