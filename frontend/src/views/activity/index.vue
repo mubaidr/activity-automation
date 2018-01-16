@@ -2,12 +2,11 @@
  div
   h2 Activities
   p Please select a date to view activities or add a new one.
-  button(@click='timeOfWeek = ""') Remove Date
   .columns.clearfix(:class='{split : enableAdd}')
     .left
       flat-pickr(v-model="timeOfWeek" :config='datePciker.config' @on-change='onDateChange')
     .right
-      pre {{$data}}
+      create-activity(@cancel='timeOfWeek = ""')
 </template>
 
 <script>
@@ -46,11 +45,14 @@ export default {
 
 <style lang='stylus'>
 .columns{
-  padding-top: 25px;
+  margin-top: 25px;
+  overflow: hidden;
+  min-height: 500px;
 
   .left, .right{
     float: left;
-    will-change: width;
+    padding: 0;
+    will-change: width, transform, opacity;
   }
 
   .left{
@@ -63,21 +65,33 @@ export default {
   .right{
     width: 0;
     opacity: 0;
-    transition: width 0.25s ease-out, opacity 0.25s ease-out;
   }
 }
 
 .columns.split{
   .left{
-    width: 25%;
+    width: 33%;
     padding-right: 20px;
     transform: scale(1)
   }
 
   .right{
-    width: 75%;
-    padding-left: 20px;
+    width: 66%;
     opacity: 1;
+    padding-left: 20px;
+    transition: opacity 0.25s ease-out 0.25s;
+
+    &:before{
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+      width: 0;
+      height: 0;
+      border-top: 135px solid transparent;
+      border-bottom: 135px solid transparent;
+      border-right: 20px solid rgba(0,0,0,0.1);
+    }
   }
 }
 

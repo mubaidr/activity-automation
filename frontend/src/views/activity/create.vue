@@ -1,10 +1,12 @@
 <template lang='pug'>
   .card.text-black.bg-light
     .card-body
-      h3 Add an activity
-      br
       vue-form-generator(:schema='form.schema' :model='form.model' :options='form.options' @validated="onValidated")
-      router-link.btn-link(to='/activity') View activities
+      button.btn.btn-primary(@click='onSubmit' :disabled='activity && form.model.description === activity.description') Save
+      | &nbsp;
+      button.btn.btn-link(@click='cancel') Cancel
+      | &nbsp;
+      button.btn.btn-warning(@click='remove' v-show='activity && activity.id') Delete
 </template>
 
 <script>
@@ -18,7 +20,7 @@ export default {
       form: {
         model: {
           id: null,
-          description: 'Some Activity',
+          description: '',
           time: Date.now()
         },
         schema: {
@@ -26,27 +28,12 @@ export default {
             {
               model: 'description',
               type: 'textArea',
-              label: 'Description',
+              // label: 'Description',
+              placeholder: 'Activity details',
               rows: 6,
               max: 255,
               required: true,
               validator: ['required', 'string']
-            },
-            {
-              model: 'time',
-              type: 'FlatPickrVfg',
-              label: 'Day',
-              required: true,
-              validator: ['required', 'string', 'date'],
-              placeholder: 'Pick a date'
-            },
-            {
-              type: 'submit',
-              buttonText: 'Add',
-              validateBeforeSubmit: true,
-              onSubmit: this.onSubmit,
-              disabled: this.disableSubmit,
-              fieldClasses: 'btn btn-primary btn-block'
             }
           ]
         },
@@ -54,7 +41,8 @@ export default {
           validateAfterLoad: false,
           validateAfterChanged: true
         }
-      }
+      },
+      activity: null
     }
   },
   watch: {
@@ -73,7 +61,11 @@ export default {
       this.postActivity(this.form.model)
         .then(() => {})
         .catch(() => {})
-    }
+    },
+    cancel () {
+      this.$emit('cancel')
+    },
+    remove () {}
   }
 }
 </script>
