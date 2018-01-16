@@ -3,9 +3,9 @@
 </template>
 
 <script>
-  import { abstractField } from 'vue-form-generator'
+import { abstractField } from 'vue-form-generator'
 
-  export default {
-    mixins: [abstractField]
-  }
+export default {
+  mixins: [abstractField]
+}
 </script>

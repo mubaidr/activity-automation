@@ -1,5 +1,4 @@
 import 'sweetalert'
-import 'cleave.js'
 
 import './pollyfills'
 import './axios'

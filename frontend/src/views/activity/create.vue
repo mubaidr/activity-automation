@@ -11,6 +11,7 @@
 import { mapActions } from 'vuex'
 
 export default {
+  name: 'create-activity',
   props: ['timeOfWeek'],
   data () {
     return {
@@ -66,7 +67,7 @@ export default {
     onSubmit () {
       this.postActivity(this.form.model)
         .then(() => {})
-        .catch(err => {})
+        .catch(() => {})
     }
   }
 }
