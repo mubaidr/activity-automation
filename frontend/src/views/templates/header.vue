@@ -13,14 +13,17 @@
       li.nav-item
         router-link.nav-link(to='/account') My Account
       li.nav-item
-        span.nav-link.custom-link(@click='logout') Logout
+        span.nav-link.custom-link(@click='confirmLogout') Logout
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
     name: 'header-template',
     methods: {
-      logout () {
+      ...mapActions(['logout']),
+      confirmLogout () {
         swal({
           title: 'Are you sure you want to logout?',
           text: '',
@@ -37,7 +40,7 @@
           dangerMode: true
         }).then(confirm => {
           if (confirm) {
-            this.$router.push('/auth/logout')
+            this.logout()
           }
         })
       }

@@ -11,6 +11,7 @@
   import { mapActions } from 'vuex'
 
   export default {
+    props: ['timeOfWeek'],
     data () {
       return {
         form: {

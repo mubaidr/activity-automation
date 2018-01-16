@@ -34,6 +34,9 @@ export default {
     }
   },
   actions: {
+    logout (context) {
+      context.commit('setAuthentication')
+    },
     login (context, obj) {
       return axios
         .post(`${config.api}/auth/login`, obj)

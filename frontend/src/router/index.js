@@ -71,6 +71,9 @@ const router = new VueRouter({
       }
     },
     {
+      path: '/auth/logout'
+    },
+    {
       path: '/account',
       component: account
     },
