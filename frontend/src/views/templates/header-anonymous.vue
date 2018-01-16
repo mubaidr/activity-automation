@@ -2,7 +2,7 @@
   nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
     ul.navbar-nav
       li.nav-item
-        span.navbar-brand ORS Node.js
+        span.navbar-brand AMS
       li.nav-item
         router-link.nav-link(to='/home') Home
       li.nav-item
@@ -17,9 +17,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'header-template-anonymous'
-  }
+export default {
+  name: 'header-template-anonymous'
+}
 </script>
 
 <style lang='stylus'>

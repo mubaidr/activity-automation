@@ -8,61 +8,68 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
-  export default {
-    props: ['timeOfWeek'],
-    data () {
-      return {
-        form: {
-          model: {
-            description: '',
-            time: Date.now()
-          },
-          schema: {
-            fields: [
-              {
-                model: 'description',
-                type: 'textArea',
-                label: 'Description',
-                rows: 6,
-                max: 255,
-                required: true,
-                validator: ['required', 'string']
-              },
-              {
-                type: 'input',
-                inputType: 'text',
-                label: 'Time',
-                model: 'time',
-                placeholder: 'Choose a time',
-                required: true,
-                validator: ['required', 'date']
-              },
-              {
-                type: 'submit',
-                buttonText: 'Add',
-                validateBeforeSubmit: true,
-                onSubmit: this.onSubmit,
-                disabled: this.disableSubmit,
-                fieldClasses: 'btn btn-primary btn-block'
-              }
-            ]
-          },
-          options: {
-            validateAfterLoad: false,
-            validateAfterChanged: true
-          }
+export default {
+  props: ['timeOfWeek'],
+  data () {
+    return {
+      form: {
+        model: {
+          id: null,
+          description: 'Some Activity',
+          time: Date.now()
+        },
+        schema: {
+          fields: [
+            {
+              model: 'description',
+              type: 'textArea',
+              label: 'Description',
+              rows: 6,
+              max: 255,
+              required: true,
+              validator: ['required', 'string']
+            },
+            {
+              model: 'time',
+              type: 'FlatPickrVfg',
+              label: 'Day',
+              required: true,
+              validator: ['required', 'string', 'date'],
+              placeholder: 'Pick a date'
+            },
+            {
+              type: 'submit',
+              buttonText: 'Add',
+              validateBeforeSubmit: true,
+              onSubmit: this.onSubmit,
+              disabled: this.disableSubmit,
+              fieldClasses: 'btn btn-primary btn-block'
+            }
+          ]
+        },
+        options: {
+          validateAfterLoad: false,
+          validateAfterChanged: true
         }
       }
-    },
-    methods: {
-      ...mapActions(['postActivity']),
-      onSubmit () {
-        this.postActivity(this.form.model)
-      }
+    }
+  },
+  watch: {
+    timeOfWeek () {
+      this.time = this.timeOfWeek
+    }
+  },
+  methods: {
+    ...mapActions(['postActivity', '']),
+    onSubmit () {
+      this.postActivity(this.form.model)
+        .then(() => {})
+        .catch(err => {})
     }
   }
+}
 </script>
 
 <style lang='stylus'>

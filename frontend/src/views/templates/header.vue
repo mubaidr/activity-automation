@@ -2,7 +2,7 @@
   nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
     ul.navbar-nav
       li.nav-item
-        span.navbar-brand ORS Node.js
+        span.navbar-brand AMS
       li.nav-item
         router-link.nav-link(to='/home') Home
       li.nav-item
@@ -17,35 +17,35 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
-  export default {
-    name: 'header-template',
-    methods: {
-      ...mapActions(['logout']),
-      confirmLogout () {
-        swal({
-          title: 'Are you sure you want to logout?',
-          text: '',
-          icon: 'warning',
-          buttons: {
-            cancel: {
-              text: 'Cancel',
-              visible: true
-            },
-            confirm: {
-              text: 'Yes'
-            }
+export default {
+  name: 'header-template',
+  methods: {
+    ...mapActions(['logout']),
+    confirmLogout () {
+      swal({
+        title: 'Are you sure you want to logout?',
+        text: '',
+        icon: 'warning',
+        buttons: {
+          cancel: {
+            text: 'Cancel',
+            visible: true
           },
-          dangerMode: true
-        }).then(confirm => {
-          if (confirm) {
-            this.logout()
+          confirm: {
+            text: 'Yes'
           }
-        })
-      }
+        },
+        dangerMode: true
+      }).then(confirm => {
+        if (confirm) {
+          this.logout()
+        }
+      })
     }
   }
+}
 </script>
 
 <style lang='stylus'>

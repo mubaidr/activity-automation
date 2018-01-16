@@ -43,14 +43,36 @@ router.get('/all', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const db = req.app.get('db')
   const login = req.account
-  const activity = db.activity.build({ ...req.body, loginId: login.id })
 
-  activity
-    .create()
-    .then(() => {
-      res.sendStatus(200)
-    })
-    .catch(next)
+  const { id } = req.body
+
+  if (!id) {
+    db.activity
+      .build({
+        ...req.body,
+        loginId: login.id
+      })
+      .save()
+      .then(() => {
+        res.sendStatus(200)
+      })
+      .catch(next)
+  } else {
+    db.activity
+      .upsert(
+        {
+          ...req.body,
+          loginId: login.id
+        },
+        {
+          id
+        }
+      )
+      .then(() => {
+        res.sendStatus(200)
+      })
+      .catch(next)
+  }
 })
 
 module.exports = router

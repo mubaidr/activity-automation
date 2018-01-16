@@ -1,22 +1,25 @@
 <template lang='pug'>
  div
   h2 Activity
-  create-activity
+  create-activity(:timeofWeek='timeOfWeek')
 </template>
 
 <script>
-  import createActivity from './create.vue'
+// import Calendar from 'vue2-slot-calendar'
+import createActivity from './create.vue'
 
-  export default {
-    components: {
-      'create-activity': createActivity
-    },
-    data () {
-      return {
-        activities: []
-      }
+export default {
+  components: {
+    // Calendar,
+    'create-activity': createActivity
+  },
+  data () {
+    return {
+      timeOfWeek: '',
+      activities: []
     }
   }
+}
 </script>
 
 <style lang='stylus'>
