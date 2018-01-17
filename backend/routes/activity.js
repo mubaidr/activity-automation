@@ -31,6 +31,9 @@ router.get('/', (req, res, next) => {
         loginId: login.id
       }
 
+  // TODO: Fix req body params
+  console.log(req.body, req.params, req.query)
+
   db.activity
     .findAll({
       where: whereQuery,
