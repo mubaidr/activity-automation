@@ -36,6 +36,7 @@ export default {
   actions: {
     logout (context) {
       context.commit('setAuthentication')
+      router.push('/home')
     },
     login (context, obj) {
       return axios

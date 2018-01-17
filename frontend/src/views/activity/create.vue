@@ -26,7 +26,6 @@ export default {
                 {
                   model: 'description',
                   type: 'textArea',
-                  // label: 'Description',
                   placeholder: 'Activity details',
                   rows: 4,
                   min: 4,
@@ -73,18 +72,30 @@ export default {
         },
         options: {
           validateAfterLoad: false,
-          validateAfterChanged: true
+          validateAfterChanged: false
         }
       }
     }
   },
   watch: {
     timeOfWeek () {
-      this.time = this.timeOfWeek || new Date()
+      this.form.model.time = this.timeOfWeek
+
+      if (!this.timeOfWeek) return
+      this.getActivity(this.form.model)
+        .catch(err => {
+          swal('Oops!', err.message, 'error')
+        })
+        .then(res => {
+          if (res.length) {
+            this.form.model.id = res[0].id
+            this.form.model.description = res[0].description
+          }
+        })
     }
   },
   methods: {
-    ...mapActions(['postActivity', 'removeActivity']),
+    ...mapActions(['postActivity', 'removeActivity', 'getActivity']),
     onSubmit () {
       this.postActivity(this.form.model)
         .catch(err => {

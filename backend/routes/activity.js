@@ -2,15 +2,38 @@ const express = require('express')
 
 const router = express.Router()
 
-router.get('/', (req, res, next) => {
+router.delete('/', (req, res, next) => {
   const db = req.app.get('db')
   const login = req.account
 
   db.activity
-    .findAll({
+    .destroy({
       where: {
+        id: req.body.id,
         loginId: login.id
-      },
+      }
+    })
+    .then(() => {
+      res.sendStatus(200)
+    })
+    .catch(next)
+})
+
+router.get('/', (req, res, next) => {
+  const db = req.app.get('db')
+  const login = req.account
+  const whereQuery = req.body.time
+    ? {
+        time: req.body.time,
+        loginId: login.id
+      }
+    : {
+        loginId: login.id
+      }
+
+  db.activity
+    .findAll({
+      where: whereQuery,
       include: [db.login],
       raw: true
     })

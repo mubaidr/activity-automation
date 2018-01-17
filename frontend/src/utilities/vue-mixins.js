@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 
 const mixin = {
   data () {
@@ -7,6 +8,7 @@ const mixin = {
     }
   },
   methods: {
+    ...mapGetters(['isLoading', 'isAuthenticated', 'user']),
     // Generic form properties
     onValidated (validity) {
       this.isValid = validity
@@ -14,16 +16,7 @@ const mixin = {
   },
   computed: {
     disableSubmit () {
-      return !this.isValid || this.$store.getters.isLoading
-    },
-    isAuthenticated () {
-      return this.$store.getters.isAuthenticated
-    },
-    isLoading () {
-      return this.$store.getters.isLoading
-    },
-    user () {
-      return this.$store.getters.user
+      return !this.isValid || this.isLoading
     }
   }
 }
