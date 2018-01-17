@@ -6,7 +6,7 @@
     .left
       flat-pickr(v-model="timeOfWeek" :config='datePciker.config' @on-change='onDateChange')
     .right
-      create-activity(:time-of-week='timeOfWeek' @close='timeOfWeek = ""')
+      create-activity(:timeOfWeek='timeOfWeek' @close='timeOfWeek = ""')
 </template>
 
 <script>
@@ -59,7 +59,7 @@ export default {
   .left{
     text-align: center;
     width: 100%;
-    transition: width 0.25s ease-out, transform 0.25s ease-out;
+    transition: width 0.15s ease-out, transform 0.15s ease-out;
     transform: scale(1.5) translateY(20%)
   }
 
@@ -74,14 +74,14 @@ export default {
 
 .columns.split{
   .left{
-    width: 25%;
-    transform: scale(0.66);
+    width: 30%;
+    transform: scale(0.8);
   }
 
   .right{
-    width: 75%;
+    width: 70%;
     opacity: 1;
-    transition: opacity 0.25s ease-out 0.25s;
+    transition: opacity 0.15s ease-out 0.15s;
   }
 }
 
@@ -115,7 +115,7 @@ export default {
       width: 90%;
       margin: 5%;
       box-shadow: 0 0 25px rgba(0,0,0,0.25);
-      transition: opacity 0.25s ease-out;
+      transition: opacity 0.15s ease-out;
       z-index: auto;
     }
   }

@@ -1,8 +1,6 @@
 <template lang='pug'>
   div
     vue-form-generator(:schema='form.schema' :model='form.model' :options='form.options' @validated="onValidated")
-    div
-      pre Data: {{$data}} {{timeOfWeek}} {{time}}
 </template>
 
 <script>
@@ -13,11 +11,12 @@ export default {
   props: ['timeOfWeek'],
   data () {
     return {
+      activity: null,
       form: {
         model: {
           id: null,
           description: '',
-          time: null
+          time: this.timeOfWeek
         },
         schema: {
           groups: [
@@ -56,7 +55,7 @@ export default {
                   type: 'submit',
                   buttonText: 'Cancel',
                   validateBeforeSubmit: false,
-                  onSubmit: this.cancel,
+                  onSubmit: this.close,
                   fieldClasses: 'btn btn-default'
                 },
                 {
@@ -76,8 +75,7 @@ export default {
           validateAfterLoad: false,
           validateAfterChanged: true
         }
-      },
-      activity: null
+      }
     }
   },
   watch: {
@@ -90,36 +88,35 @@ export default {
     onSubmit () {
       this.postActivity(this.form.model)
         .catch(err => {
-          console.log(err)
+          swal('Oops!', err.message, 'error')
         })
         .then(() => {
-          this.$emit('close')
+          this.close()
         })
-    },
-    cancel () {
-      this.description = ''
-      this.$emit('close')
     },
     remove () {
       this.removeActivity(this.form.model)
         .catch(err => {
-          console.log(err)
+          swal('Oops!', err.message, 'error')
         })
         .then(() => {
-          this.$emit('close')
+          this.close()
         })
+    },
+    close () {
+      this.description = ''
+      this.$emit('close')
     }
   }
 }
 </script>
 
 <style lang='stylus'>
+  .form-group.field-submit{
+    display: inline-block;
 
-.form-group.field-submit{
-  display: inline-block;
-
-  .btn:not(.btn-primary){
-    margin-left: 10px;
+    .btn:not(.btn-primary){
+      margin-left: 10px;
+    }
   }
-}
 </style>

@@ -48,7 +48,6 @@ router.post('/', (req, res, next) => {
 
   if (!description.trim()) {
     res.sendStatus(400)
-    return
   }
 
   if (!id) {
