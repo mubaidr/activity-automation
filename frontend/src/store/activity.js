@@ -7,6 +7,9 @@ export default {
   getters: {},
   mutations: {},
   actions: {
+    removeActivity (context, obj) {
+      return axios.delete(`${config.api}/api/activity`, obj)
+    },
     postActivity (context, obj) {
       return axios.post(`${config.api}/api/activity`, obj)
     },

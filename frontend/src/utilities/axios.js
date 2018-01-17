@@ -45,7 +45,7 @@ axios.interceptors.response.use(
     checkLoadingState(false)
 
     if (err.response.status === 401 || err.response.status === 403) {
-      store.commit('removeAuthentication')
+      store.commit('setAuthentication')
       router.push({
         path: '/auth/login',
         query: {

@@ -94,7 +94,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (store.getters.isAuthenticated) {
     if (to.path === '/auth/logout') {
-      store.commit('removeAuthentication')
+      store.commit('setAuthentication')
       next({
         path: '/home'
       })

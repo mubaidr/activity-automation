@@ -44,7 +44,12 @@ router.post('/', (req, res, next) => {
   const db = req.app.get('db')
   const login = req.account
 
-  const { id } = req.body
+  const { id, description } = req.body
+
+  if (!description.trim()) {
+    res.sendStatus(400)
+    return
+  }
 
   if (!id) {
     db.activity
