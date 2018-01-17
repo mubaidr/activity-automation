@@ -21,3 +21,5 @@ export default {
     }
   }
 }
+
+// TODO: save calender date state for activities

@@ -1,6 +1,8 @@
 <template lang='pug'>
   div
     vue-form-generator(:schema='form.schema' :model='form.model' :options='form.options' @validated="onValidated")
+    div
+      pre Data: {{$data}} {{timeOfWeek}} {{time}}
 </template>
 
 <script>
@@ -15,7 +17,7 @@ export default {
         model: {
           id: null,
           description: '',
-          time: Date.now()
+          time: null
         },
         schema: {
           groups: [
@@ -80,12 +82,7 @@ export default {
   },
   watch: {
     timeOfWeek () {
-      this.time = this.timeOfWeek
-    }
-  },
-  created () {
-    if (this.timeOfWeek) {
-      this.time = this.timeOfWeek
+      this.time = this.timeOfWeek || new Date()
     }
   },
   methods: {
@@ -96,12 +93,12 @@ export default {
           console.log(err)
         })
         .then(() => {
-          this.$emit('cancel')
+          this.$emit('close')
         })
     },
     cancel () {
       this.description = ''
-      this.$emit('cancel')
+      this.$emit('close')
     },
     remove () {
       this.removeActivity(this.form.model)
@@ -109,7 +106,7 @@ export default {
           console.log(err)
         })
         .then(() => {
-          this.$emit('cancel')
+          this.$emit('close')
         })
     }
   }
