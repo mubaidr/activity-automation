@@ -8,13 +8,13 @@ const mixin = {
     }
   },
   methods: {
-    ...mapGetters(['isLoading', 'isAuthenticated', 'user']),
     // Generic form properties
     onValidated (validity) {
       this.isValid = validity
     }
   },
   computed: {
+    ...mapGetters(['isLoading', 'isAuthenticated', 'user']),
     disableSubmit () {
       return !this.isValid || this.isLoading
     }
