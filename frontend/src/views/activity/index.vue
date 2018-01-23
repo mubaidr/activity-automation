@@ -6,7 +6,7 @@
     .left
       flat-pickr(v-model="timeOfWeek" :config='datePciker.config' @on-change='onDateChange')
     .right
-      create-activity(:timeOfWeek='timeOfWeek' @close='timeOfWeek = ""')
+      create-activity(:timeOfWeek='timeOfWeek' :activity='activity' @close='timeOfWeek = ""')
 </template>
 
 <script>
@@ -36,7 +36,7 @@ export default {
   methods: {
     onDateChange (selectedDates) {
       if (selectedDates.length > 0) {
-        // swal('yo')
+        // TODO: get activity
       }
     }
   }

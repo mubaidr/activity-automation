@@ -8,10 +8,9 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'create-activity',
-  props: ['timeOfWeek'],
+  props: ['timeOfWeek', 'activity'],
   data () {
     return {
-      activity: null,
       form: {
         model: {
           id: null,
@@ -92,6 +91,9 @@ export default {
             this.form.model.description = res[0].description
           }
         })
+    },
+    activity (val) {
+      this.form.model = val
     }
   },
   methods: {
