@@ -77,23 +77,23 @@ export default {
     }
   },
   watch: {
-    timeOfWeek () {
-      this.form.model.time = this.timeOfWeek
+    timeOfWeek (val) {
+      this.form.model.time = val
 
-      if (!this.timeOfWeek) return
+      if (!val) return
       this.getActivity(this.form.model)
         .catch(err => {
           swal('Oops!', err.message, 'error')
         })
         .then(res => {
-          if (res.length) {
-            this.form.model.id = res[0].id
-            this.form.model.description = res[0].description
-          }
+          this.form.model = res.data.length
+            ? res.data[0]
+            : {
+                id: null,
+                description: '',
+                time: val
+              }
         })
-    },
-    activity (val) {
-      this.form.model = val
     }
   },
   methods: {

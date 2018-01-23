@@ -15,11 +15,6 @@ export default {
     },
     getActivity (context, obj) {
       return axios.get(`${config.api}/api/activity`, obj)
-    },
-    getWeekActivities (context, obj) {
-      return axios.get(`${config.api}/api/activity/all`, obj)
     }
   }
 }
-
-// TODO: save calender date state for activities

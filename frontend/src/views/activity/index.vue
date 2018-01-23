@@ -4,9 +4,9 @@
   p Please select a date to view or add activity details.
   .columns.clearfix(:class='{split : enableAdd}')
     .left
-      flat-pickr(v-model="timeOfWeek" :config='datePciker.config' @on-change='onDateChange')
+      flat-pickr(v-model="timeOfWeek" :config='datePciker.config')
     .right
-      create-activity(:timeOfWeek='timeOfWeek' :activity='activity' @close='timeOfWeek = ""')
+      create-activity(:timeOfWeek='timeOfWeek' @close='timeOfWeek = ""')
 </template>
 
 <script>
@@ -20,31 +20,35 @@ export default {
     return {
       datePciker: {
         config: {
+          maxDate: 'today',
+          minDate: new Date().fp_incr(-7),
+          disable: [
+            date => {
+              console.log(date.getDay())
+              return date.getDay() === 5 || date.getDay() === 6
+            }
+          ],
+          locale: {
+            firstDayOfWeek: 1
+          },
           inline: true,
-          static: true
+          static: true,
+          weekNumbers: true
         }
       },
-      timeOfWeek: '',
-      activities: []
+      timeOfWeek: ''
     }
   },
   computed: {
     enableAdd () {
       return !!this.timeOfWeek
     }
-  },
-  methods: {
-    onDateChange (selectedDates) {
-      if (selectedDates.length > 0) {
-        // TODO: get activity
-      }
-    }
   }
 }
 </script>
 
 <style lang='stylus'>
-/* Calender input style*/
+/* Calendar input style*/
 .columns{
   padding: 25px;
   overflow: hidden;
@@ -68,18 +72,18 @@ export default {
     opacity: 0;
     padding: 25px;
     background-color: #fff;
-    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
   }
 }
 
 .columns.split{
   .left{
-    width: 30%;
-    transform: scale(0.8);
+    width: 25%;
+    transform: scale(0.6);
   }
 
   .right{
-    width: 70%;
+    width: 75%;
     opacity: 1;
     transition: opacity 0.15s ease-out 0.15s;
   }
