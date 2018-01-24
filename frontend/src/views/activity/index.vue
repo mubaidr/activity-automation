@@ -68,28 +68,30 @@ export default {
 <style lang='stylus'>
 /* Calendar input style*/
 .columns{
-  padding: 25px;
-  height: 354px;
-  overflow: hidden;
+  margin: 25px 0;
+  min-height: 304px;
 
   .left, .right{
     float: left;
-    padding: 0;
-    will-change: width, opacity;
+    overflow: hidden;
   }
 
   .left{
-    text-align: center;
-    width: 100%;
-    transition: width 0.15s ease-out;
+    width: 63%;
+    padding-right: 1%;
+    text-align: right;
+    transition: width 0.5s ease;
   }
 
   .right{
-    width: 0;
+    width: 36%;
     opacity: 0;
+    z-index: 999;
+    padding: 37px;
     border-radius: 5px;
     background-color: #fff;
-    transition: none;
+    border:1px solid rgba(0,0,0,0.1);
+    transition: width 0.5s ease, opacity 0.5s ease;
   }
 }
 
@@ -99,21 +101,21 @@ export default {
   }
 
   .right{
-    border:1px solid rgba(0,0,0,0.1);
-    padding: 37px;
     width: 64%;
     opacity: 1;
-    transition: opacity 0.15s ease-out 0.15s;
   }
 }
 
 @media (max-width: 990px) {
-  .left{
-    top: 5%;
-  }
-  .right{
-    top: 5%;
-    box-shadow: 0 0 40px rgba(0,0,0,0.25);
+.columns{
+    .left{
+      top: 5%;
+    }
+
+    .right{
+      top: 5%;
+      box-shadow: 0 0 40px rgba(0,0,0,0.25);
+    }
   }
 }
 
@@ -122,6 +124,7 @@ export default {
     position: relative;
 
     .left{
+      text-align: center;
       position: absolute;
       left:0;
       width:100%;
@@ -144,17 +147,13 @@ export default {
       width: 100%;
       padding: 37px 10px;
       box-shadow: none;
-      transition: opacity 0.15s ease-out;
+      //transition: opacity 0.15s ease-out;
       z-index: auto;
     }
   }
 }
 
 /*flatpickr customization*/
-.flatpickr-input{
-  display: none!important;
-}
-
 .flatpickr-calendar.inline{
   box-shadow: none;
   top: 0;
