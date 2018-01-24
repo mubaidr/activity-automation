@@ -1,31 +1,56 @@
 <template>
   <div class="row">
     <div class="col-lg-6 offset-lg-3">
-        <div class="card text-black bg-light">
-            <div class="card-body">
-                <form>
-                    <h2>Register</h2>
-                    <p>Please provide required information to create an account.</p>
-                      <div class="form-group">
-                        <label>Username</label>
-                        <input class="form-control" type="text" placeholder="Username" v-validate="'required|min:3|max:16'" /></div>
-                      <div class="form-group">
-                        <label>Password</label><input class="form-control" type="password" placeholder="Password" /></div>
-                      <div class="form-group"><label>Confirm Password</label><input class="form-control" type="password" placeholder="Confirm Password" /></div>
-                      <b4></b4><input class="btn btn-primary" type="submit" value="Register" />
-                      <router-link class="btn-link" to="/auth/login">Already have an account?</router-link>
-                </form>
+      <div class="card text-black bg-light">
+        <div class="card-body">
+          <form>
+            <h2>Register</h2>
+            <p>Please provide required information to create an account.</p>
+            <div class="form-group">
+              <label>Username</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Username"
+                v-validate="'required|min:3|max:16'"/>
             </div>
+
+            <div class="form-group">
+              <label>Password</label>
+              <input
+                class="form-control"
+                type="password"
+                placeholder="Password"/>
+            </div>
+
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input
+                class="form-control"
+                type="password"
+                placeholder="Confirm Password"/>
+            </div>
+
+            <input
+              class="btn btn-primary"
+              type="submit"
+              value="Register"/>
+
+            <router-link
+              class="btn-link"
+              to="/auth/login">Already have an account?</router-link>
+          </form>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 
 export default {
-  data () {
+  data() {
     return {
       form: {
         model: {
@@ -97,7 +122,10 @@ export default {
   },
   methods: {
     ...mapActions(['register']),
-    onSubmit () {
+
+    onSubmit() {
+      let t = ''
+
       this.register(this.form.model)
     }
   }
