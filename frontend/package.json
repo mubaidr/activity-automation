@@ -6,7 +6,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev":
+      "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
@@ -14,11 +15,11 @@
   "dependencies": {
     "axios": "^0.17.1",
     "bootswatch": "^4.0.0",
-    "es6-promise": "^4.2.2",
+    "es6-promise": "^4.2.4",
     "flatpickr": "^4.2.3",
     "sweetalert": "^2.1.0",
+    "vee-validate": "^2.0.3",
     "vue-flatpickr-component": "^6.1.0",
-    "vue-form-generator": "^2.2.0",
     "vue-router": "^3.0.1",
     "vue": "^2.5.13",
     "vuex": "^3.0.1"
@@ -65,7 +66,7 @@
     "uglifyjs-webpack-plugin": "^1.1.6",
     "url-loader": "^0.6.2",
     "vue-loader": "^13.7.0",
-    "vue-style-loader": "^3.0.3",
+    "vue-style-loader": "^3.1.0",
     "vue-template-compiler": "^2.5.13",
     "webpack-bundle-analyzer": "^2.9.2",
     "webpack-dev-server": "^2.11.1",
@@ -76,9 +77,5 @@
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
 }
