@@ -12,7 +12,7 @@
                 class="form-control"
                 type="text"
                 placeholder="Username"
-                v-validate="'required|min:3|max:16'"/>
+                v-validate="'required|min:3|max:16'">
             </div>
 
             <div class="form-group">
@@ -20,7 +20,7 @@
               <input
                 class="form-control"
                 type="password"
-                placeholder="Password"/>
+                placeholder="Password">
             </div>
 
             <div class="form-group">
@@ -28,13 +28,13 @@
               <input
                 class="form-control"
                 type="password"
-                placeholder="Confirm Password"/>
+                placeholder="Confirm Password">
             </div>
 
             <input
               class="btn btn-primary"
               type="submit"
-              value="Register"/>
+              value="Register">
 
             <router-link
               class="btn-link"
@@ -124,8 +124,6 @@ export default {
     ...mapActions(['register']),
 
     onSubmit() {
-      let t = ''
-
       this.register(this.form.model)
     }
   }

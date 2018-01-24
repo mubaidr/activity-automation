@@ -11,7 +11,8 @@
     },
     "sourceType": "module"
   },
-  "extends": ["airbnb", "prettier"],
+  "plugins": ["vue"],
+  "extends": ["airbnb", "plugin:vue/recommended", "prettier"],
   "rules": {
     "linebreak-style": "off",
     "no-underscore-dangle": "off",
