@@ -1,6 +1,6 @@
 <template lang='pug'>
   div
-    vue-form-generator(:schema='form.schema' :model='form.model' :options='form.options' @validated="onValidated")
+    vue-form-generator(:schema='form.schema' :model='form.model' :options='form.options' @validated="onValidated" ref="form")
 </template>
 
 <script>
@@ -26,6 +26,7 @@ export default {
                   model: 'description',
                   type: 'textArea',
                   placeholder: 'Activity details',
+                  id: 'txt_description',
                   rows: 6,
                   min: 4,
                   max: 255,
@@ -80,7 +81,12 @@ export default {
     timeOfWeek (val) {
       this.form.model.time = val
 
+      this.$nextTick(() => {
+        document.getElementById('txt_description').focus()
+      })
+
       if (!val) return
+
       this.getActivity(this.form.model)
         .catch(err => {
           swal('Oops!', err.message, 'error')
