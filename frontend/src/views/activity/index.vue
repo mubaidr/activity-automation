@@ -7,9 +7,13 @@
       flat-pickr(v-model="timeOfWeek" :config='datePciker.config')
     .right
       create-activity(:timeOfWeek='timeOfWeek' @close='timeOfWeek = ""')
+  br
+  blockquote.blockquote.text-center
+    p.mb-0 {{quote}}
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import createActivity from './create.vue'
 
 export default {
@@ -23,26 +27,40 @@ export default {
           maxDate: 'today',
           minDate: new Date().fp_incr(-7),
           disable: [
-            date => {
-              console.log(date.getDay())
-              return date.getDay() === 5 || date.getDay() === 6
-            }
+            date =>
+              // console.log(date.getDay())
+              date.getDay() === 5 || date.getDay() === 6
           ],
           locale: {
             firstDayOfWeek: 1
           },
           inline: true,
-          static: true,
-          weekNumbers: true
+          static: true
         }
       },
-      timeOfWeek: ''
+      timeOfWeek: '',
+      quote: ''
+    }
+  },
+  methods: {
+    ...mapGetters(['getQuotes']),
+    getRandomQuote () {
+      const quotes = this.getQuotes()
+      const types = Object.keys(quotes)
+      const rand = Math.floor(Math.random() * types.length)
+      const list = quotes[types[rand]]
+      const randQ = Math.floor(Math.random() * list.length)
+      this.quote = list[randQ]
     }
   },
   computed: {
     enableAdd () {
       return !!this.timeOfWeek
     }
+  },
+  created () {
+    this.getRandomQuote()
+    setInterval(this.getRandomQuote, 7500)
   }
 }
 </script>
@@ -51,41 +69,51 @@ export default {
 /* Calendar input style*/
 .columns{
   padding: 25px;
+  height: 354px;
   overflow: hidden;
-  min-height: 500px;
 
   .left, .right{
     float: left;
     padding: 0;
-    will-change: width, transform, opacity;
+    will-change: width, opacity;
   }
 
   .left{
     text-align: center;
     width: 100%;
-    transition: width 0.15s ease-out, transform 0.15s ease-out;
-    transform: scale(1.5) translateY(20%)
+    transition: width 0.15s ease-out;
   }
 
   .right{
     width: 0;
     opacity: 0;
-    padding: 25px;
+    border-radius: 5px;
     background-color: #fff;
-    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    transition: none;
   }
 }
 
 .columns.split{
   .left{
-    width: 25%;
-    transform: scale(0.6);
+    width: 36%;
   }
 
   .right{
-    width: 75%;
+    border:1px solid rgba(0,0,0,0.1);
+    padding: 37px;
+    width: 64%;
     opacity: 1;
     transition: opacity 0.15s ease-out 0.15s;
+  }
+}
+
+@media (max-width: 990px) {
+  .left{
+    top: 5%;
+  }
+  .right{
+    top: 5%;
+    box-shadow: 0 0 40px rgba(0,0,0,0.25);
   }
 }
 
@@ -95,15 +123,12 @@ export default {
 
     .left{
       position: absolute;
-      top:0;
       left:0;
       width:100%;
-      transform: scale(1) translateY(0)
     }
 
     .right{
       width:100%;
-      top:0;
       left:0;
       position: absolute;
       z-index: -1;
@@ -116,9 +141,9 @@ export default {
     }
 
     .right{
-      width: 90%;
-      margin: 5%;
-      box-shadow: 0 0 25px rgba(0,0,0,0.25);
+      width: 100%;
+      padding: 37px 10px;
+      box-shadow: none;
       transition: opacity 0.15s ease-out;
       z-index: auto;
     }
@@ -130,12 +155,10 @@ export default {
   display: none!important;
 }
 
-.flatpickr-calendar{
+.flatpickr-calendar.inline{
   box-shadow: none;
-}
-
-.flatpickr-innerContainer{
-  margin-top: 10px;
+  top: 0;
+  border:1px solid rgba(0,0,0,0.1);
 }
 
 .flatpickr-calendar{
@@ -146,4 +169,9 @@ export default {
     display: none;
   }
 }
+
+.flatpickr-innerContainer{
+  margin-top: 12px;
+}
+
 </style>

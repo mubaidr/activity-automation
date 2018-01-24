@@ -39,10 +39,10 @@ export default {
             path: this.$route.query.redirect
           })
         } else {
-          this.$router.push('/home')
+          this.$router.push('/activity')
         }
       } else {
-        swal('You have been logged out.', 'Good bye!', 'info')
+        // swal('You have been logged out.', 'Good bye!', 'info')
         this.$router.push('/home')
       }
     },

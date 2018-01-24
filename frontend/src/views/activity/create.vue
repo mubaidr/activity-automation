@@ -20,13 +20,13 @@ export default {
         schema: {
           groups: [
             {
-              legend: 'Add activity',
+              legend: '',
               fields: [
                 {
                   model: 'description',
                   type: 'textArea',
                   placeholder: 'Activity details',
-                  rows: 4,
+                  rows: 6,
                   min: 4,
                   max: 255,
                   required: true,
