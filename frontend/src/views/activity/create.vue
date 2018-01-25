@@ -1,6 +1,38 @@
-<template lang='pug'>
-  div
-    vue-form-generator(:schema='form.schema' :model='form.model' :options='form.options' @validated="onValidated" ref="form")
+<template>
+  <div>
+    <div class="form-group">
+      <textarea
+        class="form-control"
+        type="text"
+        placeholder="description"
+        rows="6"
+        name="description"
+        v-model="form.model.description"
+        v-validate="'required|min:2|max:255'"/>
+      <span
+        class="invalid-feedback"
+        v-show="errors.has('description')"
+        v-html="errors.first('description')"/>
+      <button
+        class="btn btn-primary"
+        @click="submit"
+        @disabled="errors.any() || isLoading">
+        Save
+      </button>
+      <button
+        class="btn btn-default"
+        @click="close">
+        Cancel
+      </button>
+      <button
+        class="btn btn-danger"
+        @click="remove"
+        @disabled="errors.any() || isLoading"
+        v-show="form.model.id">
+        Delete
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -27,63 +59,6 @@ export default {
           id: null,
           description: '',
           time: this.timeOfWeek
-        },
-        schema: {
-          groups: [
-            {
-              legend: '',
-              fields: [
-                {
-                  model: 'description',
-                  type: 'textArea',
-                  placeholder: 'Activity details',
-                  id: 'txt_description',
-                  rows: 6,
-                  min: 4,
-                  max: 255,
-                  required: true,
-                  validator: ['required', 'string']
-                }
-              ]
-            },
-            {
-              legend: '',
-              fields: [
-                {
-                  type: 'submit',
-                  buttonText: 'Save',
-                  validateBeforeSubmit: true,
-                  onSubmit: this.onSubmit,
-                  disabled: () =>
-                    this.disableSubmit ||
-                    (this.activity &&
-                      this.form.model.description ===
-                        this.activity.description),
-                  fieldClasses: 'btn btn-primary'
-                },
-                {
-                  type: 'submit',
-                  buttonText: 'Cancel',
-                  validateBeforeSubmit: false,
-                  onSubmit: this.close,
-                  fieldClasses: 'btn btn-default'
-                },
-                {
-                  type: 'submit',
-                  buttonText: 'Delete',
-                  validateBeforeSubmit: false,
-                  onSubmit: this.remove,
-                  disabled: () => this.activity,
-                  visible: () => this.activity && this.activity.id,
-                  fieldClasses: 'btn btn-danger'
-                }
-              ]
-            }
-          ]
-        },
-        options: {
-          validateAfterLoad: false,
-          validateAfterChanged: false
         }
       }
     }
@@ -92,11 +67,11 @@ export default {
     timeOfWeek(val) {
       this.form.model.time = val
 
+      if (!val) return
+
       this.$nextTick(() => {
         document.getElementById('txt_description').focus()
       })
-
-      if (!val) return
 
       this.getActivity(this.form.model)
         .catch(err => {
@@ -115,7 +90,8 @@ export default {
   },
   methods: {
     ...mapActions(['postActivity', 'removeActivity', 'getActivity']),
-    onSubmit() {
+
+    submit() {
       this.postActivity(this.form.model)
         .catch(err => {
           swal('Oops!', err.message, 'error')
@@ -124,6 +100,7 @@ export default {
           this.close()
         })
     },
+
     remove() {
       this.removeActivity(this.form.model)
         .catch(err => {
@@ -133,6 +110,7 @@ export default {
           this.close()
         })
     },
+
     close() {
       this.description = ''
       this.$emit('close')

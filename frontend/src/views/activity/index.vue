@@ -1,15 +1,25 @@
-<template lang='pug'>
- div
-  h2 Activities
-  p Please select a date to view or add activity details.
-  .columns.clearfix(:class='{split : enableAdd}')
-    .left
-      flat-pickr(v-model="timeOfWeek" :config='datePciker.config')
-    .right
-      create-activity(:timeOfWeek='timeOfWeek' @close='timeOfWeek = ""')
-  br
-  blockquote.blockquote.text-center
-    p.mb-0 {{quote}}
+<template>
+  <div>
+    <h2>Activities</h2>
+    <p>Please select a date to view or add activity details.</p>
+    <div
+      class="columns clearfix"
+      :class="{split : enableAdd}">
+      <div class="left">
+        <flat-pickr
+          v-model="timeOfWeek"
+          :config="datePciker.config"/>
+      </div>
+      <div class="right">
+        <create-activity
+          :time-of-week="timeOfWeek"
+          @close="timeOfWeek = ''"/>
+      </div>
+    </div><br>
+    <blockquote class="blockquote text-center">
+      <p class="mb-0">{{ quote }}</p>
+    </blockquote>
+  </div>
 </template>
 
 <script>
@@ -87,11 +97,22 @@ export default {
     width: 36%;
     opacity: 0;
     z-index: 999;
-    padding: 37px;
+    padding: 37px 15px;
     border-radius: 5px;
     background-color: #fff;
     border:1px solid rgba(0,0,0,0.1);
     transition: width 0.5s ease, opacity 0.5s ease;
+    position: relative;
+
+    &:before{
+      content: '';
+      width: 25px;
+      height: 25px;
+      position: absolute;
+      top: 45%;
+      left: -25px;
+      border: 10px solid red;
+    }
   }
 }
 

@@ -1,15 +1,62 @@
-<template lang='pug'>
-  .row
-    .col-lg-6.offset-lg-3
-      .card.text-black.bg-light
-        .card-body
-          h2 Login
-          p Please provide username and password to continue.
-          br
-          vue-form-generator(:schema='form.schema' :model='form.model' :options='form.options' @validated="onValidated")
-          router-link.btn-link(to='/auth/recover') Forgot password?
-          | &nbsp;
-          router-link.btn-link(to='/auth/register') Don't have an account?
+<template>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <div class="card text-black bg-light">
+        <div class="card-body">
+          <form @submit.prevent="submit">
+            <h2>Sign In</h2>
+            <p>Please provide required information to continue.</p>
+
+            <div class="form-group">
+              <label>Username</label>
+              <input
+                class="form-control"
+                type="text"
+                autocomplete="username"
+                placeholder="Username"
+                name="username"
+                v-model="form.model.username"
+                v-validate="'required|min:3|max:16'">
+              <span
+                class="invalid-feedback"
+                v-show="errors.has('username')"
+                v-html="errors.first('username')"/>
+            </div>
+
+            <div class="form-group">
+              <label>Password</label>
+              <input
+                class="form-control"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Password"
+                name="password"
+                v-model="form.model.password"
+                v-validate="'required|min:6|max:16'">
+              <span
+                class="invalid-feedback"
+                v-show="errors.has('password')"
+                v-html="errors.first('password')"/>
+            </div>
+
+            <input
+              class="btn btn-primary btn-block"
+              type="submit"
+              value="Sign In"
+              :disabled="errors.any()">
+
+            <br>
+
+            <router-link
+              class="btn-link"
+              to="/auth/register">
+              Don't have an account?
+            </router-link>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -20,55 +67,27 @@ export default {
     return {
       form: {
         model: {
-          username: 'tim',
-          password: 'tim-password'
-        },
-        schema: {
-          fields: [
-            {
-              type: 'input',
-              inputType: 'text',
-              label: 'Username',
-              model: 'username',
-              placeholder: 'username',
-              required: true,
-              min: 3,
-              max: 16,
-              validator: ['required', 'string']
-            },
-            {
-              type: 'input',
-              inputType: 'password',
-              autocomplete: true,
-              label: 'Password',
-              model: 'password',
-              placeholder: 'Password',
-              min: 8,
-              max: 16,
-              required: true,
-              validator: ['required', 'string']
-            },
-            {
-              type: 'submit',
-              buttonText: 'Login',
-              validateBeforeSubmit: true,
-              onSubmit: this.onSubmit,
-              disabled: this.disableSubmit,
-              fieldClasses: 'btn btn-primary btn-block'
-            }
-          ]
-        },
-        options: {
-          validateAfterLoad: false,
-          validateAfterChanged: true
+          password: 'tim-password',
+          username: 'tim'
         }
       }
     }
   },
   methods: {
     ...mapActions(['login']),
-    onSubmit() {
-      this.login(this.form.model)
+
+    submit() {
+      this.$validator.validateAll().then(res => {
+        if (res) {
+          this.login(this.form.model)
+        } else {
+          swal(
+            'Not so fast!',
+            'Please provide required data in valid format',
+            'warning'
+          )
+        }
+      })
     }
   }
 }

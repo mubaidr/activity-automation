@@ -15,7 +15,7 @@
                 autocomplete="username"
                 placeholder="Username"
                 name="username"
-                v-model="form.username"
+                v-model="form.model.username"
                 v-validate="'required|min:3|max:16'">
               <span
                 class="invalid-feedback"
@@ -30,7 +30,7 @@
                 type="text"
                 placeholder="Name"
                 name="name"
-                v-model="form.name">
+                v-model="form.model.name">
               <span
                 class="invalid-feedback"
                 v-show="errors.has('name')"
@@ -45,7 +45,7 @@
                 autocomplete="new-password"
                 placeholder="Password"
                 name="password"
-                v-model="form.password"
+                v-model="form.model.password"
                 v-validate="'required|min:6|max:16'">
               <span
                 class="invalid-feedback"
@@ -61,7 +61,7 @@
                 autocomplete="new-password"
                 placeholder="Confirm Password"
                 name="confirmPassword"
-                v-model="form.confirmPassword"
+                v-model="form.model.confirmPassword"
                 v-validate="'confirmed'">
               <span
                 class="invalid-feedback"
@@ -83,7 +83,6 @@
               Already have an account?
             </router-link>
           </form>
-          {{ $data }}
         </div>
       </div>
     </div>
