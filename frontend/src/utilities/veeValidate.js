@@ -1,5 +1,5 @@
-import vue from 'vue'
-import vv from 'vee-validate'
+import Vue from 'vue'
+import VeeValidate from 'vee-validate'
 
 const config = {
   classes: true,
@@ -9,4 +9,14 @@ const config = {
   }
 }
 
-vue.use(vv, config)
+Vue.use(VeeValidate, config)
+
+const dictionary = {
+  en: {
+    attributes: {
+      confirmPassword: 'confirm password'
+    }
+  }
+}
+
+VeeValidate.Validator.localize(dictionary)

@@ -3,16 +3,38 @@
     <div class="col-lg-6 offset-lg-3">
       <div class="card text-black bg-light">
         <div class="card-body">
-          <form>
+          <form @submit.prevent="submit">
             <h2>Register</h2>
             <p>Please provide required information to create an account.</p>
+
             <div class="form-group">
               <label>Username</label>
               <input
                 class="form-control"
                 type="text"
+                autocomplete="username"
                 placeholder="Username"
+                name="username"
+                v-model="form.username"
                 v-validate="'required|min:3|max:16'">
+              <span
+                class="invalid-feedback"
+                v-show="errors.has('username')"
+                v-html="errors.first('username')"/>
+            </div>
+
+            <div class="form-group">
+              <label>Name</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Name"
+                name="name"
+                v-model="form.name">
+              <span
+                class="invalid-feedback"
+                v-show="errors.has('name')"
+                v-html="errors.first('name')"/>
             </div>
 
             <div class="form-group">
@@ -20,7 +42,15 @@
               <input
                 class="form-control"
                 type="password"
-                placeholder="Password">
+                autocomplete="new-password"
+                placeholder="Password"
+                name="password"
+                v-model="form.password"
+                v-validate="'required|min:6|max:16'">
+              <span
+                class="invalid-feedback"
+                v-show="errors.has('password')"
+                v-html="errors.first('password')"/>
             </div>
 
             <div class="form-group">
@@ -28,18 +58,32 @@
               <input
                 class="form-control"
                 type="password"
-                placeholder="Confirm Password">
+                autocomplete="new-password"
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                v-model="form.confirmPassword"
+                v-validate="'confirmed'">
+              <span
+                class="invalid-feedback"
+                v-show="errors.has('confirmPassword')"
+                v-html="errors.first('confirmPassword')"/>
             </div>
 
             <input
-              class="btn btn-primary"
+              class="btn btn-primary btn-block"
               type="submit"
-              value="Register">
+              value="Register"
+              :disabled="errors.any()">
+
+            <br>
 
             <router-link
               class="btn-link"
-              to="/auth/login">Already have an account?</router-link>
+              to="/auth/login">
+              Already have an account?
+            </router-link>
           </form>
+          {{ $data }}
         </div>
       </div>
     </div>
@@ -57,65 +101,7 @@ export default {
           password: 'tim-password',
           confirmPassword: 'tim-password',
           username: 'tim',
-          name: 'Minion'
-        },
-        schema: {
-          fields: [
-            {
-              type: 'input',
-              inputType: 'text',
-              label: 'Username',
-              model: 'username',
-              placeholder: 'username',
-              required: true,
-              min: 3,
-              max: 16,
-              validator: ['required', 'string']
-            },
-            {
-              type: 'input',
-              inputType: 'password',
-              autocomplete: true,
-              label: 'Password',
-              model: 'password',
-              placeholder: 'Password',
-              min: 8,
-              max: 16,
-              required: true,
-              validator: ['required', 'string']
-            },
-            {
-              type: 'input',
-              inputType: 'password',
-              autocomplete: true,
-              label: 'Confirm Password',
-              model: 'confirmPassword',
-              placeholder: 'Password',
-              min: 8,
-              max: 16,
-              required: true,
-              validator: [
-                'required',
-                'string',
-                (value, field, model) =>
-                  value === model.password
-                    ? []
-                    : ['Password and Confirm Password fields does not match']
-              ]
-            },
-            {
-              type: 'submit',
-              buttonText: 'Register',
-              validateBeforeSubmit: true,
-              onSubmit: this.onSubmit,
-              disabled: this.disableSubmit,
-              fieldClasses: 'btn btn-primary btn-block'
-            }
-          ]
-        },
-        options: {
-          validateAfterLoad: false,
-          validateAfterChanged: true
+          name: 'Minion Tim'
         }
       }
     }
@@ -123,8 +109,18 @@ export default {
   methods: {
     ...mapActions(['register']),
 
-    onSubmit() {
-      this.register(this.form.model)
+    submit() {
+      this.$validator.validateAll().then(res => {
+        if (res) {
+          this.register(this.form.model)
+        } else {
+          swal(
+            'Not so fast!',
+            'Please provide required data in valid format',
+            'warning'
+          )
+        }
+      })
     }
   }
 }
