@@ -4,9 +4,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'footer-template'
-  }
+export default {
+  name: 'FooterTemplate'
+}
 </script>
 
 <style lang='stylus'>

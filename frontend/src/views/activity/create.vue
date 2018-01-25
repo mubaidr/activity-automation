@@ -7,9 +7,20 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'create-activity',
-  props: ['timeOfWeek', 'activity'],
-  data () {
+  name: 'CreateActivity',
+  props: {
+    timeOfWeek: {
+      type: String,
+      default: ''
+    },
+    activity: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
+  data() {
     return {
       form: {
         model: {
@@ -78,7 +89,7 @@ export default {
     }
   },
   watch: {
-    timeOfWeek (val) {
+    timeOfWeek(val) {
       this.form.model.time = val
 
       this.$nextTick(() => {
@@ -104,7 +115,7 @@ export default {
   },
   methods: {
     ...mapActions(['postActivity', 'removeActivity', 'getActivity']),
-    onSubmit () {
+    onSubmit() {
       this.postActivity(this.form.model)
         .catch(err => {
           swal('Oops!', err.message, 'error')
@@ -113,7 +124,7 @@ export default {
           this.close()
         })
     },
-    remove () {
+    remove() {
       this.removeActivity(this.form.model)
         .catch(err => {
           swal('Oops!', err.message, 'error')
@@ -122,7 +133,7 @@ export default {
           this.close()
         })
     },
-    close () {
+    close() {
       this.description = ''
       this.$emit('close')
     }

@@ -19,19 +19,19 @@ import header from './views/templates/header.vue'
 import footer from './views/templates/footer.vue'
 
 export default {
-  name: 'app',
-  data () {
-    return {
-      transitionName: 'slide-up'
-    }
-  },
+  name: 'App',
   components: {
     'header-template': header,
     'header-template-anonymous': headerAnonymous,
     'footer-template': footer
   },
+  data() {
+    return {
+      transitionName: 'slide-up'
+    }
+  },
   watch: {
-    isAuthenticated (val) {
+    isAuthenticated(val) {
       if (val) {
         swal('You have successfuly logged in.', 'welcome!', 'success')
         if (this.$route.query.redirect) {
@@ -46,12 +46,12 @@ export default {
         this.$router.push('/home')
       }
     },
-    $route (to, from) {
+    $route(to, from) {
       this.setTransition(to, from)
     }
   },
   methods: {
-    setTransition (to, from) {
+    setTransition(to, from) {
       const toDepth = to.path.split('/').length
       const fromDepth = from.path.split('/').length
       if (toDepth === fromDepth) {

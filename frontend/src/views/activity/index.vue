@@ -20,7 +20,7 @@ export default {
   components: {
     createActivity
   },
-  data () {
+  data() {
     return {
       datePciker: {
         config: {
@@ -42,9 +42,18 @@ export default {
       quote: ''
     }
   },
+  computed: {
+    enableAdd() {
+      return !!this.timeOfWeek
+    }
+  },
+  created() {
+    this.getRandomQuote()
+    setInterval(this.getRandomQuote, 7500)
+  },
   methods: {
     ...mapGetters(['getQuotes']),
-    getRandomQuote () {
+    getRandomQuote() {
       const quotes = this.getQuotes()
       const types = Object.keys(quotes)
       const rand = Math.floor(Math.random() * types.length)
@@ -52,15 +61,6 @@ export default {
       const randQ = Math.floor(Math.random() * list.length)
       this.quote = list[randQ]
     }
-  },
-  computed: {
-    enableAdd () {
-      return !!this.timeOfWeek
-    }
-  },
-  created () {
-    this.getRandomQuote()
-    setInterval(this.getRandomQuote, 7500)
   }
 }
 </script>

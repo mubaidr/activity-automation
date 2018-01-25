@@ -13,65 +13,65 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
-  export default {
-    data () {
-      return {
-        form: {
-          model: {
-            username: 'tim',
-            password: 'tim-password'
-          },
-          schema: {
-            fields: [
-              {
-                type: 'input',
-                inputType: 'text',
-                label: 'Username',
-                model: 'username',
-                placeholder: 'username',
-                required: true,
-                min: 3,
-                max: 16,
-                validator: ['required', 'string']
-              },
-              {
-                type: 'input',
-                inputType: 'password',
-                autocomplete: true,
-                label: 'Password',
-                model: 'password',
-                placeholder: 'Password',
-                min: 8,
-                max: 16,
-                required: true,
-                validator: ['required', 'string']
-              },
-              {
-                type: 'submit',
-                buttonText: 'Login',
-                validateBeforeSubmit: true,
-                onSubmit: this.onSubmit,
-                disabled: this.disableSubmit,
-                fieldClasses: 'btn btn-primary btn-block'
-              }
-            ]
-          },
-          options: {
-            validateAfterLoad: false,
-            validateAfterChanged: true
-          }
+export default {
+  data() {
+    return {
+      form: {
+        model: {
+          username: 'tim',
+          password: 'tim-password'
+        },
+        schema: {
+          fields: [
+            {
+              type: 'input',
+              inputType: 'text',
+              label: 'Username',
+              model: 'username',
+              placeholder: 'username',
+              required: true,
+              min: 3,
+              max: 16,
+              validator: ['required', 'string']
+            },
+            {
+              type: 'input',
+              inputType: 'password',
+              autocomplete: true,
+              label: 'Password',
+              model: 'password',
+              placeholder: 'Password',
+              min: 8,
+              max: 16,
+              required: true,
+              validator: ['required', 'string']
+            },
+            {
+              type: 'submit',
+              buttonText: 'Login',
+              validateBeforeSubmit: true,
+              onSubmit: this.onSubmit,
+              disabled: this.disableSubmit,
+              fieldClasses: 'btn btn-primary btn-block'
+            }
+          ]
+        },
+        options: {
+          validateAfterLoad: false,
+          validateAfterChanged: true
         }
       }
-    },
-    methods: {
-      ...mapActions(['login']),
-      onSubmit () {
-        this.login(this.form.model)
-      }
+    }
+  },
+  methods: {
+    ...mapActions(['login']),
+    onSubmit() {
+      this.login(this.form.model)
     }
   }
+}
 </script>
 
 <style lang='stylus'>

@@ -20,10 +20,10 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'header-template',
+  name: 'HeaderTemplate',
   methods: {
     ...mapActions(['logout']),
-    confirmLogout () {
+    confirmLogout() {
       swal({
         title: 'Are you sure you want to logout?',
         text: '',

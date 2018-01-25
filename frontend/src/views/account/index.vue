@@ -11,15 +11,15 @@
 </template>
 
 <script>
-  import passwordView from './password.vue'
-  import usernameView from './username.vue'
+import passwordView from './password.vue'
+import usernameView from './username.vue'
 
-  export default {
-    components: {
-      'password-view': passwordView,
-      'username-view': usernameView
-    }
+export default {
+  components: {
+    'password-view': passwordView,
+    'username-view': usernameView
   }
+}
 </script>
 
 <style lang='stylus'>
