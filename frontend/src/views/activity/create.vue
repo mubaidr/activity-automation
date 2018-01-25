@@ -9,27 +9,32 @@
         name="description"
         ref="txt_description"
         v-model="form.model.description"
-        v-validate="'required|min:2|max:255'"/>
+        v-validate="'required|min:2|max:255'"
+      />
       <span
         class="invalid-feedback"
         v-show="errors.has('description')"
-        v-html="errors.first('description')"/>
+        v-html="errors.first('description')"
+      />
       <button
         class="btn btn-primary"
         @click="submit"
-        @disabled="errors.any() || isLoading">
+        @disabled="errors.any() || isLoading"
+      >
         Save
       </button>
       <button
         class="btn btn-default"
-        @click="close">
+        @click="close"
+      >
         Cancel
       </button>
       <button
         class="btn btn-danger"
         @click="remove"
         @disabled="errors.any() || isLoading"
-        v-show="form.model.id">
+        v-show="form.model.id"
+      >
         Delete
       </button>
     </div>
@@ -121,11 +126,11 @@ export default {
 </script>
 
 <style lang="stylus">
-  .form-group.field-submit{
-    display: inline-block;
+.form-group.field-submit {
+  display: inline-block
 
-    .btn:not(.btn-primary){
-      margin-left: 10px;
-    }
+  .btn:not(.btn-primary) {
+    margin-left: 10px
   }
+}
 </style>

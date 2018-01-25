@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style lang='stylus'>
-  .custom-link {
-    cursor pointer
-  }
+.custom-link {
+  cursor: pointer
+}
 </style>

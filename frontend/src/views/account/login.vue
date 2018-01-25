@@ -16,11 +16,13 @@
                 placeholder="Username"
                 name="username"
                 v-model="form.model.username"
-                v-validate="'required|min:3|max:16'">
+                v-validate="'required|min:3|max:16'"
+              >
               <span
                 class="invalid-feedback"
                 v-show="errors.has('username')"
-                v-html="errors.first('username')"/>
+                v-html="errors.first('username')"
+              />
             </div>
 
             <div class="form-group">
@@ -32,24 +34,28 @@
                 placeholder="Password"
                 name="password"
                 v-model="form.model.password"
-                v-validate="'required|min:6|max:16'">
+                v-validate="'required|min:6|max:16'"
+              >
               <span
                 class="invalid-feedback"
                 v-show="errors.has('password')"
-                v-html="errors.first('password')"/>
+                v-html="errors.first('password')"
+              />
             </div>
 
             <input
               class="btn btn-primary btn-block"
               type="submit"
               value="Sign In"
-              :disabled="errors.any()">
+              :disabled="errors.any()"
+            >
 
             <br>
 
             <router-link
               class="btn-link"
-              to="/auth/register">
+              to="/auth/register"
+            >
               Don't have an account?
             </router-link>
           </form>
