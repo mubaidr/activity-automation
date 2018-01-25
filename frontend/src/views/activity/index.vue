@@ -15,7 +15,8 @@
           :time-of-week="timeOfWeek"
           @close="timeOfWeek = ''"/>
       </div>
-    </div><br>
+    </div>
+    <br>
     <blockquote class="blockquote text-center">
       <p class="mb-0">{{ quote }}</p>
     </blockquote>
@@ -75,7 +76,7 @@ export default {
 }
 </script>
 
-<style lang='stylus'>
+<style lang="stylus">
 /* Calendar input style*/
 .columns{
   margin: 25px 0;

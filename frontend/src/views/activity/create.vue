@@ -120,7 +120,7 @@ export default {
 }
 </script>
 
-<style lang='stylus'>
+<style lang="stylus">
   .form-group.field-submit{
     display: inline-block;
 
