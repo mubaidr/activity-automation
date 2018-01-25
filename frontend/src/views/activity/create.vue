@@ -7,6 +7,7 @@
         placeholder="description"
         rows="6"
         name="description"
+        ref="txt_description"
         v-model="form.model.description"
         v-validate="'required|min:2|max:255'"/>
       <span
@@ -70,7 +71,7 @@ export default {
       if (!val) return
 
       this.$nextTick(() => {
-        document.getElementById('txt_description').focus()
+        this.$refs.txt_description.focus()
       })
 
       this.getActivity(this.form.model)
