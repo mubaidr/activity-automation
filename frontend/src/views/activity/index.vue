@@ -5,20 +5,20 @@
     <div class="calender-container">
       <div class="wrapper">
         <flat-pickr
-          v-model="timeOfWeek"
-          :config="datePciker.config"
+            v-model="timeOfWeek"
+            :config="datePciker.config"
         />
 
         <transition
-          appear
-          name="modal-in"
+            appear
+            name="modal-in"
         >
           <create-activity
-            v-show="timeOfWeek"
-            :time-of-week="timeOfWeek"
-            @close="timeOfWeek = ''"
+              v-show="timeOfWeek"
+              :time-of-week="timeOfWeek"
+              @close="timeOfWeek = ''"
           />
-        </transition>
+          </transition>
       </div>
     </div>
     <br>
