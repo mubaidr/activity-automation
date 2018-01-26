@@ -3,21 +3,23 @@
     <h2>Activities</h2>
     <p>Please select a date to view or add activity details.</p>
     <div class="calender-container">
-      <flat-pickr
-        v-model="timeOfWeek"
-        :config="datePciker.config"
-      />
-
-      <transition
-        appear
-        name="list-in"
-      >
-        <create-activity
-          v-show="timeOfWeek"
-          :time-of-week="timeOfWeek"
-          @close="timeOfWeek = ''"
+      <div class="wrapper">
+        <flat-pickr
+          v-model="timeOfWeek"
+          :config="datePciker.config"
         />
-      </transition>
+
+        <transition
+          appear
+          name="modal-in"
+        >
+          <create-activity
+            v-show="timeOfWeek"
+            :time-of-week="timeOfWeek"
+            @close="timeOfWeek = ''"
+          />
+        </transition>
+      </div>
     </div>
     <br>
     <blockquote class="blockquote text-center">
@@ -80,16 +82,4 @@ export default {
 </script>
 
 <style lang="stylus">
-.calender-container {
-  height: 404px
-  padding: 50px 0
-  position: relative
-
-  &>div {
-    left: 0
-    margin: 0 auto
-    position: absolute
-    top: 50px
-  }
-}
 </style>

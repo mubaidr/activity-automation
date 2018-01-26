@@ -2,7 +2,7 @@
   <div class="create-activity">
     <div>
       <p>
-        <span class="badge badge-info">{{ day }}</span>
+        <span class="badge badge-secondary">{{ day }}</span>
       </p>
       <textarea
         class="form-control"
@@ -153,7 +153,7 @@ export default {
   background-color: #fff
   border: 1px solid rgba(0, 0, 0, 0.1)
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5)
-  max-width: 480px
+  max-width: 640px
   min-width: 340px
   padding: 15px
   text-align: center
