@@ -7,10 +7,17 @@
         v-model="timeOfWeek"
         :config="datePciker.config"
       />
-      <create-activity
-        :time-of-week="timeOfWeek"
-        @close="timeOfWeek = ''"
-      />
+
+      <transition
+        appear
+        name="list-in"
+      >
+        <create-activity
+          v-show="timeOfWeek"
+          :time-of-week="timeOfWeek"
+          @close="timeOfWeek = ''"
+        />
+      </transition>
     </div>
     <br>
     <blockquote class="blockquote text-center">

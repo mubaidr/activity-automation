@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="create-activity"
-    :class="{'active': form.model.time}"
-  >
+  <div class="create-activity">
     <div>
       <p>
         <span class="badge badge-info">{{ day }}</span>
@@ -87,7 +84,9 @@ export default {
         'Friday',
         'Saturday'
       ]
-      const d = new Date(this.form.model.time)
+      const d = this.form.model.time
+        ? new Date(this.form.model.time)
+        : new Date()
       return `${days[d.getDay()]} - ${d.getDate()}/${d.getMonth() +
         1}/${d.getFullYear()}`
     }
@@ -156,18 +155,8 @@ export default {
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5)
   max-width: 480px
   min-width: 340px
-  opacity: 0
   padding: 15px
   text-align: center
-  transform: scale(0)
-  transform-origin: 50% 50%
-  transition: transform 0.25s ease-out, opacity 0.125s ease-out
   width: 100%
-
-  &.active {
-    opacity: 1
-    transform: scale(1)
-    transition: transform 0.25s ease-out, opacity 0.125s ease-out
-  }
 }
 </style>
