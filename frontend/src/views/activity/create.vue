@@ -4,41 +4,31 @@
       <p>
         <span class="badge badge-secondary">{{ day }}</span>
       </p>
-      <textarea
-        class="form-control"
-        type="text"
-        placeholder="Details"
-        rows="5"
-        name="description"
-        ref="txt_description"
-        v-model="form.model.description"
-        v-validate="'min:0|max:255'"
-      />
-      <span
-        class="invalid-feedback"
-        v-show="errors.has('description')"
-        v-html="errors.first('description')"
-      />
-      <button
-        class="btn btn-primary btn-block"
-        @click="submit"
-        @disabled="errors.any() || isLoading"
-      >
+      <textarea class="form-control"
+                type="text"
+                placeholder="Details"
+                rows="5"
+                name="description"
+                ref="txt_description"
+                v-model="form.model.description"
+                v-validate="'min:0|max:255'" />
+      <span class="invalid-feedback"
+            v-show="errors.has('description')"
+            v-html="errors.first('description')" />
+      <button class="btn btn-primary btn-block"
+              @click="submit"
+              @disabled="errors.any() || isLoading">
         Save
       </button>
       <br>
-      <button
-        class="btn btn-default btn-sm"
-        @click="close"
-      >
+      <button class="btn btn-default btn-sm"
+              @click="close">
         Cancel
       </button>
-      <button
-        class="btn btn-danger btn-sm"
-        @click="remove"
-        @disabled="errors.any() || isLoading"
-        v-show="form.model.id"
-      >
+      <button class="btn btn-danger btn-sm"
+              @click="remove"
+              @disabled="errors.any() || isLoading"
+              v-show="form.model.id">
         Delete
       </button>
     </div>

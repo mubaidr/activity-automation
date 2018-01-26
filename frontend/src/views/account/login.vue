@@ -9,53 +9,41 @@
 
             <div class="form-group">
               <label>Username</label>
-              <input
-                class="form-control"
-                type="text"
-                autocomplete="username"
-                placeholder="Username"
-                name="username"
-                v-model="form.model.username"
-                v-validate="'required|min:3|max:16'"
-              >
-              <span
-                class="invalid-feedback"
-                v-show="errors.has('username')"
-                v-html="errors.first('username')"
-              />
+              <input class="form-control"
+                     type="text"
+                     autocomplete="username"
+                     placeholder="Username"
+                     name="username"
+                     v-model="form.model.username"
+                     v-validate="'required|min:3|max:16'">
+              <span class="invalid-feedback"
+                    v-show="errors.has('username')"
+                    v-html="errors.first('username')" />
             </div>
 
             <div class="form-group">
               <label>Password</label>
-              <input
-                class="form-control"
-                type="password"
-                autocomplete="new-password"
-                placeholder="Password"
-                name="password"
-                v-model="form.model.password"
-                v-validate="'required|min:6|max:16'"
-              >
-              <span
-                class="invalid-feedback"
-                v-show="errors.has('password')"
-                v-html="errors.first('password')"
-              />
+              <input class="form-control"
+                     type="password"
+                     autocomplete="new-password"
+                     placeholder="Password"
+                     name="password"
+                     v-model="form.model.password"
+                     v-validate="'required|min:6|max:16'">
+              <span class="invalid-feedback"
+                    v-show="errors.has('password')"
+                    v-html="errors.first('password')" />
             </div>
 
-            <input
-              class="btn btn-primary btn-block"
-              type="submit"
-              value="Sign In"
-              :disabled="errors.any()"
-            >
+            <input class="btn btn-primary btn-block"
+                   type="submit"
+                   value="Sign In"
+                   :disabled="errors.any()">
 
             <br>
 
-            <router-link
-              class="btn-link"
-              to="/auth/register"
-            >
+            <router-link class="btn-link"
+                         to="/auth/register">
               Don't have an account?
             </router-link>
           </form>

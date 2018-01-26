@@ -11,10 +11,10 @@
     },
     "sourceType": "module"
   },
-  "extends": ["airbnb", "prettier"],
+  "plugins": ["vue"],
+  "extends": ["airbnb", "plugin:vue/recommended", "prettier"],
   "rules": {
-    "linebreak-style": "off",
-    "no-underscore-dangle": "off",
+    "vue/max-attributes-per-line": 0,
     "no-console": "off"
   },
   "globals": {

@@ -16,16 +16,16 @@
     "jsonwebtoken": "^8.1.1",
     "morgan": "~1.9.0",
     "mssql": "^4.1.0",
-    "sequelize": "^4.32.1",
-    "tedious": "^2.2.3",
-    "validator": "^9.2.0"
+    "sequelize": "^4.32.2",
+    "tedious": "^2.2.4",
+    "validator": "^9.3.0"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.5.1",
+    "eslint-plugin-react": "^7.6.0",
     "eslint": "^4.16.0",
     "nodemon": "^1.14.11"
   }

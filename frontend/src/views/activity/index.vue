@@ -4,21 +4,15 @@
     <p>Please select a date to view or add activity details.</p>
     <div class="calender-container">
       <div class="wrapper">
-        <flat-pickr
-            v-model="timeOfWeek"
-            :config="datePciker.config"
-        />
+        <flat-pickr v-model="timeOfWeek"
+                    :config="datePciker.config" />
 
-        <transition
-            appear
-            name="modal-in"
-        >
-          <create-activity
-              v-show="timeOfWeek"
-              :time-of-week="timeOfWeek"
-              @close="timeOfWeek = ''"
-          />
-          </transition>
+        <transition appear
+                    name="modal-in">
+          <create-activity v-show="timeOfWeek"
+                           :time-of-week="timeOfWeek"
+                           @close="timeOfWeek = ''" />
+        </transition>
       </div>
     </div>
     <br>
