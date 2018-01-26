@@ -3,28 +3,6 @@
   min-height: calc(100vh - 240px)
   padding-bottom: 1.5rem
   padding-top: 1.5rem
-
-  .form-group.error {
-    input, textarea, select {
-      border-color: #d9534f
-    }
-  }
-}
-
-.hint, .help-block {
-  font-size: 0.9em
-}
-
-.errors {
-  color: #d9534f
-
-  &.help-block > span { /* Show only first error */
-    display: none
-  }
-
-  &.help-block > span:first-child {
-    display: block
-  }
 }
 
 /* header */
@@ -59,50 +37,6 @@
   border-radius: 0
 }
 
-/* Vue form generator */
-@media (min-width: 540px) {
-  .two-columns .vue-form-generator {
-    .form-group label:empty {
-      display: none
-    }
-
-    .form-group {
-      float: left
-      width: 48%
-    }
-
-    .form-group:nth-child(even):not(.field-submit) {
-      margin-right: 4%
-    }
-
-    .form-group.field-submit:first-child {
-      margin-right: 4%
-    }
-
-    .form-group.field-submit:nth-child(2) {
-      .btn {
-        float: right
-      }
-    }
-  }
-
-  .two-columns.must .vue-form-generator {
-    .form-group {
-      float: left
-      width: 66%
-    }
-
-    .form-group.field-submit {
-      width: 33%
-    }
-  }
-}
-
-/* margin for form submit button */
-.btn-submit-custom {
-  margin-top: 3rem
-}
-
 /* file input size is large than text inputs */
 .form-control.file {
   padding: 0.56rem 2rem
@@ -112,10 +46,6 @@
   margin: 1rem
   max-height: 10rem
   width: auto
-}
-
-hr {
-  margin: 2rem 0
 }
 
 .nav-link.router-link-active {
@@ -139,11 +69,31 @@ hr {
   visibility: hidden
 }
 
-.invalid.touched + .invalid-feedback {
+.invalid.dirty + .invalid-feedback {
   visibility: visible
 }
 
 /* Bootstrap configure */
 .form-group {
   margin-bottom: 0.75em
+}
+
+/* flatpickr customization */
+.flatpickr-calendar.inline {
+  border: 1px solid rgba(0, 0, 0, 0.1)
+  border-radius: 0
+  box-shadow: none
+  top: 0
+
+  &::before {
+    display: none
+  }
+
+  &::after {
+    display: none
+  }
+}
+
+.flatpickr-innerContainer {
+  margin-top: 12px
 }

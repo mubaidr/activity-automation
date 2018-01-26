@@ -2,24 +2,15 @@
   <div>
     <h2>Activities</h2>
     <p>Please select a date to view or add activity details.</p>
-    <div
-      class="columns clearfix"
-      :class="{split : enableAdd}"
-    >
-
-      <div class="left">
-        <flat-pickr
-          v-model="timeOfWeek"
-          :config="datePciker.config"
-        />
-      </div>
-
-      <div class="right">
-        <create-activity
-          :time-of-week="timeOfWeek"
-          @close="timeOfWeek = ''"
-        />
-      </div>
+    <div class="calender-container">
+      <flat-pickr
+        v-model="timeOfWeek"
+        :config="datePciker.config"
+      />
+      <create-activity
+        :time-of-week="timeOfWeek"
+        @close="timeOfWeek = ''"
+      />
     </div>
     <br>
     <blockquote class="blockquote text-center">
@@ -82,122 +73,16 @@ export default {
 </script>
 
 <style lang="stylus">
-/* Calendar input style */
-.columns {
-  margin: 25px 0
-  min-height: 304px
+.calender-container {
+  height: 404px
+  padding: 50px 0
+  position: relative
 
-  .left, .right {
-    float: left
-    overflow: hidden
+  &>div {
+    left: 0
+    margin: 0 auto
+    position: absolute
+    top: 50px
   }
-
-  .left {
-    padding-right: 1%
-    text-align: right
-    transition: width 0.5s ease
-    width: 63%
-  }
-
-  .right {
-    background-color: #fff
-    border: 1px solid rgba(0, 0, 0, 0.1)
-    border-radius: 5px
-    opacity: 0
-    padding: 37px 15px
-    position: relative
-    transition: width 0.5s ease, opacity 0.5s ease
-    width: 36%
-    z-index: 999
-
-    &:before {
-      border: 10px solid red
-      content: ''
-      height: 25px
-      left: -25px
-      position: absolute
-      top: 45%
-      width: 25px
-    }
-  }
-}
-
-.columns.split {
-  .left {
-    width: 36%
-  }
-
-  .right {
-    opacity: 1
-    width: 64%
-  }
-}
-
-@media (max-width: 990px) {
-  .columns {
-    .left {
-      top: 5%
-    }
-
-    .right {
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.25)
-      top: 5%
-    }
-  }
-}
-
-@media (max-width: 767px) {
-  .columns {
-    position: relative
-
-    .left {
-      left: 0
-      position: absolute
-      text-align: center
-      width: 100%
-    }
-
-    .right {
-      left: 0
-      position: absolute
-      width: 100%
-      z-index: -1
-    }
-  }
-
-  .columns.split {
-    .left {
-      width: 100%
-    }
-
-    .right {
-      box-shadow: none
-      padding: 37px 10px
-      width: 100%
-      // transition: opacity 0.15s ease-out;
-      z-index: auto
-    }
-  }
-}
-
-/* flatpickr customization */
-.flatpickr-calendar.inline {
-  border: 1px solid rgba(0, 0, 0, 0.1)
-  box-shadow: none
-  top: 0
-}
-
-.flatpickr-calendar {
-  &::before {
-    display: none
-  }
-
-  &::after {
-    display: none
-  }
-}
-
-.flatpickr-innerContainer {
-  margin-top: 12px
 }
 </style>
