@@ -1,37 +1,35 @@
 <template>
-  <div class="create-activity">
-    <div>
-      <p>
-        <span class="badge badge-secondary">{{ day }}</span>
-      </p>
-      <textarea class="form-control"
-                type="text"
-                placeholder="Details"
-                rows="5"
-                name="description"
-                ref="txt_description"
-                v-model="form.model.description"
-                v-validate="'min:0|max:255'" />
-      <span class="invalid-feedback"
-            v-show="errors.has('description')"
-            v-html="errors.first('description')" />
-      <button class="btn btn-primary btn-block"
-              @click="submit"
-              @disabled="errors.any() || isLoading">
-        Save
-      </button>
-      <br>
-      <button class="btn btn-default btn-sm"
-              @click="close">
-        Cancel
-      </button>
-      <button class="btn btn-danger btn-sm"
-              @click="remove"
-              @disabled="errors.any() || isLoading"
-              v-show="form.model.id">
-        Delete
-      </button>
-    </div>
+  <div>
+    <p>
+      <span class="badge badge-secondary">{{ day }}</span>
+    </p>
+    <textarea class="form-control"
+              type="text"
+              placeholder="Details"
+              rows="5"
+              name="description"
+              ref="txt_description"
+              v-model="form.model.description"
+              v-validate="'min:0|max:255'" />
+    <span class="invalid-feedback"
+          v-show="errors.has('description')"
+          v-html="errors.first('description')" />
+    <button class="btn btn-primary btn-block"
+            @click="submit"
+            @disabled="errors.any() || isLoading">
+      Save
+    </button>
+    <br>
+    <button class="btn btn-default btn-sm"
+            @click="close">
+      Cancel
+    </button>
+    <button class="btn btn-danger btn-sm"
+            @click="remove"
+            @disabled="errors.any() || isLoading"
+            v-show="form.model.id">
+      Delete
+    </button>
   </div>
 </template>
 
@@ -139,14 +137,4 @@ export default {
 </script>
 
 <style lang="stylus">
-.create-activity {
-  background-color: #fff
-  border: 1px solid rgba(0, 0, 0, 0.1)
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5)
-  max-width: 640px
-  min-width: 340px
-  padding: 15px
-  text-align: center
-  width: 100%
-}
 </style>

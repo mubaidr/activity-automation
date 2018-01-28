@@ -5,11 +5,12 @@
     <div class="calender-container">
       <div class="wrapper">
         <flat-pickr v-model="timeOfWeek"
-                    :config="datePciker.config" />
+                    :config="datePicker.config" />
 
         <transition appear
                     name="modal-in">
-          <create-activity v-show="timeOfWeek"
+          <create-activity class="create-activity"
+                           :class="{'active': timeOfWeek}"
                            :time-of-week="timeOfWeek"
                            @close="timeOfWeek = ''" />
         </transition>
@@ -32,7 +33,7 @@ export default {
   },
   data() {
     return {
-      datePciker: {
+      datePicker: {
         config: {
           maxDate: 'today',
           minDate: new Date().fp_incr(-7),
@@ -76,4 +77,17 @@ export default {
 </script>
 
 <style lang="stylus">
+.calender-container {
+  padding: 25px
+  text-align: center
+
+  .create-activity {
+    background-color: #fff
+    border: 1px solid rgba(0, 0, 0, 0.1)
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.75)
+    padding: 15px
+    text-align: center
+    width: 50%
+  }
+}
 </style>
