@@ -9,7 +9,7 @@
               rows="5"
               name="description"
               ref="txt_description"
-              v-model="form.model.description"
+              v-model.trim="form.model.description"
               v-validate="'min:0|max:255'" />
     <span class="invalid-feedback"
           v-show="errors.has('description')"
@@ -17,9 +17,16 @@
     <button class="btn btn-primary btn-block"
             @click="submit"
             @disabled="errors.any() || isLoading">
-      Save
+      <transition appear
+                  name="list-in"
+                  mode="out-in">
+        <span v-if="isNew">Save & Close</span>
+        <span v-else-if="isUpdated">Update & Close</span>
+        <span v-else>Delete & Close</span>
+      </transition>
     </button>
-    <br>
+
+    <!-- <br>
     <button class="btn btn-default btn-sm"
             @click="close">
       Cancel
@@ -29,7 +36,7 @@
             @disabled="errors.any() || isLoading"
             v-show="form.model.id">
       Delete
-    </button>
+    </button> -->
   </div>
 </template>
 
@@ -77,6 +84,12 @@ export default {
         : new Date()
       return `${days[d.getDay()]} - ${d.getDate()}/${d.getMonth() +
         1}/${d.getFullYear()}`
+    },
+    isNew() {
+      return !this.form.model.id
+    },
+    isUpdated() {
+      return this.form.model.id && this.form.model.description
     }
   },
   watch: {
@@ -108,13 +121,17 @@ export default {
     ...mapActions(['postActivity', 'removeActivity', 'getActivity']),
 
     submit() {
-      this.postActivity(this.form.model)
-        .catch(err => {
-          swal('Oops!', err.message, 'error')
-        })
-        .then(() => {
-          this.close()
-        })
+      if (!this.form.model.description) {
+        this.remove()
+      } else {
+        this.postActivity(this.form.model)
+          .catch(err => {
+            swal('Oops!', err.message, 'error')
+          })
+          .then(() => {
+            this.close()
+          })
+      }
     },
 
     remove() {
@@ -139,7 +156,7 @@ export default {
 <style lang="stylus">
 .create-activity {
   min-width: 272px
-  padding: 10px 37px
+  padding: 35px
   border: 1px solid rgba(0, 0, 0, 0.1)
   background-color: #fff
   text-align: center
