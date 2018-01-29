@@ -1,6 +1,5 @@
 <template>
   <div class="create-activity"
-       @click.self="close"
        @keyup.enter="submit"
        @keyup.esc="close">
     <p class="lead"
@@ -170,8 +169,9 @@ export default {
   min-width: 272px
   padding: 35px
   border: 1px solid rgba(0, 0, 0, 0.1)
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5)
+  border-radius: 4px
   background-color: #fff
   text-align: center
-  border-radius: 4px
 }
 </style>

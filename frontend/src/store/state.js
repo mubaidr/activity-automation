@@ -7,18 +7,18 @@ export default {
     quotes: session.getQuotes()
   },
   getters: {
-    isLoading (state) {
+    isLoading(state) {
       return state.loading
     },
-    getQuotes (state) {
+    getQuotes(state) {
       return state.quotes
     }
   },
   mutations: {
-    isLoading (state) {
+    isLoading(state) {
       state.loading = true
     },
-    isNotLoading (state) {
+    isNotLoading(state) {
       state.loading = false
     }
   }

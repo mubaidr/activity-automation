@@ -10,18 +10,18 @@ export default {
     user: session.getUser()
   },
   getters: {
-    isAuthenticated (state) {
+    isAuthenticated(state) {
       return state.auth !== null && typeof state.auth !== 'undefined'
     },
-    auth (state) {
+    auth(state) {
       return state.auth
     },
-    user (state) {
+    user(state) {
       return state.user
     }
   },
   mutations: {
-    setAuthentication (state, obj) {
+    setAuthentication(state, obj) {
       if (obj) {
         state.auth = obj.token
         state.user = obj.login
@@ -34,11 +34,11 @@ export default {
     }
   },
   actions: {
-    logout (context) {
+    logout(context) {
       context.commit('setAuthentication')
       router.push('/home')
     },
-    login (context, obj) {
+    login(context, obj) {
       return axios
         .post(`${config.api}/auth/login`, obj)
         .then(res => {
@@ -48,7 +48,7 @@ export default {
           swal('Invalid credentials!', 'Please try again!', 'error')
         })
     },
-    register (context, obj) {
+    register(context, obj) {
       return axios
         .post(`${config.api}/auth/register`, obj)
         .then(() => {

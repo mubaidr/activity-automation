@@ -9,7 +9,7 @@ router.delete('/', (req, res, next) => {
   db.activity
     .destroy({
       where: {
-        id: req.body.id,
+        id: req.param.id,
         loginId: login.id
       }
     })
@@ -30,9 +30,6 @@ router.get('/', (req, res, next) => {
     : {
         loginId: login.id
       }
-
-  // TODO: Fix req body params
-  console.log(req.body, req.params, req.query)
 
   db.activity
     .findAll({

@@ -1,8 +1,7 @@
 <template>
-  <div @click.self="timeOfWeek = ''">
+  <div>
     <h2>Activities</h2>
     <p>Please select a date to view or add activity details.</p>
-    <br>
     <div class="calender-container clearfix"
          :class="{'active': timeOfWeek}">
       <flat-pickr class="flatpickr-wrapper"
@@ -75,50 +74,36 @@ export default {
 
 <style lang="stylus">
 .calender-container {
+  padding: 50px
+  height: 404px
+  position: relative
+
   &>div {
-    float: left
+    position: absolute
+    top: 50px
+    left: 50%
   }
 
   .flatpickr-wrapper {
-    width: 100%
-    transition: all 0.25s ease
-
-    .flatpickr-calendar {
-      margin: 0 auto
-    }
+    transform: translateX(-50%)
   }
 
   .create-activity-wrapper {
-    overflow: hidden
-    width: 0
+    left: 50%
+    width: 100%
+    max-width: 480px
     opacity: 0
-    transition: all 0.25s ease
+    visibility: hidden
+    transition: all 0.25s linear
+    transform: scale(0.5) translateX(-100%) rotateY(-180deg)
   }
 
   &.active {
-    .flatpickr-wrapper {
-      width: 30%
-      transition: all 0.25s ease
-    }
-
     .create-activity-wrapper {
-      width: 70%
       opacity: 1
-      transition: all 0.25s ease
-    }
-  }
-}
-
-@media screen and (max-width: '767px') {
-  .calender-container {
-    &.active {
-      .flatpickr-wrapper {
-        width: 0
-      }
-
-      .create-activity-wrapper {
-        width: 100%
-      }
+      visibility: visible
+      transition: all 0.125s linear, visibility 0 linear 0.125s
+      transform: scale(1) translateX(-50%) rotateY(0)
     }
   }
 }
