@@ -45,6 +45,8 @@ router.get('/all', (req, res, next) => {
   const db = req.app.get('db')
   const login = req.account
 
+  // TODO: get all activities for all users from current week
+
   if (login.accountType.description === 'user') {
     res.send(401)
     return
@@ -99,8 +101,5 @@ router.post('/', (req, res, next) => {
       .catch(next)
   }
 })
-
-// TODO: get all activities for all users from current week
-// TODO: get all activities for own from current week
 
 module.exports = router

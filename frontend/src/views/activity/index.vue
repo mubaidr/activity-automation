@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import createActivity from './create.vue'
 
 export default {
@@ -32,12 +32,7 @@ export default {
       datePicker: {
         config: {
           maxDate: 'today',
-          minDate: new Date().fp_incr(-7),
-          disable: [
-            date =>
-              // console.log(date.getDay())
-              date.getDay() === 5 || date.getDay() === 6
-          ],
+          disable: [date => date.getDay() === 6 || date.getDay() === 0],
           locale: {
             firstDayOfWeek: 1
           },
@@ -46,7 +41,8 @@ export default {
         }
       },
       timeOfWeek: '',
-      quote: ''
+      quote: '',
+      activities: null
     }
   },
   computed: {
@@ -54,11 +50,26 @@ export default {
       return !!this.timeOfWeek
     }
   },
+  watch: {
+    activities(val) {
+      // TODO: get & compare list of days
+      val.forEach(a => {
+        console.log(a)
+      })
+    }
+  },
   created() {
     this.getRandomQuote()
     setInterval(this.getRandomQuote, 7500)
+
+    this.getActivity().then(res => {
+      if (res.data.length) {
+        this.activities = res.data
+      }
+    })
   },
   methods: {
+    ...mapActions(['getActivity']),
     ...mapGetters(['getQuotes']),
     getRandomQuote() {
       const quotes = this.getQuotes()

@@ -18,11 +18,14 @@ export default {
       return axios.post(`${config.api}/api/activity`, obj)
     },
     getActivity(context, obj) {
-      return axios.get(`${config.api}/api/activity`, {
-        params: {
-          time: obj.time
-        }
-      })
+      if (obj) {
+        return axios.get(`${config.api}/api/activity`, {
+          params: {
+            time: obj.time
+          }
+        })
+      }
+      return axios.get(`${config.api}/api/activity`)
     }
   }
 }
