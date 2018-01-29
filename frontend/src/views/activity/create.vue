@@ -3,9 +3,8 @@
        @click.self="close"
        @keyup.enter="submit"
        @keyup.esc="close">
-    <p>
-      <span class="badge badge-secondary">{{ day }}</span>
-    </p>
+    <p class="lead"
+       v-html="day" />
     <textarea class="form-control"
               type="text"
               placeholder="Details"
@@ -19,6 +18,7 @@
           v-show="errors.has('description')"
           v-html="errors.first('description')" />
     <button class="btn btn-primary btn-block"
+            :class="{'btn-warning': !isNew && !form.model.description}"
             @click="submit"
             @disabled="errors.any() || isLoading">
       <transition appear
@@ -78,12 +78,6 @@ export default {
     },
     isNew() {
       return !this.form.model.id
-    },
-    isUpdated() {
-      return this.form.model.id && this.form.model.description
-    },
-    isCleared() {
-      return this.form.model.id && !this.form.model.description
     }
   },
   watch: {
@@ -115,7 +109,7 @@ export default {
     ...mapActions(['postActivity', 'removeActivity', 'getActivity']),
 
     submit() {
-      if (this.isNew || this.isUpdated) {
+      if (this.isNew || this.form.model.description) {
         this.save()
       } else {
         swal({
