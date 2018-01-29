@@ -20,6 +20,7 @@
             @click="submit"
             @disabled="errors.any() || isLoading">
       <span v-if="isNew">Save</span>
+      <span v-else-if="isInvalid">Close</span>
       <span v-else>Update</span>
     </button>
   </div>
@@ -78,6 +79,9 @@ export default {
     },
     isCleared() {
       return this.form.model.id && !this.form.model.description
+    },
+    isInvalid() {
+      return !this.form.model.id && !this.form.model.description
     }
   },
   watch: {
