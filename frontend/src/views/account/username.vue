@@ -1,6 +1,24 @@
-<template lang='pug'>
-  div.two-columns.must
-    vue-form-generator(:schema='form.schema' :model='form.model' :options='form.options' @validated="onValidated")
+<template>
+  <form @submit.prevent="submit">
+    <div class="form-group">
+      <label>Username</label>
+      <input class="form-control"
+             type="text"
+             autocomplete="username"
+             placeholder="Username"
+             name="username"
+             v-model="form.model.username"
+             v-validate="'required|min:3|max:16'">
+      <span class="invalid-feedback"
+            v-show="errors.has('username')"
+            v-html="errors.first('username')" />
+    </div>
+
+    <input class="btn btn-primary btn-block"
+           type="submit"
+           value="Change Username"
+           :disabled="errors.any()">
+  </form>
 </template>
 
 <script>
@@ -12,37 +30,6 @@ export default {
       form: {
         model: {
           username: ''
-        },
-        schema: {
-          groups: [
-            {
-              legend: '',
-              fields: [
-                {
-                  model: 'username',
-                  type: 'input',
-                  inputType: 'text',
-                  label: '',
-                  required: true,
-                  min: 3,
-                  max: 16,
-                  validator: ['required', 'string']
-                },
-                {
-                  type: 'submit',
-                  buttonText: 'Update',
-                  validateBeforeSubmit: true,
-                  onSubmit: this.onSubmit,
-                  disabled: this.disableSubmit,
-                  fieldClasses: 'btn btn-primary btn-block'
-                }
-              ]
-            }
-          ]
-        },
-        options: {
-          validateAfterLoad: false,
-          validateAfterChanged: true
         }
       }
     }

@@ -15,8 +15,10 @@
     <span class="invalid-feedback"
           v-show="errors.has('description')"
           v-html="errors.first('description')" />
-    <button class="btn btn-primary btn-block"
-            :class="{'btn-warning': isCleared}"
+    <button class="btn btn-block"
+            :class="{'btn-primary': isInvalid,
+                     'btn-primary': isNew || isUpdated,
+                     'btn-warning': isCleared}"
             @click="submit"
             @disabled="errors.any() || isLoading">
       <span v-if="isNew">Save</span>

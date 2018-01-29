@@ -58,6 +58,16 @@ export default {
         .catch(() => {
           swal('Invalid credentials!', 'Please try again!', 'error')
         })
+    },
+    updateLogin(context, obj) {
+      return axios
+        .post(`${config.api}/auth/user`, obj)
+        .then(() => {
+          swal('Account updated', 'Please login!', 'success')
+        })
+        .catch(() => {
+          swal('Invalid data!', 'Please try again!', 'error')
+        })
     }
   }
 }
