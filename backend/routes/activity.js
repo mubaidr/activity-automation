@@ -9,7 +9,7 @@ router.delete('/', (req, res, next) => {
   db.activity
     .destroy({
       where: {
-        id: req.param.id,
+        id: req.query.id,
         loginId: login.id
       }
     })
@@ -22,9 +22,9 @@ router.delete('/', (req, res, next) => {
 router.get('/', (req, res, next) => {
   const db = req.app.get('db')
   const login = req.account
-  const whereQuery = req.body.time
+  const whereQuery = req.query.time
     ? {
-        time: req.body.time,
+        time: req.query.time,
         loginId: login.id
       }
     : {
@@ -33,9 +33,7 @@ router.get('/', (req, res, next) => {
 
   db.activity
     .findAll({
-      where: whereQuery,
-      include: [db.login],
-      raw: true
+      where: whereQuery
     })
     .then(activities => {
       res.send(activities)

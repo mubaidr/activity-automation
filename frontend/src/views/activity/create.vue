@@ -11,21 +11,16 @@
               name="description"
               ref="txt_description"
               v-model.trim="form.model.description"
-              v-validate="'min:0|max:255'"
               @keyup.esc="close" />
     <span class="invalid-feedback"
           v-show="errors.has('description')"
           v-html="errors.first('description')" />
     <button class="btn btn-primary btn-block"
-            :class="{'btn-warning': !isNew && !form.model.description}"
+            :class="{'btn-warning': isCleared}"
             @click="submit"
             @disabled="errors.any() || isLoading">
-      <transition appear
-                  name="list-in"
-                  mode="out-in">
-        <span v-if="isNew">Save</span>
-        <span v-else>Update</span>
-      </transition>
+      <span v-if="isNew">Save</span>
+      <span v-else>Update</span>
     </button>
   </div>
 </template>
@@ -76,7 +71,13 @@ export default {
         1}/${d.getFullYear()}`
     },
     isNew() {
-      return !this.form.model.id
+      return !this.form.model.id && this.form.model.description
+    },
+    isUpdated() {
+      return this.form.model.id && this.form.model.description
+    },
+    isCleared() {
+      return this.form.model.id && !this.form.model.description
     }
   },
   watch: {
@@ -102,15 +103,24 @@ export default {
                 time: val
               }
         })
+    },
+    activity(a) {
+      if (a) {
+        this.form.model.description = a.description
+        this.form.model.id = a.id
+      } else {
+        this.form.model.description = ''
+        this.form.model.id = null
+      }
     }
   },
   methods: {
     ...mapActions(['postActivity', 'removeActivity', 'getActivity']),
 
     submit() {
-      if (this.isNew || this.form.model.description) {
+      if (this.isNew || this.isUpdated) {
         this.save()
-      } else {
+      } else if (this.isCleared) {
         swal({
           title: `Clear activity for this day?`,
           text: `${this.day}`,
@@ -132,6 +142,8 @@ export default {
             this.close()
           }
         })
+      } else {
+        this.close()
       }
     },
 
