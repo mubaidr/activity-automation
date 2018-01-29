@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="create-activity">
     <p>
       <span class="badge badge-secondary">{{ day }}</span>
     </p>
@@ -137,4 +137,12 @@ export default {
 </script>
 
 <style lang="stylus">
+.create-activity {
+  min-width: 272px
+  padding: 10px 37px
+  border: 1px solid rgba(0, 0, 0, 0.1)
+  background-color: #fff
+  text-align: center
+  border-radius: 4px
+}
 </style>

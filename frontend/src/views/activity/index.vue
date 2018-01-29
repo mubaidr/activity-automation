@@ -2,18 +2,15 @@
   <div>
     <h2>Activities</h2>
     <p>Please select a date to view or add activity details.</p>
-    <div class="calender-container">
-      <div class="wrapper">
-        <flat-pickr v-model="timeOfWeek"
-                    :config="datePicker.config" />
-
-        <transition appear
-                    name="modal-in">
-          <create-activity class="create-activity"
-                           :class="{'active': timeOfWeek}"
-                           :time-of-week="timeOfWeek"
-                           @close="timeOfWeek = ''" />
-        </transition>
+    <br>
+    <div class="calender-container clearfix"
+         :class="{'active': timeOfWeek}">
+      <flat-pickr class="flatpickr-wrapper"
+                  v-model="timeOfWeek"
+                  :config="datePicker.config" />
+      <div class="create-activity-wrapper">
+        <create-activity :time-of-week="timeOfWeek"
+                         @close="timeOfWeek = ''" />
       </div>
     </div>
     <br>
@@ -78,16 +75,51 @@ export default {
 
 <style lang="stylus">
 .calender-container {
-  padding: 25px
-  text-align: center
+  &>div {
+    float: left
+  }
 
-  .create-activity {
-    background-color: #fff
-    border: 1px solid rgba(0, 0, 0, 0.1)
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.75)
-    padding: 15px
-    text-align: center
-    width: 50%
+  .flatpickr-wrapper {
+    width: 100%
+    transition: all 0.25s ease
+
+    .flatpickr-calendar {
+      margin: 0 auto
+    }
+  }
+
+  .create-activity-wrapper {
+    overflow: hidden
+    width: 0
+    opacity: 0
+    transition: all 0.25s ease
+  }
+
+  &.active {
+    .flatpickr-wrapper {
+      width: 30%
+      transition: all 0.25s ease
+    }
+
+    .create-activity-wrapper {
+      width: 70%
+      opacity: 1
+      transition: all 0.25s ease
+    }
+  }
+}
+
+@media screen and (max-width: '767px') {
+  .calender-container {
+    &.active {
+      .flatpickr-wrapper {
+        width: 0
+      }
+
+      .create-activity-wrapper {
+        width: 100%
+      }
+    }
   }
 }
 </style>
