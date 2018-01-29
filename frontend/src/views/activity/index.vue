@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click.self="timeOfWeek = ''">
     <h2>Activities</h2>
     <p>Please select a date to view or add activity details.</p>
     <br>

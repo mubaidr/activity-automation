@@ -1,5 +1,8 @@
 <template>
-  <div class="create-activity">
+  <div class="create-activity"
+       @click.self="close"
+       @keyup.enter="submit"
+       @keyup.esc="close">
     <p>
       <span class="badge badge-secondary">{{ day }}</span>
     </p>
@@ -10,7 +13,8 @@
               name="description"
               ref="txt_description"
               v-model.trim="form.model.description"
-              v-validate="'min:0|max:255'" />
+              v-validate="'min:0|max:255'"
+              @keyup.esc="close" />
     <span class="invalid-feedback"
           v-show="errors.has('description')"
           v-html="errors.first('description')" />
@@ -20,23 +24,10 @@
       <transition appear
                   name="list-in"
                   mode="out-in">
-        <span v-if="isNew">Save & Close</span>
-        <span v-else-if="isUpdated">Update & Close</span>
-        <span v-else>Delete & Close</span>
+        <span v-if="isNew">Save</span>
+        <span v-else>Update</span>
       </transition>
     </button>
-
-    <!-- <br>
-    <button class="btn btn-default btn-sm"
-            @click="close">
-      Cancel
-    </button>
-    <button class="btn btn-danger btn-sm"
-            @click="remove"
-            @disabled="errors.any() || isLoading"
-            v-show="form.model.id">
-      Delete
-    </button> -->
   </div>
 </template>
 
@@ -90,6 +81,9 @@ export default {
     },
     isUpdated() {
       return this.form.model.id && this.form.model.description
+    },
+    isCleared() {
+      return this.form.model.id && !this.form.model.description
     }
   },
   watch: {
@@ -121,17 +115,41 @@ export default {
     ...mapActions(['postActivity', 'removeActivity', 'getActivity']),
 
     submit() {
-      if (!this.form.model.description) {
-        this.remove()
+      if (this.isNew || this.isUpdated) {
+        this.save()
       } else {
-        this.postActivity(this.form.model)
-          .catch(err => {
-            swal('Oops!', err.message, 'error')
-          })
-          .then(() => {
+        swal({
+          title: `Clear activity for this day?`,
+          text: `${this.day}`,
+          icon: 'warning',
+          buttons: {
+            cancel: {
+              text: 'Cancel',
+              visible: true
+            },
+            confirm: {
+              text: 'Yes'
+            }
+          },
+          dangerMode: true
+        }).then(confirm => {
+          if (confirm) {
+            this.remove()
+          } else {
             this.close()
-          })
+          }
+        })
       }
+    },
+
+    save() {
+      this.postActivity(this.form.model)
+        .catch(err => {
+          swal('Oops!', err.message, 'error')
+        })
+        .then(() => {
+          this.close()
+        })
     },
 
     remove() {
@@ -145,9 +163,9 @@ export default {
     },
 
     close() {
+      this.$emit('close')
       this.form.model.id = ''
       this.form.model.description = ''
-      this.$emit('close')
     }
   }
 }
