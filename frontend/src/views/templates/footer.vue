@@ -1,6 +1,8 @@
-<template lang='pug'>
-  nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    router-link.navbar-brand(to='/home') AMS
+<template>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <router-link class="navbar-brand"
+                 to="/home">AMS</router-link>
+  </nav>
 </template>
 
 <script>

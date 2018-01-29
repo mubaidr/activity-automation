@@ -1,16 +1,22 @@
-<template lang='pug'>
-  div
-    header-template(v-if='isAuthenticated')
-    header-template-anonymous(v-else)
-    div.beta-banner
-      .alert.alert-info
-        span.badge.badge-info Beta
-        | &nbsp;
-        strong This is a new service &ndash; your feedback will help us to improve it.
-    .container.body
-      transition(appear :name='transitionName' mode='out-in')
-        router-view
-    footer-template
+<template>
+  <div>
+    <header-template v-if="isAuthenticated" />
+    <header-template-anonymous v-else/>
+    <div class="beta-banner">
+      <div class="alert alert-info">
+        <span class="badge badge-info">Beta</span>&nbsp;
+        <strong>This is a new service &ndash; your feedback will help us to improve it.</strong>
+      </div>
+    </div>
+    <div class="container body">
+      <transition appear="appear"
+                  :name="transitionName"
+                  mode="out-in">
+        <router-view/>
+      </transition>
+    </div>
+    <footer-template/>
+  </div>
 </template>
 
 <script>

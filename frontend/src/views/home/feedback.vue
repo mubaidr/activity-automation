@@ -1,5 +1,5 @@
-<template lang='pug'>
-  h2 Feedback
+<template>
+  <h2 Feedback/>
 </template>
 
 <script>

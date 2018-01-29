@@ -1,7 +1,8 @@
-<template lang='pug'>
-  div
-    h2 About
-    p Activities Management System (AMS).
+<template>
+  <div>
+    <h2>About</h2>
+    <p>Activities Management System (AMS).</p>
+  </div>
 </template>
 
 <script>

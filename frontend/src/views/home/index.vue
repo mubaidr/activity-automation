@@ -1,9 +1,12 @@
-<template lang='pug'>
-  .jumbotron
-    h1.display-3 AMS
-    p Welcome to Activities Management System.
-    p
-      a.btn.btn-outline-primary.btn-lg(href='https://github.com/mubaidr') Github
+<template>
+  <div class="jumbotron">
+    <h1 class="display-3">AMS</h1>
+    <p>Welcome to Activities Management System.</p>
+    <p>
+      <a class="btn btn-outline-primary btn-lg"
+         href="https://github.com/mubaidr">Github</a>
+    </p>
+  </div>
 </template>
 
 <script>

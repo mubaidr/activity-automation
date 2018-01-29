@@ -1,5 +1,5 @@
-<template lang='pug'>
-  h2 Contact
+<template>
+  <h2> Contact</h2>
 </template>
 
 <script>
