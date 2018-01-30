@@ -37,7 +37,34 @@ export default {
             firstDayOfWeek: 1
           },
           inline: true,
-          static: true
+          static: true,
+          onDayCreate: (dObj, dStr, fp, dayElem) => {
+            for (let i = 0; i < this.activities.length; i += 1) {
+              const activity = this.activities[i]
+              const date = new Date(dayElem.dateObj)
+                .setHours(0, 0, 0, 0)
+                .toString()
+              const time = new Date(activity.time)
+                .setHours(0, 0, 0, 0)
+                .toString()
+
+              if (date === time) {
+                // add tooltip
+                dayElem.setAttribute('title', activity.description)
+                // add notifier class
+                if (!this.hasClass(dayElem, 'done')) {
+                  this.addClass(dayElem, 'done')
+                }
+              } else {
+                // add tooltip
+                dayElem.removeAttribute('title')
+                // add notifier class
+                if (!this.hasClass(dayElem, 'done')) {
+                  this.removeClass(dayElem, 'done')
+                }
+              }
+            }
+          }
         }
       },
       timeOfWeek: ''
@@ -64,14 +91,22 @@ export default {
           const time = new Date(activity.time).setHours(0, 0, 0, 0).toString()
 
           if (date === time) {
+            // add tooltip
             dayCont.setAttribute('title', activity.description)
-            // eslint-disable-next-line
-            dayCont.innerHTML += '<span class="done"></span>'
+            // add notifier class
+            if (!this.hasClass(dayCont, 'done')) {
+              this.addClass(dayCont, 'done')
+            }
+          } else {
+            // add tooltip
+            dayCont.removeAttribute('title')
+            // add notifier class
+            if (!this.hasClass(dayCont, 'done')) {
+              this.removeClass(dayCont, 'done')
+            }
           }
         })
       })
-
-      // TODO: Update done styling
     }
   },
   methods: {
@@ -95,13 +130,11 @@ export default {
   .flatpickr-wrapper {
     transform: translateX(-50%)
 
-    .flatpickr-day > .done {
-      position: absolute
-      top: 0
-      left: 0
-      background-color: red
-      width: 20px
-      height: 20px
+    .flatpickr-day.done {
+      background-image: url('/src/assets/img/done.png')
+      background-position: right top
+      background-size: 33%
+      background-repeat: no-repeat
     }
   }
 
