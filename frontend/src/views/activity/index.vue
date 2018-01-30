@@ -52,10 +52,26 @@ export default {
   },
   watch: {
     activities(val) {
-      // TODO: get & compare list of days
-      val.forEach(a => {
-        console.log(a)
+      Array.from(
+        document.querySelectorAll(
+          '.flatpickr-wrapper .flatpickr-day:not(.disabled)'
+        )
+      ).forEach(dayCont => {
+        val.forEach(activity => {
+          const date = new Date(dayCont.getAttribute('aria-label'))
+            .setHours(0, 0, 0, 0)
+            .toString()
+          const time = new Date(activity.time).setHours(0, 0, 0, 0).toString()
+
+          if (date === time) {
+            dayCont.setAttribute('title', activity.description)
+            // eslint-disable-next-line
+            dayCont.innerHTML += '<span class="done"></span>'
+          }
+        })
       })
+
+      // TODO: Update done styling
     }
   },
   created() {
@@ -97,6 +113,15 @@ export default {
 
   .flatpickr-wrapper {
     transform: translateX(-50%)
+
+    .flatpickr-day > .done {
+      position: absolute
+      top: 0
+      left: 0
+      background-color: red
+      width: 20px
+      height: 20px
+    }
   }
 
   .create-activity-wrapper {
