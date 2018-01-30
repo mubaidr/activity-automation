@@ -3,9 +3,19 @@ import config from '../config'
 /* eslint-disable no-param-reassign */
 
 export default {
-  state: {},
-  getters: {},
-  mutations: {},
+  state: {
+    activities: []
+  },
+  getters: {
+    activities(state) {
+      return state.activities
+    }
+  },
+  mutations: {
+    setActivites(state, data) {
+      state.activities = data
+    }
+  },
   actions: {
     removeActivity(context, obj) {
       return axios.delete(`${config.api}/api/activity`, {
@@ -18,14 +28,21 @@ export default {
       return axios.post(`${config.api}/api/activity`, obj)
     },
     getActivity(context, obj) {
-      if (obj) {
-        return axios.get(`${config.api}/api/activity`, {
-          params: {
-            time: obj.time
-          }
+      return axios.get(`${config.api}/api/activity`, {
+        params: {
+          time: obj.time
+        }
+      })
+    },
+    getActivitiesForMonth(context) {
+      return axios
+        .get(`${config.api}/api/activity`)
+        .then(res => {
+          context.commit('setActivites', res.data)
         })
-      }
-      return axios.get(`${config.api}/api/activity`)
+        .catch(() => {
+          context.commit('setActivites', [])
+        })
     }
   }
 }

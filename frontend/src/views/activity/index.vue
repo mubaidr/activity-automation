@@ -14,7 +14,7 @@
     </div>
     <br>
     <blockquote class="blockquote text-center">
-      <p class="mb-0">{{ quote }}</p>
+      <p class="mb-0">{{ randomQuote }}</p>
     </blockquote>
   </div>
 </template>
@@ -40,12 +40,12 @@ export default {
           static: true
         }
       },
-      timeOfWeek: '',
-      quote: '',
-      activities: null
+      timeOfWeek: ''
     }
   },
   computed: {
+    ...mapGetters(['randomQuote', 'activities']),
+
     enableAdd() {
       return !!this.timeOfWeek
     }
@@ -74,27 +74,8 @@ export default {
       // TODO: Update done styling
     }
   },
-  created() {
-    this.getRandomQuote()
-    setInterval(this.getRandomQuote, 7500)
-
-    this.getActivity().then(res => {
-      if (res.data.length) {
-        this.activities = res.data
-      }
-    })
-  },
   methods: {
-    ...mapActions(['getActivity']),
-    ...mapGetters(['getQuotes']),
-    getRandomQuote() {
-      const quotes = this.getQuotes()
-      const types = Object.keys(quotes)
-      const rand = Math.floor(Math.random() * types.length)
-      const list = quotes[types[rand]]
-      const randQ = Math.floor(Math.random() * list.length)
-      this.quote = list[randQ]
-    }
+    ...mapActions(['getActivitiesForMonth'])
   }
 }
 </script>

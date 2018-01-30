@@ -56,6 +56,12 @@ export default {
       this.setTransition(to, from)
     }
   },
+  created() {
+    // set interval for random quote update
+    this.$store.dispatch('setRandomQuote')
+    // Get activities details for this month
+    this.$store.dispatch('getActivitiesForMonth')
+  },
   methods: {
     setTransition(to, from) {
       const toDepth = to.path.split('/').length
