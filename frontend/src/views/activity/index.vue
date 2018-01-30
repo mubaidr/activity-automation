@@ -55,13 +55,6 @@ export default {
                 if (!this.hasClass(dayElem, 'done')) {
                   this.addClass(dayElem, 'done')
                 }
-              } else {
-                // add tooltip
-                dayElem.removeAttribute('title')
-                // add notifier class
-                if (!this.hasClass(dayElem, 'done')) {
-                  this.removeClass(dayElem, 'done')
-                }
               }
             }
           }
@@ -83,26 +76,19 @@ export default {
         document.querySelectorAll(
           '.flatpickr-wrapper .flatpickr-day:not(.disabled)'
         )
-      ).forEach(dayCont => {
+      ).forEach(dayElem => {
         val.forEach(activity => {
-          const date = new Date(dayCont.getAttribute('aria-label'))
+          const date = new Date(dayElem.getAttribute('aria-label'))
             .setHours(0, 0, 0, 0)
             .toString()
           const time = new Date(activity.time).setHours(0, 0, 0, 0).toString()
 
           if (date === time) {
             // add tooltip
-            dayCont.setAttribute('title', activity.description)
+            dayElem.setAttribute('title', activity.description)
             // add notifier class
-            if (!this.hasClass(dayCont, 'done')) {
-              this.addClass(dayCont, 'done')
-            }
-          } else {
-            // add tooltip
-            dayCont.removeAttribute('title')
-            // add notifier class
-            if (!this.hasClass(dayCont, 'done')) {
-              this.removeClass(dayCont, 'done')
+            if (!this.hasClass(dayElem, 'done')) {
+              this.addClass(dayElem, 'done')
             }
           }
         })
