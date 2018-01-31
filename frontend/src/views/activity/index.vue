@@ -103,43 +103,43 @@ export default {
 
 <style lang="stylus">
 .calender-container {
-  padding: 50px
+  padding: 15px
   height: 404px
   position: relative
 
   &>div {
     position: absolute
-    top: 50px
-    left: 50%
+    left: 0
+    right: 0
+    margin: 0 auto
+    width: 308px
   }
 
   .flatpickr-wrapper {
-    transform: translateX(-50%)
-
     .flatpickr-day.done {
       background-image: url('/src/assets/img/done.png')
       background-position: right top
       background-size: 33%
       background-repeat: no-repeat
+      animation: shake 3s linear 1s 1
     }
   }
 
   .create-activity-wrapper {
-    left: 50%
+    z-index: 999
     width: 100%
     max-width: 480px
     opacity: 0
-    visibility: hidden
-    transition: all 0.25s linear
-    transform: scale(0.5) translateX(-100%) rotateY(-180deg)
+    transform-origin: 50%
+    transform: scale(0)
+    transition: all 0.25s ease-out
   }
 
   &.active {
     .create-activity-wrapper {
       opacity: 1
-      visibility: visible
-      transition: all 0.125s linear, visibility 0 linear 0.125s
-      transform: scale(1) translateX(-50%) rotateY(0)
+      transform: scale(1)
+      transition: all 0.25s ease-out
     }
   }
 }

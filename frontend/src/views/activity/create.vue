@@ -2,12 +2,12 @@
   <div class="create-activity"
        @keyup.enter="submit"
        @keyup.esc="close">
-    <p class="lead"
-       v-html="day" />
+    <span class="title"
+          v-html="day" />
     <textarea class="form-control"
               type="text"
               placeholder="Details"
-              rows="5"
+              rows="6"
               name="description"
               ref="txt_description"
               v-model.trim="form.model.description"
@@ -15,10 +15,8 @@
     <span class="invalid-feedback"
           v-show="errors.has('description')"
           v-html="errors.first('description')" />
-    <button class="btn btn-block"
-            :class="{'btn-primary': isInvalid,
-                     'btn-primary': isNew || isUpdated,
-                     'btn-warning': isCleared}"
+    <button class="btn btn-block btn-primary"
+            :class="{ 'btn-warning': isCleared}"
             @click="submit"
             @disabled="errors.any() || isLoading">
       <span v-if="isNew">Save</span>
@@ -185,11 +183,19 @@ export default {
 <style lang="stylus">
 .create-activity {
   min-width: 272px
-  padding: 35px
-  border: 1px solid rgba(0, 0, 0, 0.1)
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5)
+  padding: 15px
+  border: 3px solid rgba(0, 0, 0, 0.05)
+  // box-shadow: 0 0 5px rgba(0, 0, 0, 0.25)
   border-radius: 4px
   background-color: #fff
   text-align: center
+
+  .title {
+    display: block
+    font-size: large
+    color: #000
+    margin-top: 15px
+    margin-bottom: 27px
+  }
 }
 </style>
