@@ -16,12 +16,12 @@
           v-show="errors.has('description')"
           v-html="errors.first('description')" />
     <button class="btn btn-block btn-primary"
-            :class="{ 'btn-warning': isCleared}"
+            :class="{'btn-danger': isCleared}"
             @click="submit"
             @disabled="errors.any() || isLoading">
-      <span v-if="isNew">Save</span>
-      <span v-else-if="isInvalid">Close</span>
-      <span v-else>Update</span>
+      <span v-if="isEmpty">Close</span>
+      <span v-else-if="isUpdated || isCleared">Update</span>
+      <span v-else>Save</span>
     </button>
   </div>
 </template>
@@ -39,7 +39,11 @@ export default {
     activity: {
       type: Object,
       default() {
-        return {}
+        return {
+          id: null,
+          description: null,
+          time: null
+        }
       }
     }
   },
@@ -55,6 +59,18 @@ export default {
     }
   },
   computed: {
+    isNew() {
+      return !this.form.model.id
+    },
+    isUpdated() {
+      return !this.isNew && this.form.model.description
+    },
+    isCleared() {
+      return !this.isNew && !this.form.model.description
+    },
+    isEmpty() {
+      return this.isNew && !this.form.model.description
+    },
     day() {
       const days = [
         'Sunday',
@@ -70,18 +86,6 @@ export default {
         : new Date()
       return `${days[d.getDay()]} - ${d.getDate()}/${d.getMonth() +
         1}/${d.getFullYear()}`
-    },
-    isNew() {
-      return !this.form.model.id && this.form.model.description
-    },
-    isUpdated() {
-      return this.form.model.id && this.form.model.description
-    },
-    isCleared() {
-      return this.form.model.id && !this.form.model.description
-    },
-    isInvalid() {
-      return !this.form.model.id && !this.form.model.description
     }
   },
   watch: {

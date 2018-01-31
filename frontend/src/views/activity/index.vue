@@ -103,8 +103,8 @@ export default {
 
 <style lang="stylus">
 .calender-container {
-  padding: 15px
-  height: 404px
+  padding: 21px
+  height: 350px
   position: relative
 
   &>div {
