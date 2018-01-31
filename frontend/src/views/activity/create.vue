@@ -35,16 +35,6 @@ export default {
     timeOfWeek: {
       type: String,
       default: ''
-    },
-    activity: {
-      type: Object,
-      default() {
-        return {
-          id: null,
-          description: null,
-          time: null
-        }
-      }
     }
   },
   data() {
@@ -63,10 +53,12 @@ export default {
       return !this.form.model.id
     },
     isUpdated() {
-      return !this.isNew && this.form.model.description
+      return (
+        !this.isNew && this.form.model.description !== this.activity.description
+      )
     },
     isCleared() {
-      return !this.isNew && !this.form.model.description
+      return this.isUpdated && !this.form.model.description
     },
     isEmpty() {
       return this.isNew && !this.form.model.description
@@ -100,9 +92,11 @@ export default {
 
       this.getActivity(this.form.model)
         .catch(err => {
+          this.activity = null
           swal('Oops!', err.message, 'error')
         })
         .then(res => {
+          this.activity = res.data
           this.form.model = res.data.length
             ? res.data[0]
             : {
@@ -126,8 +120,8 @@ export default {
     ...mapActions(['postActivity', 'removeActivity', 'getActivity']),
 
     submit() {
-      if (this.isNew || this.isUpdated) {
-        this.save()
+      if (this.isEmpty) {
+        this.close()
       } else if (this.isCleared) {
         swal({
           title: `Clear activity for this day?`,
@@ -151,7 +145,7 @@ export default {
           }
         })
       } else {
-        this.close()
+        this.save()
       }
     },
 
