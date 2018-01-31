@@ -13,7 +13,17 @@ export default {
   },
   mutations: {
     addActivity(state, data) {
-      state.activities.push(data)
+      if (data.id) {
+        for (let i = 0, activity; i < state.activities.length; i += 1) {
+          activity = state.activities[i]
+          if (activity.id === data.id) {
+            state.activities[i].description = data.description
+            break
+          }
+        }
+      } else {
+        state.activities.push(data)
+      }
     },
     removeActivity(state, data) {
       for (let i = 0, activity; i < state.activities.length; i += 1) {

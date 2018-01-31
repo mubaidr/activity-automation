@@ -1,7 +1,6 @@
 <template>
   <div class="create-activity"
-       @keyup.enter="submit"
-       @keyup.esc="close">
+       @keyup.native.esc="close()">
     <span class="title"
           v-html="day" />
     <textarea class="form-control"
@@ -11,17 +10,17 @@
               name="description"
               ref="txt_description"
               v-model.trim="form.model.description"
-              @keyup.esc="close" />
+              @keyup.native.esc="close()" />
     <span class="invalid-feedback"
           v-show="errors.has('description')"
           v-html="errors.first('description')" />
     <button class="btn btn-block btn-primary"
-            :class="{'btn-danger': isCleared}"
+            :class="{'btn-danger': toDelete}"
             @click="submit"
             @disabled="errors.any() || isLoading">
-      <span v-if="isEmpty || !isUpdated">Close</span>
-      <span v-else-if="isUpdated || isCleared">Update</span>
-      <span v-else>Save</span>
+      <span v-if="toClose">Close</span>
+      <span v-else-if="toSave">Save</span>
+      <span v-else-if="toUpdate">Update</span>
     </button>
   </div>
 </template>
@@ -46,23 +45,31 @@ export default {
           time: this.timeOfWeek
         }
       },
-      activity: null
+      activity: {
+        id: null,
+        description: ''
+      }
     }
   },
   computed: {
-    isNew() {
-      return !this.form.model.id
-    },
-    isUpdated() {
+    toClose() {
       return (
-        !this.isNew && this.form.model.description !== this.activity.description
+        (!this.form.model.id && !this.form.model.description) ||
+        (this.form.model.id &&
+          this.form.model.description === this.activity.description)
       )
     },
-    isCleared() {
-      return this.isUpdated && !this.form.model.description
+    toSave() {
+      return !this.form.model.id && this.form.model.description
     },
-    isEmpty() {
-      return this.isNew && !this.form.model.description
+    toUpdate() {
+      return (
+        this.form.model.id &&
+        this.form.model.description !== this.activity.description
+      )
+    },
+    toDelete() {
+      return this.toUpdate && !this.form.model.description
     },
     day() {
       const days = [
@@ -84,7 +91,10 @@ export default {
   watch: {
     timeOfWeek(val) {
       this.form.model.time = val
-
+      this.activity = {
+        id: null,
+        description: ''
+      }
       if (!val) return
 
       this.$nextTick(() => {
@@ -93,38 +103,27 @@ export default {
 
       this.getActivity(this.form.model)
         .catch(err => {
-          this.activity = null
           swal('Oops!', err.message, 'error')
         })
         .then(res => {
-          this.activity = res.data.length
-            ? res.data[0]
-            : {
-                id: null,
-                description: '',
-                time: val
-              }
-
-          this.$set(this.form.model, this.activity)
+          if (res.data.length) {
+            // eslint-disable-next-line
+            this.activity = res.data[0]
+          }
         })
     },
     activity(a) {
-      if (a) {
-        this.form.model.description = a.description
-        this.form.model.id = a.id
-      } else {
-        this.form.model.description = ''
-        this.form.model.id = null
-      }
+      this.form.model.id = a.id
+      this.form.model.description = a.description
     }
   },
   methods: {
     ...mapActions(['postActivity', 'removeActivity', 'getActivity']),
 
     submit() {
-      if (this.isEmpty) {
+      if (this.toClose) {
         this.close()
-      } else if (this.isCleared) {
+      } else if (this.toUpdate && this.toDelete) {
         swal({
           title: `Clear activity for this day?`,
           text: `${this.day}`,
@@ -173,8 +172,10 @@ export default {
 
     close() {
       this.$emit('close')
-      this.form.model.id = ''
-      this.form.model.description = ''
+      this.activity = {
+        id: null,
+        description: ''
+      }
     }
   }
 }
