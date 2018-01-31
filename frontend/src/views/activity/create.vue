@@ -19,7 +19,7 @@
             :class="{'btn-danger': isCleared}"
             @click="submit"
             @disabled="errors.any() || isLoading">
-      <span v-if="isEmpty">Close</span>
+      <span v-if="isEmpty || !isUpdated">Close</span>
       <span v-else-if="isUpdated || isCleared">Update</span>
       <span v-else>Save</span>
     </button>
@@ -45,7 +45,8 @@ export default {
           description: '',
           time: this.timeOfWeek
         }
-      }
+      },
+      activity: null
     }
   },
   computed: {
@@ -96,14 +97,15 @@ export default {
           swal('Oops!', err.message, 'error')
         })
         .then(res => {
-          this.activity = res.data
-          this.form.model = res.data.length
+          this.activity = res.data.length
             ? res.data[0]
             : {
                 id: null,
                 description: '',
                 time: val
               }
+
+          this.$set(this.form.model, this.activity)
         })
     },
     activity(a) {
@@ -183,7 +185,6 @@ export default {
   min-width: 272px
   padding: 15px
   border: 3px solid rgba(0, 0, 0, 0.05)
-  // box-shadow: 0 0 5px rgba(0, 0, 0, 0.25)
   border-radius: 4px
   background-color: #fff
   text-align: center

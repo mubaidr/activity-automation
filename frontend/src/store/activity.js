@@ -13,10 +13,16 @@ export default {
   },
   mutations: {
     addActivity(state, data) {
-      console.log(data)
+      state.activities.push(data)
     },
     removeActivity(state, data) {
-      console.log(data)
+      for (let i = 0, activity; i < state.activities.length; i += 1) {
+        activity = state.activities[i]
+        if (activity.id === data.id) {
+          state.activities.splice(i, 1)
+          break
+        }
+      }
     },
     setActivites(state, data) {
       state.activities = data
@@ -31,12 +37,12 @@ export default {
           }
         })
         .then(() => {
-          context.commit('addActivity', obj)
+          context.commit('removeActivity', obj)
         })
     },
     postActivity(context, obj) {
       return axios.post(`${config.api}/api/activity`, obj).then(() => {
-        context.commit('removeActivity', obj)
+        context.commit('addActivity', obj)
       })
     },
     getActivity(context, obj) {
