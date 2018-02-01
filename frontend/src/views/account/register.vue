@@ -65,6 +65,7 @@
                    type="submit"
                    value="Register"
                    :disabled="errors.any()">
+            <!-- TODO: add icons -->
 
             <br>
 

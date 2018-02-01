@@ -47,6 +47,11 @@ export default {
         } else {
           this.$router.push('/activity')
         }
+
+        // set interval for random quote update
+        this.$store.dispatch('setRandomQuote')
+        // Get activities details for this month
+        this.$store.dispatch('getActivitiesForMonth')
       } else {
         // swal('You have been logged out.', 'Good bye!', 'info')
         this.$router.push('/home')
@@ -56,12 +61,7 @@ export default {
       this.setTransition(to, from)
     }
   },
-  created() {
-    // set interval for random quote update
-    this.$store.dispatch('setRandomQuote')
-    // Get activities details for this month
-    this.$store.dispatch('getActivitiesForMonth')
-  },
+  created() {},
   methods: {
     setTransition(to, from) {
       const toDepth = to.path.split('/').length
