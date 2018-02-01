@@ -30,12 +30,14 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'CreateActivity',
+
   props: {
     timeOfWeek: {
       type: String,
       default: ''
     }
   },
+
   data() {
     return {
       form: {
@@ -51,6 +53,7 @@ export default {
       }
     }
   },
+
   computed: {
     toClose() {
       return (
@@ -59,18 +62,22 @@ export default {
           this.form.model.description === this.activity.description)
       )
     },
+
     toSave() {
       return !this.form.model.id && this.form.model.description
     },
+
     toUpdate() {
       return (
         this.form.model.id &&
         this.form.model.description !== this.activity.description
       )
     },
+
     toDelete() {
       return this.toUpdate && !this.form.model.description
     },
+
     day() {
       const days = [
         'Sunday',
@@ -88,6 +95,7 @@ export default {
         1}/${d.getFullYear()}`
     }
   },
+
   watch: {
     timeOfWeek(val) {
       this.form.model.time = val
@@ -112,11 +120,13 @@ export default {
           }
         })
     },
+
     activity(a) {
       this.form.model.id = a.id
       this.form.model.description = a.description
     }
   },
+
   methods: {
     ...mapActions(['postActivity', 'removeActivity', 'getActivity']),
 
@@ -151,7 +161,7 @@ export default {
     },
 
     save() {
-      this.postActivity(this.form.model)
+      this.postActivity({ ...this.form.model })
         .catch(err => {
           swal('Oops!', err.message, 'error')
         })

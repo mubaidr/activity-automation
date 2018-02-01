@@ -27,6 +27,7 @@ export default {
   components: {
     createActivity
   },
+
   data() {
     return {
       datePicker: {
@@ -63,6 +64,7 @@ export default {
       timeOfWeek: ''
     }
   },
+
   computed: {
     ...mapGetters(['randomQuote', 'activities']),
 
@@ -70,6 +72,7 @@ export default {
       return !!this.timeOfWeek
     }
   },
+
   watch: {
     activities(val) {
       Array.from(
@@ -95,6 +98,7 @@ export default {
       })
     }
   },
+
   methods: {
     ...mapActions(['getActivitiesForMonth'])
   }
@@ -123,6 +127,11 @@ export default {
       background-repeat: no-repeat
       animation: shake 3s linear 1s 1
     }
+
+    opacity: 1
+    transform-origin: 50%
+    transform: scale(1)
+    transition: all 0.125s ease-out 0.125s
   }
 
   .create-activity-wrapper {
@@ -132,14 +141,20 @@ export default {
     opacity: 0
     transform-origin: 50%
     transform: scale(0)
-    transition: all 0.25s ease-out
+    transition: all 0.125s ease-out
   }
 
   &.active {
+    .flatpickr-wrapper {
+      opacity: 0
+      transform: scale(0.5)
+      transition: all 0.125s ease-out
+    }
+
     .create-activity-wrapper {
       opacity: 1
       transform: scale(1)
-      transition: all 0.25s ease-out
+      transition: all 0.25s ease-out, opacity 0.125s linear // 0.125s
     }
   }
 }

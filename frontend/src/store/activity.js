@@ -6,17 +6,18 @@ export default {
   state: {
     activities: []
   },
+
   getters: {
     activities(state) {
       return state.activities
     }
   },
+
   mutations: {
     addActivity(state, data) {
       if (data.id) {
-        for (let i = 0, activity; i < state.activities.length; i += 1) {
-          activity = state.activities[i]
-          if (activity.id === data.id) {
+        for (let i = 0; i < state.activities.length; i += 1) {
+          if (state.activities[i].id === data.id) {
             state.activities[i].description = data.description
             break
           }
@@ -26,9 +27,8 @@ export default {
       }
     },
     removeActivity(state, data) {
-      for (let i = 0, activity; i < state.activities.length; i += 1) {
-        activity = state.activities[i]
-        if (activity.id === data.id) {
+      for (let i = 0; i < state.activities.length; i += 1) {
+        if (state.activities[i].id === data.id) {
           state.activities.splice(i, 1)
           break
         }
@@ -38,6 +38,7 @@ export default {
       state.activities = data
     }
   },
+
   actions: {
     removeActivity(context, obj) {
       return axios
