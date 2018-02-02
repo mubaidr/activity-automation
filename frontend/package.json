@@ -17,6 +17,7 @@
     "bootswatch": "^4.0.0",
     "es6-promise": "^4.2.4",
     "flatpickr": "^4.2.4",
+    "normalize-css": "^2.3.1",
     "sweetalert": "^2.1.0",
     "vee-validate": "^2.0.3",
     "vue-flatpickr-component": "^6.2.0",

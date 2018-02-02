@@ -14,10 +14,11 @@
             v-html="errors.first('username')" />
     </div>
 
-    <input class="btn btn-primary btn-block"
-           type="submit"
-           value="Change Username"
-           :disabled="errors.any()">
+    <button class="btn btn-primary btn-block"
+            type="submit"
+            :disabled="errors.any()">
+      <span class="fi fi-check" /> Change Username
+    </button>
   </form>
 </template>
 

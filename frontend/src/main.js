@@ -1,5 +1,6 @@
 import Vue from 'vue'
 
+import 'normalize-css'
 import 'bootswatch/dist/lux/bootstrap.min.css'
 import './assets/foundation-icons/foundation-icons.css'
 import './assets/css/animations.styl'

@@ -61,12 +61,11 @@
                     v-html="errors.first('confirmPassword')" />
             </div>
 
-            <input class="btn btn-primary btn-block"
-                   type="submit"
-                   value="Register"
-                   :disabled="errors.any()">
-            <!-- TODO: add icons -->
-
+            <button class="btn btn-primary btn-block"
+                    type="submit"
+                    :disabled="errors.any()">
+              <span class="fi fi-torso" /> Register
+            </button>
             <br>
 
             <router-link class="btn-link"

@@ -18,9 +18,18 @@
             :class="{'btn-danger': toDelete}"
             @click="submit"
             @disabled="errors.any() || isLoading">
-      <span v-if="toClose">Close</span>
-      <span v-else-if="toSave">Save</span>
-      <span v-else-if="toUpdate">Update</span>
+      <span v-if="toClose">
+        <span class="fi fi-x" /> Close
+      </span>
+      <span v-else-if="toSave">
+        <span class="fi fi-download" /> Save
+      </span>
+      <span v-else-if="toUpdate && toDelete">
+        <span class="fi fi-minus" /> Delete
+      </span>
+      <span v-else>
+        <span class="fi fi-plus" /> Update
+      </span>
     </button>
   </div>
 </template>
