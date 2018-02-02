@@ -12,8 +12,9 @@ export default {
     activities(state) {
       return state.activities
     },
+
     activityStatus(state) {
-      return state.activities
+      return state.activityStatus
     }
   },
 
@@ -30,6 +31,7 @@ export default {
         state.activities.push(data)
       }
     },
+
     removeActivity(state, data) {
       for (let i = 0; i < state.activities.length; i += 1) {
         if (state.activities[i].id === data.id) {
@@ -38,9 +40,11 @@ export default {
         }
       }
     },
+
     setActivites(state, data) {
       state.activities = data
     },
+
     setActivityStatus(state, data) {
       state.activityStatus = data
     }
@@ -58,11 +62,13 @@ export default {
           context.commit('removeActivity', obj)
         })
     },
+
     postActivity(context, obj) {
       return axios.post(`${config.api}/api/activity`, obj).then(() => {
         context.commit('addActivity', obj)
       })
     },
+
     getActivity(context, obj) {
       return axios.get(`${config.api}/api/activity`, {
         params: {
@@ -70,6 +76,7 @@ export default {
         }
       })
     },
+
     getActivitiesForMonth(context) {
       return axios
         .get(`${config.api}/api/activity`)
@@ -80,6 +87,7 @@ export default {
           context.commit('setActivites', [])
         })
     },
+
     getActivityStatus(context) {
       return axios
         .get(`${config.api}/api/activityStatus`)

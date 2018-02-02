@@ -6,7 +6,7 @@
     <textarea class="form-control"
               type="text"
               placeholder="Details"
-              rows="6"
+              rows="4"
               name="description"
               ref="txt_description"
               v-model.trim="form.model.description"
@@ -14,6 +14,20 @@
     <span class="invalid-feedback"
           v-show="errors.has('description')"
           v-html="errors.first('description')" />
+
+    <div class="form-check custom">
+      <label class="form-check-label"
+             v-for="status in activityStatus"
+             :key="status.id">
+        <input type="radio"
+               class="form-check-input"
+               name="rb_status"
+               v-model="form.model.activityStatusId"
+               :value="status.id"
+               checked=""> {{ status.description }}
+      </label>
+    </div>
+    <br>
     <button class="btn btn-block btn-primary"
             :class="{'btn-danger': toDelete}"
             @click="submit"
@@ -35,7 +49,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'CreateActivity',
@@ -53,17 +67,21 @@ export default {
         model: {
           id: null,
           description: '',
+          activityStatusId: 2,
           time: this.timeOfWeek
         }
       },
       activity: {
         id: null,
-        description: ''
+        description: '',
+        activityStatusId: 2
       }
     }
   },
 
   computed: {
+    ...mapGetters(['activityStatus']),
+
     toClose() {
       return (
         (!this.form.model.id && !this.form.model.description) ||
@@ -79,7 +97,8 @@ export default {
     toUpdate() {
       return (
         this.form.model.id &&
-        this.form.model.description !== this.activity.description
+        (this.form.model.description !== this.activity.description ||
+          this.form.model.activityStatusId !== this.activity.activityStatusId)
       )
     },
 
@@ -108,11 +127,15 @@ export default {
   watch: {
     timeOfWeek(val) {
       this.form.model.time = val
-      this.activity = {
-        id: null,
-        description: ''
+
+      if (!val) {
+        this.activity = {
+          id: null,
+          description: '',
+          activityStatusId: 2
+        }
+        return
       }
-      if (!val) return
 
       this.$nextTick(() => {
         this.$refs.txt_description.focus()
@@ -133,6 +156,7 @@ export default {
     activity(a) {
       this.form.model.id = a.id
       this.form.model.description = a.description
+      this.form.model.activityStatusId = a.activityStatusId
     }
   },
 
@@ -215,6 +239,15 @@ export default {
     color: #000
     margin-top: 15px
     margin-bottom: 27px
+  }
+}
+
+.form-check.custom {
+  .form-check-label {
+    padding-right: 32px
+  }
+
+  .form-check-input {
   }
 }
 </style>

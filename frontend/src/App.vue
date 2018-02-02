@@ -52,11 +52,6 @@ export default {
         } else {
           this.$router.push('/activity')
         }
-
-        // Fetch activity status list
-        this.getActivityStatus()
-        // Get activities details for this month
-        this.getActivitiesForMonth()
       } else {
         // swal('You have been logged out.', 'Good bye!', 'info')
         this.$router.push('/home')
@@ -74,11 +69,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'setRandomQuote',
-      'getActivitiesForMonth',
-      'getActivityStatus'
-    ]),
+    ...mapActions(['setRandomQuote']),
 
     setTransition(to, from) {
       const toDepth = to.path.split('/').length

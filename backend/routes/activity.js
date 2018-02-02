@@ -33,7 +33,8 @@ router.get('/', (req, res, next) => {
 
   db.activity
     .findAll({
-      where: whereQuery
+      where: whereQuery,
+      include: [db.activityStatus]
     })
     .then(activities => {
       res.send(activities)
@@ -45,8 +46,6 @@ router.get('/all', (req, res, next) => {
   const db = req.app.get('db')
   const login = req.account
 
-  // TODO: get all activities for all users from current week
-
   if (login.accountType.description === 'user') {
     res.send(401)
     return
@@ -54,7 +53,7 @@ router.get('/all', (req, res, next) => {
 
   db.activity
     .findAll({
-      include: [db.login],
+      include: [db.login, db.activityStatus],
       raw: true
     })
     .then(activities => {
@@ -67,7 +66,7 @@ router.post('/', (req, res, next) => {
   const db = req.app.get('db')
   const login = req.account
 
-  const { id, description } = req.body
+  const { id, description, activityStatusId, time } = req.body
 
   if (!description.trim()) {
     res.sendStatus(400)
@@ -76,7 +75,9 @@ router.post('/', (req, res, next) => {
   if (!id) {
     db.activity
       .build({
-        ...req.body,
+        description,
+        activityStatusId: activityStatusId || 2,
+        time,
         loginId: login.id
       })
       .save()
@@ -88,7 +89,9 @@ router.post('/', (req, res, next) => {
     db.activity
       .upsert(
         {
-          ...req.body,
+          description,
+          activityStatusId: activityStatusId || 2,
+          time,
           loginId: login.id
         },
         {

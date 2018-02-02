@@ -16,6 +16,9 @@
     <blockquote class="blockquote text-center">
       <p class="mb-0">{{ randomQuote }}</p>
     </blockquote>
+    <pre>
+      {{ activities }}
+    </pre>
   </div>
 </template>
 
@@ -54,6 +57,7 @@ export default {
                 dayElem.setAttribute('title', activity.description)
                 // add notifier class
                 if (!this.hasClass(dayElem, 'done')) {
+                  // TODO: add class and icon based on activityStusa (completed, routine, in-progress)
                   this.addClass(dayElem, 'done')
                 }
               }
@@ -99,8 +103,15 @@ export default {
     }
   },
 
+  created() {
+    // Fetch activity status list
+    this.getActivityStatus()
+    // Get activities details for this month
+    this.getActivitiesForMonth()
+  },
+
   methods: {
-    ...mapActions(['getActivitiesForMonth'])
+    ...mapActions(['getActivitiesForMonth', 'getActivityStatus'])
   }
 }
 </script>
