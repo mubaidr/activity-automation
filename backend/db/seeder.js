@@ -1,51 +1,59 @@
-const bcrypt = require('bcryptjs')
+function addAccountTypes(models) {
+  models.accountType
+    .findAndCountAll({
+      where: {
+        id: [1, 2]
+      }
+    })
+    .then(res => {
+      if (res.count !== 2) {
+        models.accountType.bulkCreate([
+          {
+            id: 1,
+            description: 'user'
+          },
+          {
+            id: 2,
+            description: 'admin'
+          }
+        ])
+      }
+    })
+}
 
-// loads dummy data
-function addDemoData (models) {
-  // login
-  models.login.bulkCreate([
-    {
-      username: 'tim',
-      password: bcrypt.hashSync('tim-password', 8),
-      accountTypeId: 1
-    },
-    {
-      username: 'mark',
-      password: bcrypt.hashSync('mark-password', 8),
-      accountTypeId: 2
-    }
-  ])
+function addActivityStatus(models) {
+  models.activityStatus
+    .findAndCountAll({
+      where: {
+        id: [1, 2]
+      }
+    })
+    .then(res => {
+      if (res.count !== 2) {
+        models.activityStatus.bulkCreate([
+          {
+            id: 1,
+            description: 'In-Progress'
+          },
+          {
+            id: 2,
+            description: 'Completed'
+          },
+          {
+            id: 3,
+            description: 'Routine'
+          }
+        ])
+      }
+    })
 }
 
 module.exports = {
-  seed (models, callback) {
+  seed(models, callback) {
     // Account Types
-    models.accountType
-      .findAndCountAll({
-        where: {
-          id: [1, 2]
-        }
-      })
-      .then(res => {
-        if (res.count === 0) {
-          models.accountType
-            .bulkCreate([
-              {
-                id: 1,
-                description: 'user'
-              },
-              {
-                id: 2,
-                description: 'admin'
-              }
-            ])
-            .then(() => {
-              addDemoData(models)
-            })
-        } else {
-          addDemoData(models)
-        }
-      })
+    addAccountTypes(models)
+    // Activity status
+    addActivityStatus(models)
 
     if (callback) callback()
   }
