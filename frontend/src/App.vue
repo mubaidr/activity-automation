@@ -20,22 +20,26 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import headerAnonymous from './views/templates/header-anonymous.vue'
 import header from './views/templates/header.vue'
 import footer from './views/templates/footer.vue'
 
 export default {
   name: 'App',
+
   components: {
     'header-template': header,
     'header-template-anonymous': headerAnonymous,
     'footer-template': footer
   },
+
   data() {
     return {
       transitionName: 'slide-up'
     }
   },
+
   watch: {
     isAuthenticated(val) {
       if (val) {
@@ -49,20 +53,32 @@ export default {
         }
 
         // set interval for random quote update
-        this.$store.dispatch('setRandomQuote')
+        this.setRandomQuote()
         // Get activities details for this month
-        this.$store.dispatch('getActivitiesForMonth')
+        this.getActivitiesForMonth()
       } else {
         // swal('You have been logged out.', 'Good bye!', 'info')
         this.$router.push('/home')
       }
     },
+
     $route(to, from) {
       this.setTransition(to, from)
     }
   },
-  created() {},
+
+  created() {
+    // Fetch activity status list
+    this.getActivityStatus()
+  },
+
   methods: {
+    ...mapActions([
+      'setRandomQuote',
+      'getActivitiesForMonth',
+      'getActivityStatus'
+    ]),
+
     setTransition(to, from) {
       const toDepth = to.path.split('/').length
       const fromDepth = from.path.split('/').length

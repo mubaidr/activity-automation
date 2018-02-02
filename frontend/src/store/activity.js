@@ -4,11 +4,15 @@ import config from '../config'
 
 export default {
   state: {
-    activities: []
+    activities: [],
+    activityStatus: []
   },
 
   getters: {
     activities(state) {
+      return state.activities
+    },
+    activityStatus(state) {
       return state.activities
     }
   },
@@ -36,6 +40,9 @@ export default {
     },
     setActivites(state, data) {
       state.activities = data
+    },
+    setActivityStatus(state, data) {
+      state.activityStatus = data
     }
   },
 
@@ -71,6 +78,16 @@ export default {
         })
         .catch(() => {
           context.commit('setActivites', [])
+        })
+    },
+    getActivityStatus(context) {
+      return axios
+        .get(`${config.api}/api/activityStatus`)
+        .then(res => {
+          context.commit('setActivityStatus', res.data)
+        })
+        .catch(() => {
+          context.commit('setActivityStatus', [])
         })
     }
   }
