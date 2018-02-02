@@ -55,7 +55,7 @@
                      placeholder="Confirm Password"
                      name="confirmPassword"
                      v-model="form.model.confirmPassword"
-                     v-validate="'confirmed'">
+                     v-validate="'required|confirmed:password'">
               <span class="invalid-feedback"
                     v-show="errors.has('confirmPassword')"
                     v-html="errors.first('confirmPassword')" />

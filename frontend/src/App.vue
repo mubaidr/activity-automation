@@ -44,6 +44,7 @@ export default {
     isAuthenticated(val) {
       if (val) {
         swal('You have successfuly logged in.', 'welcome!', 'success')
+
         if (this.$route.query.redirect) {
           this.$router.push({
             path: this.$route.query.redirect
@@ -52,8 +53,8 @@ export default {
           this.$router.push('/activity')
         }
 
-        // set interval for random quote update
-        this.setRandomQuote()
+        // Fetch activity status list
+        this.getActivityStatus()
         // Get activities details for this month
         this.getActivitiesForMonth()
       } else {
@@ -68,8 +69,8 @@ export default {
   },
 
   created() {
-    // Fetch activity status list
-    this.getActivityStatus()
+    // set interval for random quote update
+    this.setRandomQuote()
   },
 
   methods: {

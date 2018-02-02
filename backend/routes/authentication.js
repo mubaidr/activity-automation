@@ -22,6 +22,8 @@ router.post('/auth/register', (req, res, next) => {
     return
   }
 
+  // Default type account: user
+  newUser.accountTypeId = 1
   newUser.password = bcrypt.hashSync(newUser.password, 8)
 
   db.login
