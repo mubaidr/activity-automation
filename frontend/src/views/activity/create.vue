@@ -55,6 +55,17 @@ export default {
   name: 'CreateActivity',
 
   props: {
+    activity: {
+      type: Object,
+      default() {
+        return {
+          id: null,
+          description: '',
+          activityStatusId: 2,
+          time: this.timeOfWeek
+        }
+      }
+    },
     timeOfWeek: {
       type: String,
       default: ''
@@ -70,11 +81,6 @@ export default {
           activityStatusId: 2,
           time: this.timeOfWeek
         }
-      },
-      activity: {
-        id: null,
-        description: '',
-        activityStatusId: 2
       }
     }
   },
@@ -128,40 +134,20 @@ export default {
     timeOfWeek(val) {
       this.form.model.time = val
 
-      if (!val) {
-        this.activity = {
-          id: null,
-          description: '',
-          activityStatusId: 2
-        }
-        return
-      }
+      if (!val) return
 
       this.$nextTick(() => {
         this.$refs.txt_description.focus()
       })
-
-      this.getActivity(this.form.model)
-        .catch(err => {
-          swal('Oops!', err.message, 'error')
-        })
-        .then(res => {
-          if (res.data.length) {
-            // eslint-disable-next-line
-            this.activity = res.data[0]
-          }
-        })
     },
 
     activity(a) {
-      this.form.model.id = a.id
-      this.form.model.description = a.description
-      this.form.model.activityStatusId = a.activityStatusId
+      this.form.model = a
     }
   },
 
   methods: {
-    ...mapActions(['postActivity', 'removeActivity', 'getActivity']),
+    ...mapActions(['postActivity', 'removeActivity']),
 
     submit() {
       if (this.toClose) {

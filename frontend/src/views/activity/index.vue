@@ -44,7 +44,8 @@ export default {
           }
         }
       },
-      timeOfWeek: ''
+      timeOfWeek: '',
+      activity: null
     }
   },
 
