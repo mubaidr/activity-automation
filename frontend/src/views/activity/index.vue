@@ -86,15 +86,13 @@ export default {
 
         if (date === time) {
           // add tooltip
-          dayElem.setAttribute('title', activity.description)
-          // eslint-disable-next-line
-          dayElem.innerHTML +=
-            '<span class="fi fi-checkbox"></span><span class="fi fi-clock" ></span><span class="fi fi-loop" ></span>'
-
+          dayElem.setAttribute(
+            'title',
+            `${activity.activityStatus.description} : ${activity.description}`
+          )
+          dayElem.setAttribute('data-id', activity.id)
           // add notifier class
-          this.addClass(dayElem, [
-            activity.activityStatus.description.toLowerCase()
-          ])
+          this.addClass(dayElem, ['done'])
         }
       }
     }
@@ -118,54 +116,12 @@ export default {
 
   .flatpickr-wrapper {
     .flatpickr-day {
-      .fi {
-        position: absolute
-        margin: 0
-        top: -10px
-        right: 0
-        font-size: 20px
-      }
-
-      &.in-progress {
-        .fi-checkbox {
-          display: none
-        }
-
-        .fi-clock {
-          display: block
-        }
-
-        .fi-loop {
-          display: none
-        }
-      }
-
-      &.completed {
-        .fi-checkbox {
-          display: block
-        }
-
-        .fi-clock {
-          display: none
-        }
-
-        .fi-loop {
-          display: none
-        }
-      }
-
-      &.routine {
-        .fi-checkbox {
-          display: none
-        }
-
-        .fi-clock {
-          display: none
-        }
-
-        .fi-loop {
-          display: block
-        }
+      &.done {
+        background-image: url('/src/assets/img/done.png')
+        background-position: right top
+        background-size: 33%
+        background-repeat: no-repeat
+        animation: shake 3s linear 1s 1
       }
     }
 
