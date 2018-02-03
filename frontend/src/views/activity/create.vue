@@ -58,17 +58,8 @@ export default {
     activity: {
       type: Object,
       default() {
-        return {
-          id: null,
-          description: '',
-          activityStatusId: 2,
-          time: this.timeOfWeek
-        }
+        return {}
       }
-    },
-    timeOfWeek: {
-      type: String,
-      default: ''
     }
   },
 
@@ -79,7 +70,7 @@ export default {
           id: null,
           description: '',
           activityStatusId: 2,
-          time: this.timeOfWeek
+          time: new Date()
         }
       }
     }
@@ -131,18 +122,12 @@ export default {
   },
 
   watch: {
-    timeOfWeek(val) {
-      this.form.model.time = val
-
-      if (!val) return
+    activity(a) {
+      this.$set(this.form, 'model', a)
 
       this.$nextTick(() => {
         this.$refs.txt_description.focus()
       })
-    },
-
-    activity(a) {
-      this.form.model = a
     }
   },
 
@@ -201,10 +186,6 @@ export default {
 
     close() {
       this.$emit('close')
-      this.activity = {
-        id: null,
-        description: ''
-      }
     }
   }
 }

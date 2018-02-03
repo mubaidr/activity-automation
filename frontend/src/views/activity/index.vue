@@ -8,7 +8,7 @@
                   v-model="timeOfWeek"
                   :config="datePicker.config" />
       <div class="create-activity-wrapper">
-        <create-activity :time-of-week="timeOfWeek"
+        <create-activity :activity="activity"
                          @close="timeOfWeek = ''" />
       </div>
     </div>
@@ -41,16 +41,46 @@ export default {
           static: true,
           onDayCreate: (dObj, dStr, fp, dayElem) => {
             this.processCalenderDays(dayElem)
+          },
+          onChange: (selectedDates, dateStr, instance) => {
+            if (dateStr) {
+              const id = parseInt(
+                instance.selectedDateElem.getAttribute('data-id'),
+                10
+              )
+
+              if (!id) {
+                this.activity = {
+                  id: null,
+                  description: '',
+                  activityStatusId: 2,
+                  time: this.timeOfWeek
+                }
+
+                return
+              }
+
+              for (let i = 0; i < this.activities.length; i += 1) {
+                if (this.activities[i].id === id) {
+                  this.activity = this.activities[i]
+                }
+              }
+            }
           }
         }
       },
       timeOfWeek: '',
-      activity: null
+      activity: {
+        id: null,
+        description: '',
+        activityStatusId: 2,
+        time: new Date()
+      }
     }
   },
 
   computed: {
-    ...mapGetters(['randomQuote', 'activities']),
+    ...mapGetters(['activities']),
 
     enableAdd() {
       return !!this.timeOfWeek
