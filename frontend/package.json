@@ -6,8 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev":
-      "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js src",
     "build": "node build/build.js"
@@ -78,5 +77,9 @@
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
   },
-  "browserslist": ["> 1%", "last 5 versions", "not ie < 8"]
+  "browserslist": [
+    "> 1%",
+    "last 5 versions",
+    "not ie < 8"
+  ]
 }

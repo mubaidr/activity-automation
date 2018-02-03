@@ -11,20 +11,24 @@ const mixin = {
       return !!el.className.match(new RegExp(`(\\s|^)${className}(\\s|$)`))
     },
 
-    addClass(el, className) {
-      if (el.classList) el.classList.add(className)
-      else if (!this.hasClass(el, className))
-        // eslint-disable-next-line
-        el.className += ` ${className}`
+    addClass(el, classNames) {
+      classNames.forEach(className => {
+        if (el.classList) el.classList.add(className)
+        else if (!this.hasClass(el, className))
+          // eslint-disable-next-line
+          el.className += ` ${className}`
+      })
     },
 
-    removeClass(el, className) {
-      if (el.classList) el.classList.remove(className)
-      else if (this.hasClass(el, className)) {
-        const reg = new RegExp(`(\\s|^)${className}(\\s|$)`)
-        // eslint-disable-next-line
-        el.className = el.className.replace(reg, ' ')
-      }
+    removeClass(el, classNames) {
+      classNames.forEach(className => {
+        if (el.classList) el.classList.remove(className)
+        else if (this.hasClass(el, className)) {
+          const reg = new RegExp(`(\\s|^)${className}(\\s|$)`)
+          // eslint-disable-next-line
+          el.className = el.className.replace(reg, ' ')
+        }
+      })
     }
   }
 }
