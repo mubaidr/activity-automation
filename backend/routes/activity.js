@@ -87,17 +87,13 @@ router.post('/', (req, res, next) => {
       .catch(next)
   } else {
     db.activity
-      .upsert(
-        {
-          description,
-          activityStatusId: activityStatusId || 2,
-          time,
-          loginId: login.id
-        },
-        {
-          id
-        }
-      )
+      .upsert({
+        id,
+        description,
+        activityStatusId: activityStatusId || 2,
+        time,
+        loginId: login.id
+      })
       .then(() => {
         res.sendStatus(200)
       })

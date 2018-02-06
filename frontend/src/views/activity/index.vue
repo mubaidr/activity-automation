@@ -51,10 +51,7 @@ export default {
 
               if (!id) {
                 this.activity = {
-                  id: null,
-                  description: '',
-                  activityStatusId: 2,
-                  time: this.timeOfWeek
+                  time: selectedDates[0]
                 }
 
                 return
@@ -70,12 +67,7 @@ export default {
         }
       },
       timeOfWeek: '',
-      activity: {
-        id: null,
-        description: '',
-        activityStatusId: 2,
-        time: new Date()
-      }
+      activity: null
     }
   },
 
@@ -117,10 +109,7 @@ export default {
 
         if (date === time) {
           // add tooltip
-          dayElem.setAttribute(
-            'title',
-            `${activity.activityStatus.description} : ${activity.description}`
-          )
+          dayElem.setAttribute('title', activity.description)
           dayElem.setAttribute('data-id', activity.id)
           // add notifier class
           this.addClass(dayElem, ['done'])

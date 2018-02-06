@@ -58,7 +58,9 @@ export default {
     activity: {
       type: Object,
       default() {
-        return {}
+        return {
+          time: new Date()
+        }
       }
     }
   },
@@ -123,7 +125,13 @@ export default {
 
   watch: {
     activity(a) {
-      this.$set(this.form, 'model', a)
+      if (a.id) {
+        const cloned = JSON.parse(JSON.stringify(a))
+
+        this.$set(this.form, 'model', cloned)
+      } else {
+        this.form.model.time = a.time
+      }
 
       this.$nextTick(() => {
         this.$refs.txt_description.focus()
