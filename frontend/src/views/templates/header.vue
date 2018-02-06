@@ -16,6 +16,10 @@
         <router-link class="nav-link"
                      to="/activity">Activities</router-link>
       </li>
+      <li class="nav-item">
+        <router-link class="nav-link"
+                     to="/report">Reports</router-link>
+      </li>
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
