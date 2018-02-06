@@ -5,6 +5,8 @@
       <p>You can update your username or change password.</p>
       <username-view/>
       <hr>
+      <name-view/>
+      <hr>
       <password-view/>
     </div>
   </div>
@@ -13,11 +15,13 @@
 <script>
 import passwordView from './password.vue'
 import usernameView from './username.vue'
+import nameView from './name.vue'
 
 export default {
   components: {
-    'password-view': passwordView,
-    'username-view': usernameView
+    passwordView,
+    usernameView,
+    nameView
   }
 }
 </script>

@@ -40,6 +40,8 @@
 import { mapActions } from 'vuex'
 
 export default {
+  name: 'PasswordView',
+
   data() {
     return {
       form: {
@@ -50,6 +52,7 @@ export default {
       }
     }
   },
+
   methods: {
     ...mapActions(['updateLogin']),
     onSubmit() {

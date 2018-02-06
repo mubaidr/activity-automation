@@ -95,6 +95,7 @@ export default {
       }
     }
   },
+
   methods: {
     ...mapActions(['register']),
 

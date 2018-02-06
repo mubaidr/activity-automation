@@ -1,23 +1,23 @@
 <template>
   <form @submit.prevent="submit">
     <div class="form-group">
-      <label>Username</label>
+      <label>Name</label>
       <input class="form-control"
              type="text"
-             autocomplete="username"
-             placeholder="Username"
-             name="username"
-             v-model="form.model.username"
+             autocomplete="name"
+             placeholder="name"
+             name="name"
+             v-model="form.model.name"
              v-validate="'required|min:3|max:16'">
       <span class="invalid-feedback"
-            v-show="errors.has('username')"
-            v-html="errors.first('username')" />
+            v-show="errors.has('name')"
+            v-html="errors.first('name')" />
     </div>
 
     <button class="btn btn-dark btn-block"
             type="submit"
             :disabled="errors.any()">
-      <span class="fi fi-check" /> Change Username
+      <span class="fi fi-check" /> Change Name
     </button>
   </form>
 </template>
@@ -26,20 +26,20 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'UsernameView',
+  name: 'NameView',
 
   data() {
     return {
       form: {
         model: {
-          username: ''
+          name: ''
         }
       }
     }
   },
 
   created() {
-    this.form.model.username = this.user.username
+    this.form.model.name = this.user.name
   },
 
   methods: {

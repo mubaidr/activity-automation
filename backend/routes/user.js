@@ -11,6 +11,8 @@ router.post('/', (req, res, next) => {
   const user = req.account
   let updateOptions
 
+  // TODO: test name update
+
   if (
     username &&
     validator.isLength(password, {
