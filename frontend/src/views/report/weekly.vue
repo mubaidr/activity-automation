@@ -1,10 +1,10 @@
 <template>
-  <h2>YearlyReport</h2>
+  <h2>WeeklyReport</h2>
 </template>
 
 <script>
 export default {
-  name: 'YearlyReport'
+  name: 'WeeklyReport'
 }
 </script>
 
