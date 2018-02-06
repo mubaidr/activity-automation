@@ -15,6 +15,8 @@ import login from '../views/account/login.vue'
 import account from '../views/account/index.vue'
 // activity
 import activity from '../views/activity/index.vue'
+// report
+import report from '../views/report/index.vue'
 
 vue.use(VueRouter)
 
@@ -80,6 +82,10 @@ const router = new VueRouter({
     {
       path: '/activity',
       component: activity
+    },
+    {
+      path: '/report',
+      component: report
     },
     {
       path: '*',
