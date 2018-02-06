@@ -28,13 +28,10 @@
             v-html="errors.first('confirmPassword')" />
     </div>
 
-    <button class="btn btn-primary btn-block"
+    <button class="btn btn-dark btn-block"
             type="submit"
             :disabled="errors.any()">
       <span class="fi fi-check" /> Change Password
-    </button>
-
-    <br>
     </button>
   </div>
 </template>

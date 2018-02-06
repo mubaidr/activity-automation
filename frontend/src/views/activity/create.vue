@@ -1,16 +1,20 @@
 <template>
   <div class="create-activity"
        @keyup.native.esc="close()">
+    <button class="close custom"
+            @click="close">
+      <span class="fi-x" />
+    </button>
     <span class="title"
           v-html="day" />
     <textarea class="form-control"
               type="text"
-              placeholder="Details"
+              placeholder="Enter activities performed on this day"
               rows="4"
               name="description"
               ref="txt_description"
               v-model.trim="form.model.description"
-              @keyup.native.esc="close()" />
+              @keyup.native.esc="close" />
     <span class="invalid-feedback"
           v-show="errors.has('description')"
           v-html="errors.first('description')" />
@@ -27,8 +31,7 @@
                checked=""> {{ status.description }}
       </label>
     </div>
-    <br>
-    <button class="btn btn-block btn-primary"
+    <button class="btn btn-block btn-dark"
             :class="{'btn-danger': toDelete}"
             @click="submit"
             @disabled="errors.any() || isLoading">
@@ -118,8 +121,8 @@ export default {
       const d = this.form.model.time
         ? new Date(this.form.model.time)
         : new Date()
-      return `${days[d.getDay()]} - ${d.getDate()}/${d.getMonth() +
-        1}/${d.getFullYear()}`
+      return `${days[d.getDay()]}<span>${d.getDate()}/${d.getMonth() +
+        1}/${d.getFullYear()}</span>`
     }
   },
 
@@ -207,17 +210,40 @@ export default {
     display: block
     font-size: large
     color: #000
-    margin-top: 15px
-    margin-bottom: 27px
+    // margin-top: 10px
+    margin-bottom: 15px
+    text-align: left
+    opacity: 0.5
+
+    span {
+      display: block
+      font-size: 0.75rem
+      opacity: 0.75
+    }
+  }
+
+  textarea {
+    font-size: 1rem
   }
 }
 
 .form-check.custom {
+  margin-bottom: 25px
+
   .form-check-label {
     padding-right: 32px
+    cursor: pointer
   }
 
   .form-check-input {
   }
+}
+
+.close.custom {
+  padding: 20px
+  position: absolute
+  top: 0
+  right: 0
+  z-index: 1
 }
 </style>

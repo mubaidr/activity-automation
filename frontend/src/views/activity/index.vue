@@ -13,6 +13,7 @@
       </div>
     </div>
     <br>
+    <br>
     <blockquote class="blockquote text-center">
       <p class="mb-0">{{ randomQuote }}</p>
     </blockquote>
