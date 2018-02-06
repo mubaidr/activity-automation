@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Activities</h2>
-    <p>Please select a date to view or add activity details.</p>
+    <p>Please select a date to view or add activity log.</p>
     <div class="calender-container clearfix"
          :class="{'active': timeOfWeek}">
       <flat-pickr class="flatpickr-wrapper"
@@ -34,6 +34,7 @@ export default {
       datePicker: {
         config: {
           maxDate: 'today',
+          weekNumbers: true,
           disable: [date => date.getDay() === 6 || date.getDay() === 0],
           locale: {
             firstDayOfWeek: 1
@@ -142,7 +143,7 @@ export default {
     .flatpickr-day {
       &.done {
         background-image: url('/src/assets/img/done.png')
-        background-position: right top
+        background-position: 85% 5%
         background-size: 33%
         background-repeat: no-repeat
         animation: shake 3s linear 1s 1

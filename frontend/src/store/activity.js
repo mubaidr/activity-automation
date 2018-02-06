@@ -24,6 +24,7 @@ export default {
         for (let i = 0; i < state.activities.length; i += 1) {
           if (state.activities[i].id === data.id) {
             state.activities[i].description = data.description
+            state.activities[i].activityStatusId = data.activityStatusId
             break
           }
         }

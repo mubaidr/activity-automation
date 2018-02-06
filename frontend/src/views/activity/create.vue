@@ -14,10 +14,6 @@
               ref="txt_description"
               v-model.trim="form.model.description"
               @keyup.esc="close()" />
-    <span class="invalid-feedback"
-          v-show="errors.has('description')"
-          v-html="errors.first('description')" />
-
     <div class="form-check custom">
       <label class="form-check-label"
              v-for="status in activityStatus"
@@ -33,7 +29,7 @@
     <button class="btn btn-block btn-dark"
             :class="{'btn-danger': toDelete}"
             @click="submit"
-            @disabled="errors.any() || isLoading">
+            @disabled="isLoading">
       <span v-if="toClose">
         <span class="fi fi-x" /> Close
       </span>
@@ -229,11 +225,12 @@ export default {
 }
 
 .form-check.custom {
-  margin-bottom: 25px
+  margin: 15px 0
+  text-align: left
 
   .form-check-label {
-    padding-right: 48px
     cursor: pointer
+    display: block
   }
 
   .form-check-input {

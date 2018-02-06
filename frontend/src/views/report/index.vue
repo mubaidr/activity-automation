@@ -1,10 +1,15 @@
 <template>
   <div>
     <h2>Reports</h2>
-    <h3>Weekly</h3>
-    <weekly-report/>
-    <h3>Yearly</h3>
-    <yearly-report/>
+    <p>You can generate weekly or yearly report. </p>
+    <div class="row">
+      <div class="col-sm-5">
+        <weekly-report/>
+      </div>
+      <div class="col-sm-5 offset-sm-2">
+        <yearly-report/>
+      </div>
+    </div>
   </div>
 </template>
 
