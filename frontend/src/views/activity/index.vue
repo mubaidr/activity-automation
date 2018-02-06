@@ -148,17 +148,12 @@ export default {
         animation: shake 3s linear 1s 1
       }
     }
-
-    opacity: 1
-    transform-origin: 50%
-    transform: scale(1)
-    transition: all 0.125s ease-out 0.125s
   }
 
   .create-activity-wrapper {
     z-index: 999
     width: 100%
-    max-width: 480px
+    max-width: 560px
     opacity: 0
     transform-origin: 50%
     transform: scale(0)
@@ -166,12 +161,6 @@ export default {
   }
 
   &.active {
-    .flatpickr-wrapper {
-      opacity: 0
-      transform: scale(0.5)
-      transition: all 0.125s ease-out
-    }
-
     .create-activity-wrapper {
       opacity: 1
       transform: scale(1)

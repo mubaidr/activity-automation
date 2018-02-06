@@ -1,6 +1,5 @@
 <template>
-  <div class="create-activity"
-       @keyup.native.esc="close()">
+  <div class="create-activity">
     <button class="close custom"
             @click="close">
       <span class="fi-x" />
@@ -14,7 +13,7 @@
               name="description"
               ref="txt_description"
               v-model.trim="form.model.description"
-              @keyup.native.esc="close" />
+              @keyup.esc="close()" />
     <span class="invalid-feedback"
           v-show="errors.has('description')"
           v-html="errors.first('description')" />
@@ -39,13 +38,13 @@
         <span class="fi fi-x" /> Close
       </span>
       <span v-else-if="toSave">
-        <span class="fi fi-download" /> Save
+        <span class="fi fi-download" /> Save Log
       </span>
       <span v-else-if="toUpdate && toDelete">
-        <span class="fi fi-minus" /> Delete
+        <span class="fi fi-minus" /> Delete Log
       </span>
       <span v-else>
-        <span class="fi fi-plus" /> Update
+        <span class="fi fi-plus" /> Update Log
       </span>
     </button>
   </div>
@@ -88,7 +87,8 @@ export default {
       return (
         (!this.form.model.id && !this.form.model.description) ||
         (this.form.model.id &&
-          this.form.model.description === this.activity.description)
+          this.form.model.description === this.activity.description &&
+          this.form.model.activityStatusId === this.activity.activityStatusId)
       )
     },
 
@@ -200,11 +200,12 @@ export default {
 <style lang="stylus">
 .create-activity {
   min-width: 272px
-  padding: 15px
-  border: 3px solid rgba(0, 0, 0, 0.05)
+  padding: 15px 25px
+  border: 1px solid rgba(0, 0, 0, 0.25)
   border-radius: 4px
   background-color: #fff
   text-align: center
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5)
 
   .title {
     display: block
@@ -231,7 +232,7 @@ export default {
   margin-bottom: 25px
 
   .form-check-label {
-    padding-right: 32px
+    padding-right: 48px
     cursor: pointer
   }
 

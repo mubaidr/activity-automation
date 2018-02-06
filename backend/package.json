@@ -16,6 +16,7 @@
     "jsonwebtoken": "^8.1.1",
     "morgan": "~1.9.0",
     "mssql": "^4.1.0",
+    "officegen": "^0.4.5",
     "sequelize": "^4.32.2",
     "tedious": "^2.2.4",
     "validator": "^9.4.0"
