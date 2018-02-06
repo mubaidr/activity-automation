@@ -125,13 +125,8 @@ export default {
 
   watch: {
     activity(a) {
-      if (a.id) {
-        const cloned = JSON.parse(JSON.stringify(a))
-
-        this.$set(this.form, 'model', cloned)
-      } else {
-        this.form.model.time = a.time
-      }
+      const cloned = JSON.parse(JSON.stringify(a))
+      this.$set(this.form, 'model', cloned)
 
       this.$nextTick(() => {
         this.$refs.txt_description.focus()

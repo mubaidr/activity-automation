@@ -51,6 +51,9 @@ export default {
 
               if (!id) {
                 this.activity = {
+                  id: null,
+                  description: '',
+                  activityStatusId: 2,
                   time: selectedDates[0]
                 }
 
