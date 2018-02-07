@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <form @submit.prevent="submit">
     <div class="form-group">
       <label>Password</label>
       <input class="form-control"
@@ -33,7 +33,7 @@
             :disabled="errors.any()">
       <span class="fi fi-check" /> Change Password
     </button>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -55,8 +55,19 @@ export default {
 
   methods: {
     ...mapActions(['updateLogin']),
-    onSubmit() {
-      this.updateLogin()
+
+    submit() {
+      this.$validator.validateAll().then(res => {
+        if (res) {
+          this.updateLogin(this.form.model)
+        } else {
+          swal(
+            'Not so fast!',
+            'Please provide required data in valid format',
+            'warning'
+          )
+        }
+      })
     }
   }
 }

@@ -19,7 +19,8 @@
     </div>
     <div class="form-group flatpickr-width-limit">
       <button class="btn btn-dark btn-block"
-              type="submit"
+              type="button"
+              @click="generate"
               :disabled="errors.any() || isLoading || !timeOfWeek">
         <span class="fi fi-download" /> Download Weekly Report
       </button>
@@ -29,6 +30,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import WeekSelectPlugin from 'flatpickr/dist/plugins/weekSelect/weekSelect'
 
 export default {
@@ -45,11 +47,39 @@ export default {
           },
           inline: true,
           static: true,
-          plugins: [new WeekSelectPlugin({})]
+          plugins: [new WeekSelectPlugin({})],
+          onChange: [
+            (selectedDates, str, flatPickr) => {
+              const weekNumber = selectedDates[0]
+                ? flatPickr.config.getWeek(selectedDates[0])
+                : null
+
+              this.week = weekNumber
+            }
+          ]
         }
       },
+      week: 1,
       timeOfWeek: '',
       isAggregated: false
+    }
+  },
+
+  methods: {
+    ...mapActions(['getReport']),
+
+    generate() {
+      this.getReport({
+        week: this.week,
+        timeOfWeek: this.timeOfWeek,
+        isAggregated: this.isAggregated
+      })
+        .then(res => {
+          console.log('got report : ', res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

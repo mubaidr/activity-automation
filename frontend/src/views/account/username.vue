@@ -44,8 +44,19 @@ export default {
 
   methods: {
     ...mapActions(['updateLogin']),
-    onSubmit() {
-      this.updateLogin()
+
+    submit() {
+      this.$validator.validateAll().then(res => {
+        if (res) {
+          this.updateLogin(this.form.model)
+        } else {
+          swal(
+            'Not so fast!',
+            'Please provide required data in valid format',
+            'warning'
+          )
+        }
+      })
     }
   }
 }

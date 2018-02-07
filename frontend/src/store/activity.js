@@ -98,6 +98,14 @@ export default {
         .catch(() => {
           context.commit('setActivityStatus', [])
         })
+    },
+
+    getReport(context, obj) {
+      return axios.get(`${config.api}/api/activity/report`, {
+        params: {
+          options: obj
+        }
+      })
     }
   }
 }

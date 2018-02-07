@@ -13,9 +13,11 @@ export default {
     isAuthenticated(state) {
       return state.auth !== null && typeof state.auth !== 'undefined'
     },
+
     auth(state) {
       return state.auth
     },
+
     user(state) {
       return state.user
     }
@@ -33,11 +35,13 @@ export default {
       }
     }
   },
+
   actions: {
     logout(context) {
       context.commit('setAuthentication')
       router.push('/home')
     },
+
     login(context, obj) {
       return axios
         .post(`${config.api}/auth/login`, obj)
@@ -48,22 +52,24 @@ export default {
           swal('Invalid credentials!', 'Please try again!', 'error')
         })
     },
+
     register(context, obj) {
       return axios
         .post(`${config.api}/auth/register`, obj)
         .then(() => {
           swal('Account created', 'Please login!', 'success')
-          router.push('/login')
+          router.push('/auth/login')
         })
         .catch(() => {
           swal('Invalid credentials!', 'Please try again!', 'error')
         })
     },
+
     updateLogin(context, obj) {
       return axios
-        .post(`${config.api}/auth/user`, obj)
+        .post(`${config.api}/api/user`, obj)
         .then(() => {
-          swal('Account updated', 'Please login!', 'success')
+          swal('Account updated', 'Hurray!', 'success')
         })
         .catch(() => {
           swal('Invalid data!', 'Please try again!', 'error')

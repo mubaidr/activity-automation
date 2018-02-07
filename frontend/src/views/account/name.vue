@@ -8,7 +8,7 @@
              placeholder="name"
              name="name"
              v-model="form.model.name"
-             v-validate="'required|min:3|max:16'">
+             v-validate="'required|min:3|max:255'">
       <span class="invalid-feedback"
             v-show="errors.has('name')"
             v-html="errors.first('name')" />
@@ -44,8 +44,19 @@ export default {
 
   methods: {
     ...mapActions(['updateLogin']),
-    onSubmit() {
-      this.updateLogin()
+
+    submit() {
+      this.$validator.validateAll().then(res => {
+        if (res) {
+          this.updateLogin(this.form.model)
+        } else {
+          swal(
+            'Not so fast!',
+            'Please provide required data in valid format',
+            'warning'
+          )
+        }
+      })
     }
   }
 }

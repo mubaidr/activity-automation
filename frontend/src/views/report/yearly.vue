@@ -5,8 +5,8 @@
     <div class="form-group">
       <select class="form-control"
               name="year"
-              value="1">Select Year>
-        <option value="1">2018</option>
+              v-model="year">Select Year
+        <option value="2018">2018</option>
       </select>
     </div>
     <div v-show="user.accountType.description.toLowerCase() === 'admin'">
@@ -21,7 +21,8 @@
     </div>
     <div class="form-group">
       <button class="btn btn-dark btn-block"
-              type="submit"
+              type="button"
+              @click="generate"
               :disabled="errors.any() || isLoading">
         <span class="fi fi-download" /> Download Yearly Report
       </button>
@@ -30,12 +31,32 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'YearlyReport',
 
   data() {
     return {
+      year: '2018',
       isAggregated: false
+    }
+  },
+
+  methods: {
+    ...mapActions(['getReport']),
+
+    generate() {
+      this.getReport({
+        year: this.year,
+        isAggregated: this.isAggregated
+      })
+        .then(res => {
+          console.log('got report : ', res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

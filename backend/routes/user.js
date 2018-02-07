@@ -7,15 +7,13 @@ const validator = require('validator')
 router.post('/', (req, res, next) => {
   const token = req.headers['x-access-token']
   const db = req.app.get('db')
-  const { username, password } = req.body
+  const { username, password, name } = req.body
   const user = req.account
   let updateOptions
 
-  // TODO: test name update
-
   if (
     username &&
-    validator.isLength(password, {
+    validator.isLength(username, {
       min: 3,
       max: 16
     })
@@ -23,6 +21,18 @@ router.post('/', (req, res, next) => {
     updateOptions = {
       username
     }
+
+    user.username = username
+  } else if (
+    name &&
+    validator.isLength(name, {
+      min: 3,
+      max: 255
+    })
+  ) {
+    updateOptions = { name }
+
+    user.name = name
   } else if (
     password &&
     validator.isLength(password, {
@@ -44,9 +54,6 @@ router.post('/', (req, res, next) => {
       }
     })
     .then(() => {
-      // return updated user details
-      user.username = username
-
       // Update client side info
       res.json({
         token,
