@@ -1,9 +1,9 @@
 <template>
   <div>
     <h3>Weekly Report</h3>
-    <p>Please choose a week. </p>
+    <p>Please choose a date range from calender. </p>
     <flat-pickr class="flatpickr-wrapper"
-                v-model="timeOfWeek"
+                v-model="range"
                 :config="datePicker.config" />
     <br>
     <br>
@@ -21,7 +21,7 @@
       <button class="btn btn-dark btn-block"
               type="button"
               @click="generate"
-              :disabled="errors.any() || isLoading || !timeOfWeek">
+              :disabled="errors.any() || isLoading || !range">
         <span class="fi fi-download" /> Download Weekly Report
       </button>
     </div>
@@ -31,7 +31,6 @@
 
 <script>
 import { mapActions } from 'vuex'
-import WeekSelectPlugin from 'flatpickr/dist/plugins/weekSelect/weekSelect'
 
 export default {
   name: 'WeeklyReport',
@@ -40,27 +39,17 @@ export default {
     return {
       datePicker: {
         config: {
+          mode: 'range',
           minDate: '01-01-2018',
           weekNumbers: true,
           locale: {
             firstDayOfWeek: 1
           },
           inline: true,
-          static: true,
-          plugins: [new WeekSelectPlugin({})],
-          onChange: [
-            (selectedDates, str, flatPickr) => {
-              const weekNumber = selectedDates[0]
-                ? flatPickr.config.getWeek(selectedDates[0])
-                : null
-
-              this.week = weekNumber
-            }
-          ]
+          static: true
         }
       },
-      week: 1,
-      timeOfWeek: '',
+      range: '',
       isAggregated: false
     }
   },
@@ -70,8 +59,7 @@ export default {
 
     generate() {
       this.getReport({
-        week: this.week,
-        timeOfWeek: this.timeOfWeek,
+        range: this.range,
         isAggregated: this.isAggregated
       })
         .then(res => {
