@@ -1,11 +1,22 @@
 <template>
   <div>
-    <h3>Yearly Report</h3>
-    <p>Please choose a year to generate report. </p>
+    <h3>Weekly Report</h3>
+    <p>Please choose a week. </p>
     <flat-pickr class="flatpickr-wrapper"
                 v-model="timeOfWeek"
                 :config="datePicker.config" />
-    <br><br>
+    <br>
+    <br>
+    <div v-show="user.accountType.description.toLowerCase() === 'admin'">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input"
+                 type="checkbox"
+                 v-model="isAggregated"> Generate combined report
+        </label>
+      </div>
+      <br>
+    </div>
     <div class="form-group flatpickr-width-limit">
       <button class="btn btn-dark btn-block"
               type="submit"
@@ -27,6 +38,7 @@ export default {
     return {
       datePicker: {
         config: {
+          minDate: '01-01-2018',
           weekNumbers: true,
           locale: {
             firstDayOfWeek: 1
@@ -36,7 +48,8 @@ export default {
           plugins: [new WeekSelectPlugin({})]
         }
       },
-      timeOfWeek: ''
+      timeOfWeek: '',
+      isAggregated: false
     }
   }
 }

@@ -33,6 +33,7 @@ export default {
     return {
       datePicker: {
         config: {
+          minDate: '01-01-2018',
           maxDate: 'today',
           weekNumbers: true,
           disable: [date => date.getDay() === 6 || date.getDay() === 0],
