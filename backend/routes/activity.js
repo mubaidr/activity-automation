@@ -1,5 +1,7 @@
 const express = require('express')
 const Sequelize = require('sequelize')
+const officegen = require('officegen')
+const fs = require('fs')
 
 const router = express.Router()
 
@@ -123,8 +125,26 @@ router.get('/report', (req, res, next) => {
       raw: true
     })
     .then(activities => {
-      // TODO: generate report
-      res.send(activities)
+      res.set(
+        'Content-Type',
+        // 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        'application/octet-stream'
+      )
+
+      // Generate word document
+      const docx = officegen({
+        type: 'docx',
+        subject: 'Report',
+        keywords: 'Activity, Report',
+        description: 'Auto-generated'
+      })
+
+      const pObj = docx.createP()
+      pObj.addText(JSON.stringify(activities))
+      // TODO: add header
+      // TODO: add footer
+      // TODO: add table
+      docx.generate(res)
     })
     .catch(next)
 })

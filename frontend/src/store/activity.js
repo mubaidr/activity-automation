@@ -104,7 +104,8 @@ export default {
       return axios.get(`${config.api}/api/activity/report`, {
         params: {
           options: obj
-        }
+        },
+        responseType: 'blob'
       })
     }
   }

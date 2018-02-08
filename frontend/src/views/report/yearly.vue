@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import download from 'downloadjs'
 import { mapActions } from 'vuex'
 
 export default {
@@ -52,7 +53,10 @@ export default {
         isAggregated: this.isAggregated
       })
         .then(res => {
-          console.log('got report : ', res)
+          download(
+            res.data,
+            `yearly-report-${new Date().toLocaleDateString()}.docx`
+          )
         })
         .catch(err => {
           console.log(err)
