@@ -1,7 +1,6 @@
 const express = require('express')
 const Sequelize = require('sequelize')
 const officegen = require('officegen')
-const fs = require('fs')
 
 const router = express.Router()
 
@@ -139,11 +138,42 @@ router.get('/report', (req, res, next) => {
         description: 'Auto-generated'
       })
 
-      const pObj = docx.createP()
-      pObj.addText(JSON.stringify(activities))
-      // TODO: add header
-      // TODO: add footer
-      // TODO: add table
+      // header
+      const header = docx.getHeader().createP()
+      header.options.align = 'center'
+      header.addText('Activity Report', { font_size: 24 })
+      header.addLineBreak()
+      header.addText(`${startDate} to ${endDate}`, { font_size: 18 })
+
+      // TODO: for each user in activities, foreach day in weak, add activity to list
+      // TODO: add page break for each next user
+
+      const table = [
+        [
+          { val: 'Day', opts: { b: true } },
+          { val: 'Activity', opts: { b: true } },
+          { val: 'Status', opts: { b: true } }
+        ]
+      ]
+      activities.forEach(activity => {
+        console.log(activity.time)
+        table.push([
+          new Date(activity.time).getDay(),
+          activity.description,
+          'activity.activityStatus.description'
+        ])
+      })
+
+      docx.createTable(table, {
+        tableAlign: 'left',
+        tableFontFamily: 'Calibri',
+        borders: true,
+        tableColWidth: 4261,
+        tableSize: 24
+      })
+
+      // TODO: add footer page numbers
+
       docx.generate(res)
     })
     .catch(next)
