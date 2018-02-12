@@ -9,12 +9,12 @@
     <textarea class="form-control"
               type="text"
               placeholder="Enter activities performed on this day"
-              rows="4"
+              rows="5"
               name="description"
               ref="txt_description"
               v-model.trim="form.model.description"
               @keyup.esc="close()" />
-    <div class="form-check custom">
+    <!-- <div class="form-check custom">
       <label class="form-check-label"
              v-for="status in activityStatus"
              :key="status.id">
@@ -25,7 +25,8 @@
                :value="status.id"
                checked=""> {{ status.description }}
       </label>
-    </div>
+    </div> -->
+    <br>
     <button class="btn btn-block btn-dark"
             :class="{'btn-danger': toDelete}"
             @click="submit"

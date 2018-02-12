@@ -151,17 +151,12 @@ router.get('/report', (req, res, next) => {
       const table = [
         [
           { val: 'Day', opts: { b: true } },
-          { val: 'Activity', opts: { b: true } },
-          { val: 'Status', opts: { b: true } }
+          { val: 'Activity', opts: { b: true } }
         ]
       ]
       activities.forEach(activity => {
         console.log(activity.time)
-        table.push([
-          new Date(activity.time).getDay(),
-          activity.description,
-          'activity.activityStatus.description'
-        ])
+        table.push([new Date(activity.time).getDay(), activity.description])
       })
 
       docx.createTable(table, {
