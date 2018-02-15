@@ -3,3 +3,15 @@
 # activity-automation
 
 Manage daily activities and get reports on timely basis.
+
+## Features
+
+* Authentication
+* log activites on daily basis
+* Get report for specifc time period (self or collective if user is admin)
+
+### Built using:
+
+Backend: Node.js, Express.js
+Frontend: Vue.js
+Reporting: OfficeGen
