@@ -120,8 +120,7 @@ router.get('/report', (req, res, next) => {
   db.activity
     .findAll({
       whereOptions,
-      include: [db.login, db.activityStatus],
-      raw: true
+      include: [db.login, db.activityStatus]
     })
     .then(activities => {
       res.set(
@@ -145,20 +144,39 @@ router.get('/report', (req, res, next) => {
       header.addLineBreak()
       header.addText(`${startDate} to ${endDate}`, { font_size: 18 })
 
-      // TODO: for each user in activities, foreach day in weak, add activity to list
-      // TODO: add page break for each next user
-
+      // table header
       const table = [
         [
           { val: 'Day', opts: { b: true } },
           { val: 'Activity', opts: { b: true } }
         ]
       ]
-      activities.forEach(activity => {
-        console.log(activity.time)
-        table.push([new Date(activity.time).getDay(), activity.description])
-      })
 
+      if (!options.isAggregated) {
+        activities.forEach(activity => {
+          table.push([new Date(activity.time).getDay(), activity.description])
+        })
+      } else {
+        activities
+          .map(item => item.login.id)
+          .filter((item, index, arr) => arr.indexOf(item) === index)
+          .forEach((item, index) => {
+            activities
+              .filter(activity => activity.login.id === item)
+              .forEach(activity => {
+                table.push([
+                  new Date(activity.time).getDay(),
+                  activity.description
+                ])
+              })
+
+            if (index > 0) {
+              docx.putPageBreak()
+            }
+          })
+      }
+
+      // load table with style
       docx.createTable(table, {
         tableAlign: 'left',
         tableFontFamily: 'Calibri',
@@ -167,8 +185,12 @@ router.get('/report', (req, res, next) => {
         tableSize: 24
       })
 
-      // TODO: add footer page numbers
+      // footer
+      const footer = docx.getFooter().createP()
+      footer.options.align = 'center'
+      footer.addText(new Date().toUTCString(), { font_size: 16 })
 
+      // output stream
       docx.generate(res)
     })
     .catch(next)
