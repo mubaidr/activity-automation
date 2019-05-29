@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "nodemon ./bin/www",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -14,12 +16,13 @@
     "debug": "~3.1.0",
     "express": "~4.16.2",
     "jsonwebtoken": "^8.1.1",
-    "morgan": "~1.9.0",
+    "morgan": "~1.9.1",
     "mssql": "^4.1.0",
     "officegen": "^0.4.5",
     "sequelize": "^4.33.3",
     "tedious": "^2.3.1",
-    "validator": "^9.4.0"
+    "validator": "^9.4.1",
+    "snyk": "^1.168.0"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^16.1.0",
@@ -29,5 +32,6 @@
     "eslint-plugin-react": "^7.6.1",
     "eslint": "^4.17.0",
     "nodemon": "^1.14.12"
-  }
+  },
+  "snyk": true
 }
