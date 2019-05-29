@@ -9,7 +9,9 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js src",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -22,8 +24,9 @@
     "vee-validate": "^2.0.3",
     "vue-flatpickr-component": "^6.2.0",
     "vue-router": "^3.0.1",
-    "vue": "^2.5.13",
-    "vuex": "^3.0.1"
+    "vue": "^2.5.17",
+    "vuex": "^3.0.1",
+    "snyk": "^1.168.0"
   },
   "devDependencies": {
     "autoprefixer": "^8.0.0",
@@ -82,5 +85,6 @@
     "> 1%",
     "last 5 versions",
     "not ie < 8"
-  ]
+  ],
+  "snyk": true
 }
