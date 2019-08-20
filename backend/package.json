@@ -19,7 +19,7 @@
     "morgan": "~1.9.1",
     "mssql": "^4.1.0",
     "officegen": "^0.4.5",
-    "sequelize": "^4.33.3",
+    "sequelize": "^4.44.3",
     "tedious": "^2.3.1",
     "validator": "^9.4.1",
     "snyk": "^1.168.0"
