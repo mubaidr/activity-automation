@@ -6,3 +6,8 @@ patch:
   'npm:lodash:20180130':
     - officegen > xmlbuilder > lodash:
         patched: '2019-05-29T01:28:29.812Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T01:33:10.743Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T01:33:10.743Z'
